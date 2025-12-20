@@ -1,0 +1,24 @@
+.homeGreeting {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse
+}
+
+.profileIcon {
+  width: 2.875rem;
+  height: 2.875rem;
+  flex-shrink: 0;
+}
+
+.greetingText {
+  color: #050130;
+  text-align: right;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
+}
+

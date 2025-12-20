@@ -1,0 +1,23 @@
+.homeDisclaimer {
+  width: 22.375rem;
+  color: #fff;
+  text-align: center;
+}
+
+.disclaimerTitle {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.disclaimerText {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #fff;
+}
+

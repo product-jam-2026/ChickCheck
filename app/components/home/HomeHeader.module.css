@@ -1,0 +1,11 @@
+.homeHeader {
+  width: 24.5625rem;
+  height: 10.1875rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+

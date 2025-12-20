@@ -2,18 +2,17 @@ import "@/styles/global.css";
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Navbar from "@/lib/components/Navbar";
-import Footer from "@/lib/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Digital Product Jam Starter Kit",
+  title: "ChickCheck",
   description:
-    "A starter kit for wiritng code in the Digital Product Jam course.",
+    "אפליקציה ייעודית לזיהוי הודעות חשודות בעזרת בינה מלאכותית, עם מידע, תמיכה וכלים מאיגוד האינטרנט הישראלי להגנה מפני פישינג והונאות.",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html>
+    <html lang="he" dir="rtl">
       <head>
         {/* Browser Favicon */}
         <link rel="icon" href="/icons/favicon.png" />
@@ -31,13 +30,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           href="/icons/icon-192.png"
         />
         <link rel="manifest" href="/manifest.json" />
-        <script src="https://accounts.google.com/gsi/client" async></script>
       </head>
-      <body>
-        <Navbar />
-        <div>{children}</div>
-        <Footer />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
