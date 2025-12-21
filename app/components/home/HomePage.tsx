@@ -2,6 +2,7 @@
 
 import React from "react";
 import HomeHeader from "./HomeHeader";
+import HomeProgressBar from "./HomeProgressBar";
 import HomeImageUploadArea from "./HomeImageUploadArea";
 import HomeDisclaimer from "./HomeDisclaimer";
 import styles from "./HomePage.module.css";
@@ -30,6 +31,7 @@ export default function HomePage({
         onHelplineClick={onHelplineClick}
       />
       <div className={styles.homeContent}>
+        <HomeProgressBar />
         <HomeImageUploadArea onImageSelect={onImageSelect} />
         <HomeDisclaimer />
       </div>

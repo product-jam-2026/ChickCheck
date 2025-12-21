@@ -6,8 +6,7 @@ export default function HomeDisclaimer() {
     <div className={styles.homeDisclaimer}>
       <h3 className={styles.disclaimerTitle}>שימו לב!</h3>
       <p className={styles.disclaimerText}>
-      הבדיקה מתבצעת באמצעות בינה מלאכותית, ולכן ייתכן שהתוצאה אינה מדויקת במלואה. במקרה של ספק או חשש, מומלץ לנקוט זהירות ולפנות לקו הסיוע.
-      </p>
+      הבדיקה מבוססת על בינה מלאכותית ואינה מבטיחה דיוק מלא. בכל מקרה של ספק, מומלץ לנהוג בזהירות ולפנות לקו הסיוע.      </p>
     </div>
   );
 }

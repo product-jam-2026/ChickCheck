@@ -15,7 +15,7 @@
 .greetingText {
   color: #050130;
   text-align: right;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: inherit;
   font-size: 1.875rem;
   font-style: normal;
   font-weight: 200;

@@ -78,10 +78,10 @@ export default function HomeImageUploadArea({
         className={styles.fileInput}
         aria-label="העלאת תמונה לבדיקה"
       />
-      <div className={styles.uploadContent}>
-        <span className={styles.uploadIcon}>+</span>
-        <span className={styles.uploadText}>הוספת תמונה לבדיקה</span>
-      </div>
+    <div className={styles.uploadContent}>
+      <span className={styles.uploadText}>+ הוספת</span>
+      <span className={styles.uploadText}>תמונה לבדיקה</span>
+    </div>
     </div>
   );
 }

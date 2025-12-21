@@ -1,6 +1,6 @@
 .homeHelplineButton {
   display: flex;
-  width: 10rem;
+  width: 10.5625rem;
   padding: 0.4375rem 0.6875rem 0.4375rem 0.6875rem;
   align-items: center;
   justify-content: center;
@@ -20,5 +20,10 @@
 .helplineButtonText {
   color: #050130;
   font-family: inherit;
+  text-align: center;
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 

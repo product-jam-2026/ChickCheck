@@ -5,7 +5,8 @@
 }
 
 .disclaimerTitle {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  font-family: inherit;
   font-size: 1.375rem;
   font-style: normal;
   font-weight: 700;
@@ -15,9 +16,11 @@
 }
 
 .disclaimerText {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-family: inherit;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
   color: #fff;
 }
 

@@ -4,8 +4,11 @@
   background: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1rem; 
   padding: 1rem;
   box-sizing: border-box;
+  margin-bottom: -0.7875rem;
+
 }
 

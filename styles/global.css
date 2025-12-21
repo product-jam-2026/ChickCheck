@@ -1,5 +1,78 @@
 @import url("reset.css");
 
+/* SimplerPro Font Face Declarations */
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro/SimplerPro-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro/SimplerPro-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro/SimplerPro-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro/SimplerPro-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro/SimplerPro-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro/SimplerPro-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro/SimplerPro-RegularItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro/SimplerPro-SemiboldItalic.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro/SimplerPro-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* Color Variables */
 :root {
   /* Primary Colors */
@@ -26,7 +99,7 @@
   --border-radius-lg: 1.5rem;
   
   /* Typography */
-  --font-family-default: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-default: "SimplerPro", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* Base Styles */
