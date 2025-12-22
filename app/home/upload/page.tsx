@@ -65,6 +65,8 @@ export default function Upload() {
   const handleSubmit = () => {
     // TODO: Send image to LLM API for analysis
     console.log("Submitting image for analysis:", imageFile?.name);
+    // ניווט לעמוד הטעינה
+    router.push("/home/loading");
   };
 
   if (!imageFile || !imageUrl) {

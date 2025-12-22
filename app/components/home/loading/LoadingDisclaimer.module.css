@@ -1,0 +1,31 @@
+.loadingDisclaimer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 22.375rem;
+  gap: 0.3rem;
+}
+
+.disclaimerTitle {
+  color: #050130;
+  text-align: center;
+  font-family: SimplerPro;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0;
+}
+
+.disclaimerText {
+  color: #050130;
+  font-family: SimplerPro;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
+  margin: 0;
+}
+
