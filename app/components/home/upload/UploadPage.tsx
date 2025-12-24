@@ -14,6 +14,7 @@ interface UploadPageProps {
   onUpdatesClick?: () => void;
   onHelplineClick?: () => void;
   onSubmit?: () => void;
+  isAnalyzing: boolean;
 }
 
 export default function UploadPage({
@@ -24,6 +25,7 @@ export default function UploadPage({
   onUpdatesClick,
   onHelplineClick,
   onSubmit,
+  isAnalyzing,
 }: UploadPageProps) {
   return (
     <div className={styles.uploadPage}>
@@ -35,7 +37,7 @@ export default function UploadPage({
       />
       <div className={styles.uploadContent}>
         <UploadImageDisplay imageUrl={imageUrl} />
-        <UploadSubmitButton onSubmit={onSubmit} />
+        <UploadSubmitButton onSubmit={onSubmit} isAnalyzing={isAnalyzing} />
       </div>
     </div>
   );

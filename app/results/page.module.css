@@ -182,6 +182,56 @@
 	line-height: 3.75rem; /* 60px */
 	direction: rtl;
 }
+/* Add these to your existing page.module.css */
 
-/* Keep fixed phone canvas on all breakpoints to mirror Home */
+.explanationBox {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.08); /* Transparent glass effect */
+    border-radius: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
+.reasoningText {
+    font-size: 1.5rem; /* Large enough for Bluma */
+    line-height: 1.4;
+    color: #f0f0f0;
+    text-align: right;
+    direction: rtl;
+    margin: 0;
+}
+
+.techBadge {
+    margin-top: 1rem;
+    padding: 0.625rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.techDanger {
+    background: rgba(224, 6, 21, 0.2);
+    color: #ff4d4d;
+    border: 1px solid #E00615;
+}
+
+.techSafe {
+    background: rgba(116, 208, 60, 0.2);
+    color: #a3ff6e;
+    border: 1px solid #74D03C;
+}
+
+.actionBanner {
+    width: 100%;
+    background: #FF8D28; /* High contrast for call to action */
+    color: #050130;
+    padding: 1.25rem;
+    border-radius: 1.25rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-align: right;
+    direction: rtl;
+    margin-bottom: 0.5rem;
+}
