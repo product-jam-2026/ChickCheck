@@ -6,7 +6,7 @@ export default function HomeProgressBar() {
   return (
     <div className={styles.homeProgressBar}>
       <Image
-        src="/icons/progress_bar.png"
+        src="/icons/progress_bar.svg"
         alt="תהליך בדיקה"
         width={381}
         height={100}

@@ -104,10 +104,15 @@ export default function Upload() {
 
   const handleHelplineClick = () => {
     console.log("Helpline clicked");
-    // window.location.href = "tel:1234";
   };
 
-  // Prevent flash of empty content while loading session data
+  const handleSubmit = () => {
+    // TODO: Send image to LLM API for analysis
+    console.log("Submitting image for analysis:", imageFile?.name);
+    // ניווט לעמוד הטעינה
+    router.push("/home/loading");
+  };
+
   if (!imageFile || !imageUrl) {
     return (
       <div className="flex items-center justify-center min-h-screen">
