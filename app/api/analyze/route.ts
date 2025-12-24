@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     JSON Structure:
     {
       "scamPercentage": number,
-      "reasoning": "Short Hebrew explanation",
+      "reasoning": "Short Hebrew explanation, devided into bullet points if multiple reasons.",
       "action": "Short Hebrew advice",
       "detectedUrls": []
     }`;
