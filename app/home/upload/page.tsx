@@ -60,43 +60,6 @@ export default function Upload() {
     };
   }, [router]);
 
-  /**
-   * Sends the image to the Gemini API for analysis.
-   */
-  const handleSubmit = async () => {
-    if (!imageFile) return;
-
-    setIsAnalyzing(true);
-    try {
-      const formData = new FormData();
-      formData.append("image", imageFile);
-      formData.append("text", "אנא נתח את התמונה המצורפת ובדוק אם יש כאן הונאה או סכנה.");
-
-      const response = await fetch("/api/analyze", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "שגיאה בניתוח התמונה");
-      }
-
-      const result = await response.json();
-      
-      // Save the Gemini result in sessionStorage for the results page
-      sessionStorage.setItem("lastResult", JSON.stringify(result));
-      
-      // Navigate to the results page
-      router.push("/results");
-    } catch (error: any) {
-      console.error("Analysis failed:", error.message);
-      alert(error.message || "משהו השתבש בניתוח התמונה. נסה שוב.");
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
-
   const handleUpdatesClick = () => {
     console.log("Updates clicked");
     // router.push("/home/updates");
