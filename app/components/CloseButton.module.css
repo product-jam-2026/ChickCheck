@@ -1,0 +1,46 @@
+/* CloseButton component - matches Figma design exactly */
+/* Frame: "סגירה עליון" - 393px width, 30px height */
+/* Instance: "סגירה" - 30x30px icon at x: 34px */
+
+/* Container: full width, 30px height, 34px left padding to match Figma positioning */
+.container {
+	width: 100%;
+	height: 1.875rem; /* 30px */
+	display: flex;
+	align-items: center;
+	padding-left: 2.125rem; /* 34px - matches Figma x position of close icon */
+	box-sizing: border-box;
+}
+
+/* Close button: 30x30px */
+.closeButton {
+	width: 1.875rem; /* 30px */
+	height: 1.875rem; /* 30px */
+	background: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+/* Icon: fills the 30x30px button area */
+.icon {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.closeButton:focus {
+	outline: 2px solid rgba(255, 255, 255, 0.5);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+.closeButton:active {
+	opacity: 0.7;
+}
+

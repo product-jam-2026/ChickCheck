@@ -1,0 +1,187 @@
+/* Results screen - matches Figma designs exactly */
+
+.container {
+	width: 24.5625rem; /* 393px */
+	height: 53.25rem; /* 852px */
+	background: #050130;
+	color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1.75rem 0 1.5625rem 0; /* 56px top, 25px bottom */
+	box-sizing: border-box;
+	margin: 0 auto;
+}
+
+.header {
+	width: 24.5625rem; /* 393px */
+	height: 1.875rem; /* 30px */
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 0;
+}
+
+.resultSection {
+	width: 24.5625rem; /* 393px */
+	height: 35.8125rem; /* 573px */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.3125rem; /* 21px */
+	flex-shrink: 0;
+}
+
+.iconContainer {
+	width: 100%;
+	height: 14.1875rem; /* 227px */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 0 5.0625rem; /* 81px horizontal */
+	box-sizing: border-box;
+}
+
+/* Icon containers - exact sizes from Figma */
+.untrustedIconContainer {
+	width: 14.1875rem; /* 227px */
+	height: 14.1875rem; /* 227px */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.untrustedIcon {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.trustedIconContainer {
+	width: 11.8125rem; /* 189px */
+	height: 11.8125rem; /* 189px */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.trustedIcon {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.unknownIconContainer {
+	width: 10.875rem; /* 174px */
+	height: 11.75rem; /* 188px */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.unknownIcon {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	display: block;
+}
+
+.textContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 0 1.25rem; /* 20px horizontal */
+	box-sizing: border-box;
+}
+
+.titleText {
+	font-size: 3.5rem; /* 56px */
+	line-height: 3.75rem; /* 60px */
+	font-weight: 600; /* Semibold */
+	color: #ffffff;
+	text-align: right;
+	direction: rtl;
+	margin: 0;
+	white-space: pre-wrap;
+	width: 100%;
+}
+
+.titleTextTrusted {
+	max-width: 22.375rem; /* 358px */
+}
+
+.titleTextUntrusted {
+	max-width: 22.1875rem; /* 355px */
+}
+
+.titleTextUnknown {
+	max-width: 21.0625rem; /* 337px */
+}
+
+.accentRed {
+	color: #E00615;
+}
+
+.accentGreen {
+	color: #74D03C;
+}
+
+.accentOrange {
+	color: #FF8D28;
+}
+
+.buttonsContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 1.125rem; /* 18px */
+	padding: 0 1.25rem; /* 20px horizontal */
+	box-sizing: border-box;
+}
+
+.ctas {
+	width: 22.0625rem; /* 353px */
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 1.125rem; /* 18px */
+}
+
+.shareRow {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	justify-content: space-between;
+	width: 6.625rem; /* 106px */
+	color: #ffffff;
+	font-size: 1.875rem; /* 30px */
+	font-weight: 400;
+	line-height: 3.75rem; /* 60px */
+	direction: rtl;
+}
+
+.footer {
+	width: 4.4375rem; /* 71px */
+	height: 3.75rem; /* 60px */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+}
+
+.footerLink {
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 1.875rem; /* 30px */
+	font-weight: 400;
+	line-height: 3.75rem; /* 60px */
+	direction: rtl;
+}
+
+/* Keep fixed phone canvas on all breakpoints to mirror Home */
+

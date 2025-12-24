@@ -1,0 +1,44 @@
+/* ResultButton component - matches Figma button design */
+
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid #ffffff;
+	border-radius: 1rem; /* 16px */
+	padding: 0.4375rem 0.6875rem 0.4375rem 0.5625rem; /* 7px top/bottom, 11px right, 9px left */
+	color: #ffffff;
+	text-decoration: none;
+	background: transparent;
+	cursor: pointer;
+	font-family: inherit;
+	white-space: nowrap;
+	width: 100%;
+	box-sizing: border-box;
+	min-height: 2.75rem; /* 44px - matches Figma button height */
+}
+
+.button:hover {
+	opacity: 0.9;
+}
+
+.button:active {
+	opacity: 0.8;
+}
+
+.buttonText {
+	font-size: 1.875rem; /* 30px */
+	font-weight: 400; /* Regular */
+	line-height: normal;
+	color: #ffffff;
+	text-align: center;
+}
+
+.arrow {
+	font-size: 1.875rem; /* 30px */
+	font-weight: 400;
+	line-height: normal;
+	color: #ffffff;
+	margin-left: 0.25rem; /* Small gap before arrow */
+}
+
