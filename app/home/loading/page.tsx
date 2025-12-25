@@ -6,10 +6,58 @@ import LoadingPage from "@/app/components/home/loading/LoadingPage";
 
 const MIN_LOADING_TIME = 6000; // 6 שניות
 
-// Mock API call - יוחלף בעתיד
-const callAPI = async (): Promise<void> => {
-  // TODO: ייושם בעתיד
-  return Promise.resolve();
+interface AnalysisResult {
+  status: "SAFE" | "NOT_SAFE" | "UNCLEAR";
+  scamPercentage: number;
+  reasoning: string;
+  action: string;
+  technicalCheck?: {
+    activated: boolean;
+    isDangerous: boolean;
+    details: string;
+  };
+}
+
+// API call to analyze the image
+const callAPI = async (): Promise<AnalysisResult> => {
+  // Get image from sessionStorage
+  const storedImageData = sessionStorage.getItem("selectedImage");
+  if (!storedImageData) {
+    throw new Error("No image found in session storage");
+  }
+
+  const imageData = JSON.parse(storedImageData);
+  
+  // Reconstruct binary data from base64 string
+  const binaryString = atob(imageData.data);
+  const bytes = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  
+  // Create File object
+  const blob = new Blob([bytes], { type: imageData.type });
+  const file = new File([blob], imageData.name, {
+    type: imageData.type,
+  });
+
+  // Prepare FormData for API call
+  const formData = new FormData();
+  formData.append("image", file);
+
+  // Call the analyze API
+  const response = await fetch("/api/analyze", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
+    throw new Error(errorData.error || "API request failed");
+  }
+
+  const result: AnalysisResult = await response.json();
+  return result;
 };
 
 export default function Loading() {
@@ -60,40 +108,62 @@ export default function Loading() {
     // ביצוע הטעינה
     const performLoading = async () => {
       const apiStartTime = Date.now();
-      const apiPromise = callAPI();
-      const minTimePromise = new Promise<void>((resolve) =>
-        setTimeout(resolve, MIN_LOADING_TIME)
-      );
+      let apiResult: AnalysisResult | null = null;
+      
+      try {
+        const apiPromise = callAPI();
+        const minTimePromise = new Promise<void>((resolve) =>
+          setTimeout(resolve, MIN_LOADING_TIME)
+        );
 
-      // מעקב אחרי מתי ה-API מסיים
-      apiPromise.then(() => {
+        // מעקב אחרי מתי ה-API מסיים
+        apiPromise.then((result) => {
+          if (!isMounted) return;
+          apiResult = result;
+          const apiTime = Date.now() - apiStartTime;
+          // אם ה-API לקח יותר מהזמן המינימלי, נעדכן את זמן הטעינה האמיתי
+          if (apiTime > MIN_LOADING_TIME) {
+            actualLoadingTimeRef.current = apiTime;
+          }
+        });
+
+        await Promise.all([apiPromise, minTimePromise]);
+
         if (!isMounted) return;
-        const apiTime = Date.now() - apiStartTime;
-        // אם ה-API לקח יותר מהזמן המינימלי, נעדכן את זמן הטעינה האמיתי
-        if (apiTime > MIN_LOADING_TIME) {
-          actualLoadingTimeRef.current = apiTime;
+
+        // שמירת התוצאה ב-sessionStorage
+        if (apiResult) {
+          sessionStorage.setItem("lastResult", JSON.stringify(apiResult));
         }
-      });
 
-      await Promise.all([apiPromise, minTimePromise]);
-
-      if (!isMounted) return;
-
-      // סימון שהטעינה הושלמה
-      isCompleteRef.current = true;
-      
-      // הבטחה שהפרוגרס הגיע ל-100%
-      setProgress(100);
-      
-      // המתנה קצרה לפני סיום הטעינה
-      await new Promise((resolve) => setTimeout(resolve, 200));
-      
-      if (!isMounted) return;
-      
-      setIsLoading(false);
-      
-      // TODO: ניווט לעמוד תוצאות בעתיד
-      // router.push("/home/results");
+        // סימון שהטעינה הושלמה
+        isCompleteRef.current = true;
+        
+        // הבטחה שהפרוגרס הגיע ל-100%
+        setProgress(100);
+        
+        // המתנה קצרה לפני סיום הטעינה
+        await new Promise((resolve) => setTimeout(resolve, 200));
+        
+        if (!isMounted) return;
+        
+        setIsLoading(false);
+        
+        // ניווט לעמוד תוצאות
+        router.push("/results");
+      } catch (error) {
+        console.error("Error during analysis:", error);
+        if (!isMounted) return;
+        
+        // In case of error, still mark as complete and show error state
+        isCompleteRef.current = true;
+        setProgress(100);
+        setIsLoading(false);
+        
+        // Optionally navigate back or show error - for now, navigate to home
+        alert("שגיאה בניתוח התמונה. אנא נסה שוב.");
+        router.push("/");
+      }
     };
 
     performLoading();

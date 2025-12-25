@@ -2,30 +2,36 @@
 
 .container {
 	width: 24.5625rem; /* 393px */
-	height: 53.25rem; /* 852px */
+	min-height: 53.25rem; /* 852px - minimum height */
+	height: 100vh; /* Full viewport height */
+	max-height: 100vh;
 	background: #050130;
 	color: #ffffff;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-start;
 	padding: 1.75rem 0 1.5625rem 0; /* 56px top, 25px bottom */
 	box-sizing: border-box;
 	margin: 0 auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .header {
-	width: 24.5625rem; /* 393px */
-	height: 1.875rem; /* 30px */
+	width: 24.5625rem; /* 393px - matches Figma frame width */
+	height: 1.875rem; /* 30px - matches Figma frame height */
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
 	padding: 0;
+	margin: 0;
 }
 
 .resultSection {
 	width: 24.5625rem; /* 393px */
-	height: 35.8125rem; /* 573px */
+	min-height: 35.8125rem; /* 573px - minimum height */
+	flex: 1;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -56,6 +62,7 @@
 .untrustedIcon {
 	width: 100%;
 	height: 100%;
+	object-fit: contain;
 	display: block;
 }
 
@@ -70,6 +77,7 @@
 .trustedIcon {
 	width: 100%;
 	height: 100%;
+	object-fit: contain;
 	display: block;
 }
 
@@ -102,7 +110,7 @@
 	font-size: 3.5rem; /* 56px */
 	line-height: 3.75rem; /* 60px */
 	font-weight: 600; /* Semibold */
-	color: #ffffff;
+	color: #DBE2FF; /* Matches Figma text color */
 	text-align: right;
 	direction: rtl;
 	margin: 0;
@@ -110,8 +118,12 @@
 	width: 100%;
 }
 
+.titleText span {
+	color: #ffffff; /* White for regular text parts */
+}
+
 .titleTextTrusted {
-	max-width: 22.375rem; /* 358px */
+	max-width: 22.375rem; /* 358px - matches Figma */
 }
 
 .titleTextUntrusted {
@@ -139,7 +151,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
-	gap: 1.125rem; /* 18px */
+	gap: 1.125rem; /* 18px - matches Figma */
 	padding: 0 1.25rem; /* 20px horizontal */
 	box-sizing: border-box;
 }
@@ -163,6 +175,13 @@
 	font-weight: 400;
 	line-height: 3.75rem; /* 60px */
 	direction: rtl;
+}
+
+.shareIcon {
+	width: 1rem; /* 16px */
+	height: 1.3125rem; /* 21px */
+	flex-shrink: 0;
+	display: block;
 }
 
 .footer {
@@ -239,30 +258,34 @@
 
 
 .accordionWrapper {
-    width: 100%;
-    margin-bottom: 1rem;
+    width: 22.0625rem; /* 353px - matches Figma */
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
 }
 
 .resultButton {
     width: 100%;
-    padding: 1.25rem;
-    background: #25214D; /* צבע כהה מהעיצוב */
-    border: none;
-    border-radius: 1rem;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 700;
+    padding: 0.4375rem 0.6875rem; /* 7px vertical, 11px horizontal - matches Figma */
+    background: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 1rem; /* 16px - matches Figma */
+    color: #ffffff;
+    font-size: 1.875rem; /* 30px - matches Figma */
+    font-weight: 400; /* Regular - matches Figma */
+    font-family: 'SimplerPro', sans-serif;
+    line-height: normal;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.2s;
+    direction: rtl;
+    text-align: right;
 }
 
-.whatNowBtn {
-    background: #0070F3; /* כחול בולט */
+.resultButton:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .active {
@@ -271,25 +294,61 @@
 }
 
 .arrow {
-    font-size: 1rem;
-    opacity: 0.7;
+    font-size: 1.875rem; /* 30px - matches Figma */
+    color: #ffffff;
+    margin-left: 0.5rem;
+    direction: ltr;
+    display: inline-block;
 }
 
 .contentBox {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    background: transparent;
+    border: 2px solid #ffffff;
     border-top: none;
-    padding: 1.5rem;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
     animation: slideDown 0.3s ease-out;
+    max-height: 20rem; /* Limit height for scrolling */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollableContent {
+    padding: 1.5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 20rem;
+}
+
+.scrollableContent::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.scrollableContent::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.25rem;
+}
+
+.scrollableContent::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0.25rem;
+}
+
+.scrollableContent::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .contentText {
-    font-size: 1.2rem;
+    font-size: 1.875rem; /* 30px - matches Figma text size */
     line-height: 1.5;
-    color: #E0E0E0;
+    color: #ffffff;
     margin: 0;
+    text-align: right;
+    direction: rtl;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 @keyframes slideDown {
