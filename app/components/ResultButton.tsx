@@ -21,7 +21,7 @@ export default function ResultButton({
 	const buttonContent = (
 		<>
 			<span className={styles.buttonText}>{children}</span>
-			<span className={styles.arrow}>arrow</span>
+			<span className={styles.arrow}>&gt;</span>
 		</>
 	);
 

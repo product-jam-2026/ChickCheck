@@ -7,7 +7,6 @@ import BackControl from "./BackControl";
 import CloseButton from "../components/CloseButton";
 import ResultButton from "../components/ResultButton";
 
-type ResultStatus = "trusted" | "untrusted" | "unknown";
 
 interface AnalysisResult {
   status: "SAFE" | "NOT_SAFE" | "UNCLEAR";
@@ -23,7 +22,7 @@ interface AnalysisResult {
 
 export default function Page() {
     const [result, setResult] = useState<AnalysisResult | null>(null);
-    const [openSection, setOpenSection] = useState<"details" | "action" | null>(null);
+    const [openSections, setOpenSections] = useState<Set<"details" | "action">>(new Set());
 
     useEffect(() => {
         const stored = sessionStorage.getItem("lastResult");
@@ -32,16 +31,24 @@ export default function Page() {
 
     if (!result) return <div className={styles.container} style={{justifyContent: 'center'}}>טוען תוצאות...</div>;
 
-    const statusMap: Record<string, ResultStatus> = {
-        SAFE: "trusted",
-        NOT_SAFE: "untrusted",
-        UNCLEAR: "unknown"
-    };
-    const status = statusMap[result.status] || "unknown";
+    const status = result.status || "UNCLEAR";
 
     const toggleSection = (section: "details" | "action") => {
-        setOpenSection(openSection === section ? null : section);
+        setOpenSections(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(section)) {
+                newSet.delete(section);
+            } else {
+                newSet.add(section);
+            }
+            return newSet;
+        });
     };
+
+    // Determine which buttons to show based on status
+    const showDetails = status === "NOT_SAFE" || status === "SAFE";
+    const showAction = status === "NOT_SAFE" || status === "UNCLEAR";
+    const showShare = status === "NOT_SAFE" || status === "UNCLEAR"; // Share only for NOT_SAFE and UNCLEAR
 
     return (
         <main className={styles.container}>
@@ -59,48 +66,58 @@ export default function Page() {
                 </div>
 
                 <div className={styles.buttonsContainer}>
-                    {/* כפתור פירוט */}
-                    <div className={styles.accordionWrapper}>
-                        <button 
-                            className={`${styles.resultButton} ${openSection === 'details' ? styles.active : ''}`}
-                            onClick={() => toggleSection('details')}
-                        >
-                            <span>פירוט</span>
-                            <span className={styles.arrow}>{openSection === 'details' ? '▲' : '▼'}</span>
-                        </button>
-                        
-                        {openSection === 'details' && (
-                            <div className={styles.contentBox}>
-                                <p className={styles.contentText}>{result.reasoning}</p>
-                                {result.technicalCheck?.activated && (
-                                    <div className={`${styles.techBadge} ${result.technicalCheck.isDangerous ? styles.techDanger : styles.techSafe}`}>
-                                        {result.technicalCheck.isDangerous ? "⚠️ זוהה איום טכני בקישור" : "🛡️ הקישור נסרק ונמצא נקי"}
+                    {/* כפתור פירוט - shown for NOT_SAFE and SAFE */}
+                    {showDetails && (
+                        <div className={styles.accordionWrapper}>
+                            <button 
+                                className={`${styles.resultButton} ${openSections.has('details') ? styles.active : ''}`}
+                                onClick={() => toggleSection('details')}
+                            >
+                                <span>פירוט</span>
+                                <span className={styles.arrow}> &gt;</span>
+                            </button>
+                            
+                            {openSections.has('details') && (
+                                <div className={styles.contentBox}>
+                                    <div className={styles.scrollableContent}>
+                                        <p className={styles.contentText}>{result.reasoning}</p>
+                                        {result.technicalCheck?.activated && (
+                                            <div className={`${styles.techBadge} ${result.technicalCheck.isDangerous ? styles.techDanger : styles.techSafe}`}>
+                                                {result.technicalCheck.isDangerous ? "⚠️ זוהה איום טכני בקישור" : "🛡️ הקישור נסרק ונמצא נקי"}
+                                            </div>
+                                        )}
                                     </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
 
-                    {/* כפתור מה עושים עכשיו */}
-                    <div className={styles.accordionWrapper}>
-                        <button 
-                            className={`${styles.resultButton} ${styles.whatNowBtn} ${openSection === 'action' ? styles.active : ''}`}
-                            onClick={() => toggleSection('action')}
-                        >
-                            <span>מה עושים עכשיו?</span>
-                            <span className={styles.arrow}>{openSection === 'action' ? '▲' : '▼'}</span>
-                        </button>
+                    {/* כפתור מה עושים עכשיו - shown for NOT_SAFE and UNCLEAR */}
+                    {showAction && (
+                        <div className={styles.accordionWrapper}>
+                            <button 
+                                className={`${styles.resultButton} ${openSections.has('action') ? styles.active : ''}`}
+                                onClick={() => toggleSection('action')}
+                            >
+                                <span>מה עושים עכשיו?</span>
+                                <span className={styles.arrow}> &gt;</span>
+                            </button>
 
-                        {openSection === 'action' && (
-                            <div className={`${styles.contentBox} ${styles.actionBox}`}>
-                                <p className={styles.contentText}>{result.action}</p>
-                            </div>
-                        )}
-                    </div>
+                            {openSections.has('action') && (
+                                <div className={`${styles.contentBox} ${styles.actionBox}`}>
+                                    <div className={styles.scrollableContent}>
+                                        <p className={styles.contentText}>{result.action}</p>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
 
-                    <div className={styles.shareContainer}>
-                        <ShareButton />
-                    </div>
+                    {showShare && (
+                        <div className={styles.shareContainer}>
+                            <ShareButton />
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -113,23 +130,79 @@ export default function Page() {
     );
 }
 
-// פונקציות עזר לאייקונים (נשארות אותו דבר מהקוד הקודם)
-function Icon({ status }: { status: ResultStatus }) {
-    if (status === "untrusted") return <div className={styles.untrustedIconContainer}><svg className={styles.untrustedIcon} viewBox="0 0 227 227"><circle cx="113.5" cy="113.5" r="113.5" fill="#E00615" /><rect x="18.917" y="103.75" width="189.166" height="19.5" rx="9.75" fill="#FFFFFF" /></svg></div>;
-    if (status === "trusted") return <div className={styles.trustedIconContainer}><svg className={styles.trustedIcon} viewBox="0 0 189 189"><circle cx="94.5" cy="94.5" r="94.5" fill="#74D03C" /><circle cx="66.15" cy="75.6" r="11.34" fill="#FFFFFF" /><circle cx="122.85" cy="75.6" r="11.34" fill="#FFFFFF" /><path d="M47.25 118.125c11.8125 19.6875 59.0625 19.6875 70.875 0" stroke="#FFFFFF" strokeWidth="14.175" strokeLinecap="round" fill="none" /></svg></div>;
-    return <div className={styles.unknownIconContainer}><Image src="/icons/not_sure_result.png" alt="לא בטוח" width={174} height={188} className={styles.unknownIcon} /></div>;
+// פונקציות עזר לאייקונים
+function Icon({ status }: { status: AnalysisResult['status'] }) {
+    if (status === "NOT_SAFE") {
+        return (
+            <div className={styles.untrustedIconContainer}>
+                <Image 
+                    src="/icons/not_safe_icon.svg" 
+                    alt="לא אמין" 
+                    width={227} 
+                    height={227} 
+                    className={styles.untrustedIcon} 
+                />
+            </div>
+        );
+    }
+    if (status === "SAFE") {
+        return (
+            <div className={styles.trustedIconContainer}>
+                <Image 
+                    src="/icons/safe_icon.svg" 
+                    alt="אמין" 
+                    width={189} 
+                    height={189} 
+                    className={styles.trustedIcon} 
+                />
+            </div>
+        );
+    }
+    return (
+        <div className={styles.unknownIconContainer}>
+            <Image 
+                src="/icons/unclear_icon.svg" 
+                alt="לא בטוח" 
+                width={174} 
+                height={188} 
+                className={styles.unknownIcon} 
+            />
+        </div>
+    );
 }
 
-function Title({ status }: { status: ResultStatus }) {
-    if (status === "untrusted") return <p className={styles.titleText}>התוכן נמצא <span className={styles.accentRed}>לא אמין</span></p>;
-    if (status === "trusted") return <p className={styles.titleText}>התוכן נמצא <span className={styles.accentGreen}>אמין</span></p>;
-    return <p className={styles.titleText}><span className={styles.accentOrange}>לא הצלחנו</span> לקבוע אמינות</p>;
+function Title({ status }: { status: AnalysisResult['status'] }) {
+    if (status === "NOT_SAFE") {
+        return (
+            <p className={`${styles.titleText} ${styles.titleTextUntrusted}`}>
+                התוכן שהתקבל <span>נמצא</span> <span className={styles.accentRed}>לא אמין</span>
+            </p>
+        );
+    }
+    if (status === "SAFE") {
+        return (
+            <p className={`${styles.titleText} ${styles.titleTextTrusted}`}>
+                התוכן שהתקבל <span>נמצא</span> <span className={styles.accentGreen}>אמין</span>
+            </p>
+        );
+    }
+    return (
+        <p className={`${styles.titleText} ${styles.titleTextUnknown}`}>
+            <span className={styles.accentOrange}>לא הצלחנו</span> לקבוע אמינות
+        </p>
+    );
 }
 
 function ShareButton() {
     return (
         <div className={styles.shareRow}>
-            <svg width="16" height="21" viewBox="0 0 16 21" fill="none"><path d="M12 14.08c-.76 0-1.44.3-1.96.77L5.91 11.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l4.13-3.11A2.99 2.99 0 0 0 14 3a3 3 0 1 0-3 3c.36 0 .69-.07 1-.18l-4.13 3.11A3 3 0 0 0 6 9a3 3 0 0 0-2.83 2H2a3 3 0 0 0 0 6c.83 0 1.58-.34 2.12-.88l4.17 3.14c.05.02.1.04.15.06.17.06.35.1.54.1a3 3 0 1 0 2.02-5.44Z" fill="#ffffff" /></svg>
+            <Image 
+                src="/icons/share_icon.svg" 
+                alt="שיתוף" 
+                width={16} 
+                height={21} 
+                className={styles.shareIcon} 
+            />
             <span>שיתוף</span>
         </div>
     );
