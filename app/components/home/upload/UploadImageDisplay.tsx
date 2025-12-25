@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import styles from "./UploadImageDisplay.module.css";
 
 interface UploadImageDisplayProps {
@@ -11,13 +10,10 @@ export default function UploadImageDisplay({
 }: UploadImageDisplayProps) {
   return (
     <div className={styles.uploadImageDisplay}>
-      <Image
+      <img
         src={imageUrl}
         alt="תמונה לבדיקה"
-        fill
         className={styles.image}
-        style={{ objectFit: "fill" }}
-        unoptimized
       />
     </div>
   );

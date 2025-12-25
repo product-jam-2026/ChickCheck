@@ -35,11 +35,14 @@ export default function UploadPage({
         onUpdatesClick={onUpdatesClick}
         onHelplineClick={onHelplineClick}
       />
+      
       <div className={styles.uploadContent}>
-        <UploadImageDisplay imageUrl={imageUrl} />
+        <div className={styles.imageWrapper}>
+           <UploadImageDisplay imageUrl={imageUrl} />
+        </div>
+        
         <UploadSubmitButton onSubmit={onSubmit} isAnalyzing={isAnalyzing} />
       </div>
     </div>
   );
 }
-

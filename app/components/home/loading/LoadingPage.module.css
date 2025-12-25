@@ -3,7 +3,7 @@
   width: 24.5625rem;
   height: 53.25rem;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   background: #fff;
   position: relative;

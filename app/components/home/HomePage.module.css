@@ -1,15 +1,17 @@
 .homePage {
   display: flex;
   width: 24.5625rem;
+  height: 53.25rem;
   padding-top: 4.625rem;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: flex-end;
+  align-items: center;
   background: #fff;
 }
 
 .homeContent {
   width: 24.5625rem;
+  height: 38.5rem;
   background: #050130;
   display: flex;
   flex-direction: column;
