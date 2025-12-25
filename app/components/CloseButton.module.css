@@ -1,14 +1,17 @@
 /* CloseButton component - matches Figma design exactly */
 /* Frame: "סגירה עליון" - 393px width, 30px height */
-/* Instance: "סגירה" - 30x30px icon at x: 34px */
+/* Instance: "סגירה" - 30x30px icon at x: 34px (positioned from left) */
 
-/* Container: full width, 30px height, 34px left padding to match Figma positioning */
+/* Container: full width (393px), 30px height, 34px left padding to position X in left corner */
 .container {
-	width: 100%;
-	height: 1.875rem; /* 30px */
+	width: 24.5625rem; /* 393px - exact Figma frame width */
+	height: 1.875rem; /* 30px - exact Figma frame height */
 	display: flex;
 	align-items: center;
-	padding-left: 2.125rem; /* 34px - matches Figma x position of close icon */
+	padding-left: 2.125rem; /* 34px - positions X 34px from left edge */
+	padding-right: 0;
+	padding-top: 0;
+	padding-bottom: 0;
 	box-sizing: border-box;
 }
 

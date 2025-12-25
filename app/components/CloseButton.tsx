@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import styles from "./CloseButton.module.css";
 
 interface CloseButtonProps {
@@ -17,15 +18,14 @@ export default function CloseButton({
 	type = "button",
 	fallbackHref = "/",
 }: CloseButtonProps) {
+	const router = useRouter();
+	
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		if (onClick) {
 			onClick(e);
 		} else {
 			e.preventDefault();
-			if (typeof window !== "undefined") {
-				if (window.history.length > 1) window.history.back();
-				else window.location.assign(fallbackHref);
-			}
+			router.push(fallbackHref);
 		}
 	};
 

@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   as?: "button" | "a";
@@ -16,12 +17,11 @@ export default function BackControl({
   children,
   fallbackHref = "/",
 }: Props) {
+  const router = useRouter();
+  
   const onClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (typeof window !== "undefined") {
-      if (window.history.length > 1) window.history.back();
-      else window.location.assign(fallbackHref);
-    }
+    router.push(fallbackHref);
   };
 
   if (as === "a") {
