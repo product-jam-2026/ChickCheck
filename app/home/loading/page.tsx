@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import LoadingPage from "@/app/components/home/loading/LoadingPage";
 
-const MIN_LOADING_TIME = 6000; // 6 שניות
+const MIN_LOADING_TIME = 5000; // מינימום 5 שניות
 
 interface AnalysisResult {
   status: "SAFE" | "NOT_SAFE" | "UNCLEAR";
@@ -64,102 +64,146 @@ export default function Loading() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const isCompleteRef = useRef(false);
-  const actualLoadingTimeRef = useRef(MIN_LOADING_TIME);
+  
+  // State object שמכיל את כל המצבים
+  const stateRef = useRef({
+    startTime: Date.now(),
+    shouldFinish: false,
+    apiCompleted: false,
+    minTimeReached: false,
+  });
+  
+  // Ref לעקיבה אחרי הפרוגרס הנוכחי
+  const currentProgressRef = useRef(0);
 
   useEffect(() => {
     const startTime = Date.now();
+    stateRef.current.startTime = startTime;
     let animationFrameId: number;
     let isMounted = true;
 
-    const updateProgress = () => {
+    // פונקציית האנימציה המרכזית
+    const animate = () => {
       if (!isMounted) return;
-      
-      if (isCompleteRef.current) {
-        setProgress(100);
-        return;
-      }
 
+      const { startTime, shouldFinish } = stateRef.current;
       const elapsed = Date.now() - startTime;
-      // הפרוגרס מתעדכן בצורה הדרגתית לפי הזמן שחלף
-      // נשתמש בזמן הטעינה האמיתי (אם ה-API לקח יותר) או בזמן המינימלי
-      const targetTime = actualLoadingTimeRef.current;
-      // חישוב הפרוגרס בצורה חלקה - מ-0% ל-100% לאורך כל זמן הטעינה
-      let progressPercent = (elapsed / targetTime) * 100;
-      
-      // הגבלה ל-100% מקסימום
-      progressPercent = Math.min(progressPercent, 100);
-      
-      // וידוא שהפרוגרס לא יורד מתחת ל-0
-      progressPercent = Math.max(progressPercent, 0);
 
-      setProgress(progressPercent);
+      // מצב סיום - רצים מהר ל-100
+      if (shouldFinish) {
+        const nextProgress = currentProgressRef.current >= 99.5 
+          ? 100 
+          : currentProgressRef.current + (100 - currentProgressRef.current) * 0.2;
+        
+        currentProgressRef.current = nextProgress;
+        setProgress(nextProgress);
 
-      // נמשיך לעדכן כל עוד הטעינה לא הסתיימה
-      if (!isCompleteRef.current) {
-        animationFrameId = requestAnimationFrame(updateProgress);
+        // ממשיכים עד שהפרוגרס מגיע ל-100
+        if (nextProgress < 99.5) {
+          animationFrameId = requestAnimationFrame(animate);
+        }
+      } else {
+        // מצב טעינה רגיל - סימולציה של התקדמות
+        // שלב 1: התחלה מהירה (עד 2 שניות) - מגיע ל-25%
+        // שלב 2: אמצע יציב (עד 10 שניות) - מגיע ל-85%
+        // שלב 3: זחילה איטית (מעל 10 שניות) - שואף ל-99%
+
+        let targetPercent = 0;
+
+        if (elapsed < 2000) {
+          // 0% -> 25%
+          targetPercent = (elapsed / 2000) * 25;
+        } else if (elapsed < 10000) {
+          // 25% -> 85% (החלק העיקרי של הטעינה)
+          // ליניארי למדי כדי לתת תחושה של עבודה
+          const phaseProgress = (elapsed - 2000) / 8000;
+          targetPercent = 25 + phaseProgress * 60;
+        } else {
+          // 85% -> 99% (האטה משמעותית אם לוקח הרבה זמן)
+          // משתמשים בנוסחה אסימפטוטית כדי לא להגיע ל-100 אף פעם
+          const phaseProgress = 1 - Math.exp(-(elapsed - 10000) / 5000);
+          targetPercent = 85 + phaseProgress * 14;
+        }
+
+        // תנועה חלקה לכיוון ה-Target (Lerp)
+        const move = (targetPercent - currentProgressRef.current) * 0.05;
+        const nextProgress = Math.max(currentProgressRef.current, currentProgressRef.current + move);
+        currentProgressRef.current = nextProgress;
+        setProgress(nextProgress);
+
+        // המשך לולאת האנימציה
+        animationFrameId = requestAnimationFrame(animate);
       }
     };
 
-    // התחלת אנימציית הפרוגרס - מתחיל מ-0
-    setProgress(0);
-    animationFrameId = requestAnimationFrame(updateProgress);
+    // התחלת האנימציה
+    currentProgressRef.current = 0;
+    animationFrameId = requestAnimationFrame(animate);
 
-    // ביצוע הטעינה
+    // ביצוע הלוגיקה האמיתית
     const performLoading = async () => {
-      const apiStartTime = Date.now();
       let apiResult: AnalysisResult | null = null;
-      
+
       try {
         const apiPromise = callAPI();
+
+        // טיימר מינימלי
         const minTimePromise = new Promise<void>((resolve) =>
-          setTimeout(resolve, MIN_LOADING_TIME)
+          setTimeout(() => {
+            if (!isMounted) return;
+            stateRef.current.minTimeReached = true;
+            resolve();
+          }, MIN_LOADING_TIME)
         );
 
-        // מעקב אחרי מתי ה-API מסיים
+        // מחכים לתוצאה מה-API
         apiPromise.then((result) => {
           if (!isMounted) return;
           apiResult = result;
-          const apiTime = Date.now() - apiStartTime;
-          // אם ה-API לקח יותר מהזמן המינימלי, נעדכן את זמן הטעינה האמיתי
-          if (apiTime > MIN_LOADING_TIME) {
-            actualLoadingTimeRef.current = apiTime;
-          }
+          stateRef.current.apiCompleted = true;
         });
 
+        // מחכים ששני התנאים יתקיימו (API חזר + זמן מינימלי עבר)
         await Promise.all([apiPromise, minTimePromise]);
 
         if (!isMounted) return;
 
-        // שמירת התוצאה ב-sessionStorage
+        // שמירת התוצאה
         if (apiResult) {
           sessionStorage.setItem("lastResult", JSON.stringify(apiResult));
         }
 
-        // סימון שהטעינה הושלמה
-        isCompleteRef.current = true;
-        
-        // הבטחה שהפרוגרס הגיע ל-100%
-        setProgress(100);
-        
-        // המתנה קצרה לפני סיום הטעינה
-        await new Promise((resolve) => setTimeout(resolve, 200));
-        
+        // מסמנים לאנימציה לסיים
+        stateRef.current.shouldFinish = true;
+
+        // מחכים שהפרוגרס יגיע ויזואלית ל-100%
+        const waitForVisualCompletion = () => {
+          return new Promise<void>((resolve) => {
+            // ניתן לזה כ-600ms לסיים את האנימציה המהירה
+            setTimeout(() => {
+              resolve();
+            }, 600);
+          });
+        };
+
+        await waitForVisualCompletion();
+
         if (!isMounted) return;
-        
+
         setIsLoading(false);
-        
+
         // ניווט לעמוד תוצאות
         router.push("/results");
       } catch (error) {
         console.error("Error during analysis:", error);
         if (!isMounted) return;
-        
+
         // In case of error, still mark as complete and show error state
-        isCompleteRef.current = true;
+        stateRef.current.shouldFinish = true;
+        currentProgressRef.current = 100;
         setProgress(100);
         setIsLoading(false);
-        
+
         // Optionally navigate back or show error - for now, navigate to home
         alert("שגיאה בניתוח התמונה. אנא נסה שוב.");
         router.push("/");
