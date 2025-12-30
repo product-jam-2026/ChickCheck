@@ -1,6 +1,7 @@
 .homeUpdateButton {
   display: flex;
-  width: 10rem;
+  width: 9.625rem;
+  height: 2.75rem;
   padding: 0.4375rem 0.6875rem 0.4375rem 0.6875rem;
   align-items: center;
   justify-content: center;
