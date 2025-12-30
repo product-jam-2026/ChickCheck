@@ -347,7 +347,7 @@
     margin: 0;
     text-align: right;
     direction: rtl;
-    white-space: pre-wrap;
+    white-space: pre-line;
     word-wrap: break-word;
 }
 

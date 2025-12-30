@@ -21,16 +21,20 @@ export async function POST(req: Request) {
     Respond ONLY with a valid JSON object.
           
     Calculate 'scamPercentage' (0-100) with adjusted weights:
-    - RISKS: Sensitive Info Request (30% - e.g. asking for credit card/password/PIN), Suspicious Links (20%), Urgency (15%), Reward (15%).
+    - RISKS: Sensitive Info Request (50% - e.g. asking for credit card/password/PIN), Suspicious Links (20%), Urgency (15%), Reward (15%).
     - TRUST FACTORS (Mandatory reduction):
       1. If it tells the user to open an official app without a direct login link: -40%.
-      2. If it's a simple notification (e.g. "message waiting") without asking for data: -20%.
-      3. If the link is a known official redirect (like biy.io for One Zero): -10%.
+      2. If it's a simple notification (e.g. "message waiting") without asking for data: -30%.
+
+      If the scamPercentage is reduced below 0%, set it to 0%. if above 100%, set to 100%.
+      If scamPercentage is between 40% and 60%, classify as 'UNCLEAR'.
+      If above 60%, classify as 'NOT SAFE', and provide strong reasoning.
+      If below 40%, classify as 'SAFE', and provide reasoning focusing on trust factors.
 
     JSON Structure:
     {
       "scamPercentage": number,
-      "reasoning": "Short Hebrew explanation, devided into bullet points if multiple reasons.",
+      "reasoning": "Short Hebrew explanation, devided into numeric bullet points if multiple reasons, with a space of a line between each bullet point.",
       "action": "Short Hebrew advice",
       "detectedUrls": []
     }`;
@@ -47,15 +51,13 @@ export async function POST(req: Request) {
       });
     }
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`; 
+    const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ role: "user", parts: parts }],
-        // הוספת הגדרה שמכריחה את המודל להחזיר JSON
-        generationConfig: { responseMimeType: "application/json" }
       })
     });
 
@@ -64,8 +66,15 @@ export async function POST(req: Request) {
 
     let aiRawResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
     
-    // ניקוי תווים שעלולים לשבור JSON (כמו גרש הפוך או תווים נסתרים)
-    const cleanJson = aiRawResponse.trim().replace(/[\u0000-\u001F\u007F-\u009F]/g, "");
+  
+    let cleanJson = aiRawResponse.trim().replace(/[\u0000-\u001F\u007F-\u009F]/g, "");
+
+    // Strip markdown code blocks if present
+    if (cleanJson.startsWith('```json')) {
+      cleanJson = cleanJson.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+    } else if (cleanJson.startsWith('```')) {
+      cleanJson = cleanJson.replace(/^```\w*\s*/, '').replace(/\s*```$/, '');
+    }
 
     let finalResult;
     try {
@@ -83,7 +92,7 @@ export async function POST(req: Request) {
       if (safeCheck.isDangerous) {
         finalResult.technicalCheck.isDangerous = true;
         finalResult.scamPercentage = Math.max(finalResult.scamPercentage, 95);
-        finalResult.reasoning = `[זיהוי טכני] הקישור מסוכן. ` + finalResult.reasoning;
+        finalResult.reasoning = `הקישור מסוכן. ` + finalResult.reasoning;
       }
     }
 
