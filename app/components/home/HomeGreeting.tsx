@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import styles from "./HomeGreeting.module.css";
 
 interface HomeGreetingProps {
@@ -7,6 +10,8 @@ interface HomeGreetingProps {
 }
 
 export default function HomeGreeting({ userName }: HomeGreetingProps) {
+  const router = useRouter();
+
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 12) {
@@ -20,15 +25,25 @@ export default function HomeGreeting({ userName }: HomeGreetingProps) {
     }
   };
 
+  const handleProfileClick = () => {
+    router.push("/profile");
+  };
+
   return (
     <div className={styles.homeGreeting}>
-      <Image
-        src="/icons/bluma_face.svg"
-        alt="Profile"
-        width={46}
-        height={46}
-        className={styles.profileIcon}
-      />
+      <button
+        className={styles.profileIconButton}
+        onClick={handleProfileClick}
+        aria-label="פרופיל"
+      >
+        <Image
+          src="/icons/bluma_face.svg"
+          alt="Profile"
+          width={46}
+          height={46}
+          className={styles.profileIcon}
+        />
+      </button>
       <span className={styles.greetingText}>
         {getGreeting()}, {userName} !
       </span>
