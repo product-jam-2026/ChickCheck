@@ -5,7 +5,7 @@ import {
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
+export const createClient = (cookieStore: Awaited<ReturnType<typeof cookies>>) => {
   return createServerClient(PUBLIC_SUPABASE_URL, PRIVATE_SUPABASE_SERVICE_KEY, {
     cookies: {
       get(name: string) {

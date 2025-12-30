@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export async function AuthAction() {
   if (!SUPABASE_ENABLED) return <></>;
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const {
     data: { user },
