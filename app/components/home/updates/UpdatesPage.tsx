@@ -50,7 +50,13 @@ export default function UpdatesPage({
             onClick={onBackClick}
             aria-label="חזרה"
           >
-            <span className={styles.arrowIcon}>←</span>
+            <Image
+              src="/icons/arrow_back.png"
+              alt="Back"
+              width={32}
+              height={32}
+              className={styles.arrowIcon}
+            />
           </button>
         </header>
       </div>
@@ -84,8 +90,8 @@ export default function UpdatesPage({
               <Image
                 src="/icons/isoc_message_icon.png"
                 alt="ISOC Message"
-                width={60}
-                height={60}
+                width={40}
+                height={40}
                 className={styles.messageIcon}
               />
             </div>

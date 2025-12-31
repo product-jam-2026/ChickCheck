@@ -22,7 +22,7 @@
   width: 100%;
   background: #ffffff;
   padding: 2rem 1rem 1rem 1rem; 
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   box-sizing: border-box;
   position: sticky;
   top: 0;
@@ -32,7 +32,7 @@
 .header {
   width: 100%;
   display: flex;
-  align-items: flex-end; 
+  align-items: center; 
   justify-content: space-between; 
 }
 
@@ -44,6 +44,7 @@
   padding: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .title {
@@ -53,7 +54,9 @@
   font-weight: 700;
   color: #050130;
   margin: 0;
-  line-height: 1.2;
+  line-height: 1;
+  display: flex;
+  align-items: center;
 }
 
 
@@ -62,14 +65,13 @@
 }
 
 .arrowIcon {
-  font-size: 2.5rem;
-  color: #050130;
-  font-weight: 400;
-  line-height: 1;
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
 }
 
 .searchContainer {
-  width: 100%;
+  width: 95%;
   padding: 1rem 0.75rem;
   background: #050130;
   box-sizing: border-box;
@@ -85,12 +87,12 @@
 
 .searchInput {
   width: 100%;
-  padding: 0.5rem 3rem 0.5rem 1rem;
+  padding: 0.4rem 3rem 0.4rem 1rem;
   background: #ffffff;
   border: 2px solid rgba(5, 1, 48, 0.2);
   border-radius: 1rem;
   color: #050130;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-family: inherit;
   box-sizing: border-box;
   direction: rtl;
@@ -128,22 +130,22 @@
   flex-direction: column;
   gap: 1.125rem; /* 18px */
   flex: 1;
-  padding: 0 0.04rem 1.5625rem 0.5rem;
+  padding: 0 0.5rem 1.5625rem 0.5rem;
   box-sizing: border-box;
 }
 
 .updateItemWrapper {
   width: 100%;
   display: flex;
-  gap: 0.04rem;
+  gap: 0.5rem;
   align-items: flex-start;
   box-sizing: border-box;
 }
 
 .messageIconContainer {
   flex-shrink: 0;
-  width: 3.75rem;
-  height: 3.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
@@ -163,7 +165,7 @@
   background: #ffffff;
   border: 1px solid rgba(5, 1, 48, 0.1);
   border-radius: 1rem;
-  padding: 1.25rem;
+  padding: 0.875rem;
   box-sizing: border-box;
   transition: all 0.2s;
   overflow: visible;
@@ -191,7 +193,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
   position: relative;
   z-index: 2;
 }
@@ -216,7 +218,7 @@
 .updateDate {
   font-size: 1rem; /* 16px */
   color: rgba(5, 1, 48, 0.7) !important;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.5rem 0;
   text-align: right;
   display: block;
   visibility: visible;
