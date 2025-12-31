@@ -61,8 +61,7 @@ export default function Upload() {
   }, [router]);
 
   const handleUpdatesClick = () => {
-    console.log("Updates clicked");
-    // router.push("/home/updates");
+    router.push("/home/updates");
   };
 
   const handleHelplineClick = () => {

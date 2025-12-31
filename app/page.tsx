@@ -35,8 +35,7 @@ export default function Home() {
   };
 
   const handleUpdatesClick = () => {
-    // TODO: Navigate to updates page
-    console.log("Updates clicked");
+    router.push("/home/updates");
   };
 
   const handleHelplineClick = () => {
