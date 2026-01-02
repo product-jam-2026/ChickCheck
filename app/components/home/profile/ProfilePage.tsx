@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import HomeUpdateButton from "../HomeUpdateButton";
 import HomeHelplineButton from "../HomeHelplineButton";
 import styles from "./ProfilePage.module.css";
@@ -65,6 +66,14 @@ export default function ProfilePage({
       >
         היסטוריית בדיקות
       </button>
+
+      <Link
+        href="/logout"
+        className={styles.logoutButton}
+        aria-label="התנתקות"
+      >
+        התנתקות
+      </Link>
 
       <div className={styles.userDetailsContainer}>
         <button
