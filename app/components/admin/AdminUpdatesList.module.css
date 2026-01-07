@@ -1,0 +1,163 @@
+.container {
+  width: 100%;
+  max-width: 22rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.backButton {
+  background: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  text-align: right;
+  width: 100%;
+}
+
+.updatesList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.updateCard {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.updateHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.updateTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #050130;
+  margin: 0;
+  flex: 1;
+  text-align: right;
+}
+
+.deleteButton {
+  background: #E00615;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  line-height: 1;
+  padding: 0;
+}
+
+.deleteButton:hover {
+  background: #c00512;
+  transform: scale(1.1);
+}
+
+.updateDate {
+  font-size: 0.875rem;
+  color: rgba(5, 1, 48, 0.7);
+  margin: 0;
+  text-align: right;
+}
+
+.updateContent {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #050130;
+  margin: 0;
+  text-align: right;
+  white-space: pre-wrap;
+}
+
+.updateImageContainer {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.updateImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0.75rem;
+  display: block;
+}
+
+.emptyState {
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.emptyText {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.updatesList::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.updatesList::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.25rem;
+}
+
+.updatesList::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 0.25rem;
+}
+
+.updatesList::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+

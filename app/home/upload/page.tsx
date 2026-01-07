@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 import UploadPage from "@/app/components/home/upload/UploadPage";
 
 /**
@@ -15,6 +16,32 @@ export default function Upload() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [userName, setUserName] = useState<string>("משתמש");
+
+  // Fetch user name
+  useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const supabase = createClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (user) {
+          // Get user's name from metadata or email
+          const name = user.user_metadata?.full_name || 
+                      user.user_metadata?.name || 
+                      user.email?.split("@")[0] || 
+                      "משתמש";
+          setUserName(name);
+        }
+      } catch (error) {
+        console.error("Error fetching user name:", error);
+      }
+    };
+
+    fetchUserName();
+  }, []);
 
   // Load image from sessionStorage on mount
   useEffect(() => {
@@ -88,7 +115,7 @@ export default function Upload() {
       <UploadPage
         imageUrl={imageUrl}
         imageFile={imageFile}
-        userName="בלומה"
+        userName={userName}
         updateNotificationsCount={2}
         onUpdatesClick={handleUpdatesClick}
         onHelplineClick={handleHelplineClick}

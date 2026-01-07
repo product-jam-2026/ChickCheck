@@ -1,19 +1,15 @@
-import { createClient } from "@/lib/supabase/server";
-import { cookies } from "next/headers";
 import styles from "./page.module.css";
 import GoogleLoginButton from "./GoogleLoginButton";
+
+const ADMIN_EMAIL = "galeliahu30@gmail.com";
 
 export default async function Login({
   searchParams,
 }: {
   searchParams: Promise<{ message?: string }>;
 }) {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (user) return <div className={styles.loginForm}>hello {user.email}</div>;
+  // Middleware handles redirecting logged-in users away from login page
+  // No need to duplicate the check here
   
   const params = await searchParams;
 

@@ -92,7 +92,7 @@ export default function ProfilePage({
         <div className={styles.userDetails}>
           <div className={styles.userDetailValue}>{userName}</div>
           <div className={styles.userDetailValue}>{userEmail}</div>
-          <div className={styles.userDetailValue}>{userPhone}</div>
+          {userPhone && <div className={styles.userDetailValue}>{userPhone}</div>}
         </div>
       </div>
     </div>
