@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/client'; // Adjust this import based on your client initialization file
 
 import { useState } from 'react';
-import { updateUserProfile, submitIncidentReport } from '@/lib/supabase/report';
+// import { updateUserProfile, submitIncidentReport } from '@/lib/supabase/report';
 
 const supabase = createClient();
 
