@@ -80,7 +80,7 @@ export default function HomeImageUploadArea({
       />
     <div className={styles.uploadContent}>
       <span className={styles.uploadText}>+ הוספת</span>
-      <span className={styles.uploadText}>תמונה לבדיקה</span>
+      <span className={styles.uploadText}>צילום מסך לבדיקה</span>
     </div>
     </div>
   );

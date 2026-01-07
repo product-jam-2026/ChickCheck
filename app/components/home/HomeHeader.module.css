@@ -1,5 +1,5 @@
 .homeHeader {
-  width: 24.5625rem;
+  width: var(--page-width);
   background: #fff;
   display: flex;
   flex-direction: column;

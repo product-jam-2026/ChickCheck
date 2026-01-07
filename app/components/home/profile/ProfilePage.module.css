@@ -1,6 +1,6 @@
 .profilePage {
-  width: 24.5625rem;
-  height: 53.25rem;
+  width: var(--page-width);
+  height: var(--page-height);
   background: #fff;
   display: flex;
   flex-direction: column;

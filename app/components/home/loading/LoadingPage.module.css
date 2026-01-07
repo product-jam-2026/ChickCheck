@@ -1,11 +1,11 @@
 .loadingPage {
   display: flex;
-  width: 24.5625rem;
-  height: 53.25rem;
+  width: var(--page-width);
+  height: var(--page-height);
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: #fff;
+  background: #050130;
   position: relative;
 }
 

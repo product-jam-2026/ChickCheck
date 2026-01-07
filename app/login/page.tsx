@@ -13,12 +13,12 @@ export default async function Login({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (user) return <div className={styles.loginForm}>hello {user.email}</div>;
+  if (user) return <div className={styles.pageContainer}><div className={styles.loginForm}>hello {user.email}</div></div>;
   
   const params = await searchParams;
 
   return (
-    <div className="content">
+    <div className={styles.pageContainer}>
       <div className={styles.loginForm}>
         {params?.message && (
           <p className={styles.errorMessage}>{params.message}</p>

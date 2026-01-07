@@ -16,13 +16,13 @@ export default function HomeHelplineButton({
       aria-label="קו הסיוע"
     >
       <Image
-        src="/icons/phone.svg"
+        src="/icons/mail.svg"
         alt="Helpline"
         width={26}
         height={26}
         className={styles.phoneIcon}
       />
-      <span className={styles.helplineButtonText}>קו הסיוע</span>
+      <span className={styles.helplineButtonText}>טופס סיוע</span>
     </button>
   );
 }
