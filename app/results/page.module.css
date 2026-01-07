@@ -1,10 +1,8 @@
 /* Results screen - matches Figma designs exactly */
 
 .container {
-	width: 24.5625rem; /* 393px */
-	min-height: 53.25rem; /* 852px - minimum height */
-	height: 100vh; /* Full viewport height */
-	max-height: 100vh;
+	width: var(--page-width);
+	height: var(--page-height);
 	background: #050130;
 	color: #ffffff;
 	display: flex;
@@ -19,7 +17,7 @@
 }
 
 .header {
-	width: 24.5625rem; /* 393px - matches Figma frame width */
+	width: var(--page-width);
 	height: 1.875rem; /* 30px - matches Figma frame height */
 	display: flex;
 	align-items: center;
@@ -29,7 +27,7 @@
 }
 
 .resultSection {
-	width: 24.5625rem; /* 393px */
+	width: var(--page-width);
 	min-height: 35.8125rem; /* 573px - minimum height */
 	flex: 1;
 	display: flex;

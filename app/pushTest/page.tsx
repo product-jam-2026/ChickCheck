@@ -11,10 +11,14 @@ async function InstrumentsData() {
   return <pre>{JSON.stringify(instruments, null, 2)}</pre>;
 }
 
+import styles from "./page.module.css";
+
 export default function Instruments() {
   return (
-    <Suspense fallback={<div>Loading push...</div>}>
-      <InstrumentsData />
-    </Suspense>
+    <div className={styles.pageContainer}>
+      <Suspense fallback={<div>Loading push...</div>}>
+        <InstrumentsData />
+      </Suspense>
+    </div>
   );
 }

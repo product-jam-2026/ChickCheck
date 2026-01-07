@@ -1,9 +1,6 @@
 .container {
-  width: 100%;
-  max-width: 24.5625rem; /* 393px */
-  min-height: 100vh;
-  height: 100vh;
-  max-height: 100vh;
+  width: var(--page-width);
+  height: var(--page-height);
   background: #050130;
   color: #ffffff;
   display: flex;

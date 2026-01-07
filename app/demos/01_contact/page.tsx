@@ -39,7 +39,7 @@ export default function ContactForm() {
   const formClassName = `${styles.contactForm} gray-bg`;
 
   return (
-    <main>
+    <div className={styles.pageContainer}>
       <div>
         <p>
           <strong>What is happening in this example?</strong>
@@ -104,6 +104,6 @@ export default function ContactForm() {
           <button type="submit">Submit</button>
         </form>
       )}
-    </main>
+    </div>
   );
 }

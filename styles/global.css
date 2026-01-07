@@ -100,6 +100,10 @@
   
   /* Typography */
   --font-family-default: "SimplerPro", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  
+  /* Page Dimensions */
+  --page-width: 24.5625rem;
+  --page-height: 53.25rem;
 }
 
 /* Base Styles */

@@ -1,7 +1,7 @@
 .homePage {
   display: flex;
-  width: 24.5625rem;
-  height: 53.25rem;
+  width: var(--page-width);
+  height: var(--page-height);
   padding-top: 4.625rem;
   flex-direction: column;
   justify-content: flex-end;
@@ -10,7 +10,7 @@
 }
 
 .homeContent {
-  width: 24.5625rem;
+  width: var(--page-width);
   height: 38.5rem;
   background: #050130;
   display: flex;
