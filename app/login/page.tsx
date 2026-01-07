@@ -1,7 +1,7 @@
-import { createClient } from "@/lib/supabase/server";
-import { cookies } from "next/headers";
 import styles from "./page.module.css";
 import GoogleLoginButton from "./GoogleLoginButton";
+
+const ADMIN_EMAIL = "galeliahu30@gmail.com";
 
 export default async function Login({
   searchParams,

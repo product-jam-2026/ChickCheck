@@ -10,7 +10,6 @@ interface Update {
   date: string;
   content: string;
   isRead: boolean;
-  isWarning?: boolean;
   image?: string;
 }
 
@@ -95,7 +94,7 @@ export default function UpdatesPage({
                 className={styles.messageIcon}
               />
             </div>
-            <div className={`${styles.updateCard} ${update.isWarning ? styles.warningCard : ""}`}>
+            <div className={styles.updateCard}>
               <div className={styles.updateTextContent}>
                 <div className={styles.updateHeader}>
                   <h2 className={styles.updateTitle}>{update.title}</h2>
@@ -104,13 +103,21 @@ export default function UpdatesPage({
                 <p className={styles.updateContent}>{update.content}</p>
                 {update.image && (
                   <div className={styles.updateImageContainer}>
-                    <Image
-                      src={update.image}
-                      alt={update.title}
-                      width={300}
-                      height={200}
-                      className={styles.updateImage}
-                    />
+                    {update.image.startsWith("data:") ? (
+                      <img
+                        src={update.image}
+                        alt={update.title}
+                        className={styles.updateImage}
+                      />
+                    ) : (
+                      <Image
+                        src={update.image}
+                        alt={update.title}
+                        width={300}
+                        height={200}
+                        className={styles.updateImage}
+                      />
+                    )}
                   </div>
                 )}
               </div>

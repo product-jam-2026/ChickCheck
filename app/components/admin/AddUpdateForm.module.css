@@ -1,0 +1,134 @@
+.form {
+  width: 100%;
+  max-width: 22rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  direction: rtl;
+}
+
+.formHeader {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.formTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #050130;
+  margin: 0;
+  text-align: center;
+}
+
+.formGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #050130;
+  text-align: right;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid rgba(5, 1, 48, 0.2);
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #050130;
+  box-sizing: border-box;
+  direction: rtl;
+  text-align: right;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: rgba(5, 1, 48, 0.4);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.fileInput {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px dashed rgba(5, 1, 48, 0.3);
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: #050130;
+  cursor: pointer;
+  direction: rtl;
+}
+
+.imagePreview {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.imagePreview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.buttonGroup {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.cancelButton,
+.submitButton {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.cancelButton {
+  background: rgba(5, 1, 48, 0.1);
+  color: #050130;
+}
+
+.cancelButton:hover {
+  background: rgba(5, 1, 48, 0.2);
+}
+
+.submitButton {
+  background: #050130;
+  color: #ffffff;
+}
+
+.submitButton:hover {
+  background: rgba(5, 1, 48, 0.9);
+}
+
+.submitButton:disabled,
+.cancelButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
