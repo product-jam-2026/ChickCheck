@@ -1,6 +1,6 @@
 .homeHelplineButton {
   display: flex;
-  width: 10.5625rem;
+  width: 11.375rem;
   height: 2.75rem;
   padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
   align-items: center;
@@ -13,8 +13,8 @@
 }
 
 .phoneIcon {
-  width: 1.625rem;
-  height: 1.625rem;
+  width: 1.5rem;
+  height: 1.5rem;
   flex-shrink: 0;
 }
 

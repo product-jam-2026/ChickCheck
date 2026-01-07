@@ -37,7 +37,7 @@ export default function HomeGreeting({ userName }: HomeGreetingProps) {
         aria-label="פרופיל"
       >
         <Image
-          src="/icons/bluma_face.svg"
+          src="/icons/profile_icon.svg"
           alt="Profile"
           width={46}
           height={46}
