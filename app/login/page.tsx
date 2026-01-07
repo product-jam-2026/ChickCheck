@@ -8,17 +8,13 @@ export default async function Login({
 }: {
   searchParams: Promise<{ message?: string }>;
 }) {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (user) return <div className={styles.pageContainer}><div className={styles.loginForm}>hello {user.email}</div></div>;
+  // Middleware handles redirecting logged-in users away from login page
+  // No need to duplicate the check here
   
   const params = await searchParams;
 
   return (
-    <div className={styles.pageContainer}>
+    <div className="content">
       <div className={styles.loginForm}>
         {params?.message && (
           <p className={styles.errorMessage}>{params.message}</p>
