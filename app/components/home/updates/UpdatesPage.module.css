@@ -30,7 +30,9 @@
   width: 100%;
   display: flex;
   align-items: center; 
-  justify-content: space-between; 
+  justify-content: space-between;
+  position: relative;
+  gap: 1rem;
 }
 
 .backButton {
@@ -38,10 +40,14 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0;
+  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  visibility: visible;
+  opacity: 1;
 }
 
 .title {
@@ -62,9 +68,12 @@
 }
 
 .arrowIcon {
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   object-fit: contain;
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
 .searchContainer {
@@ -141,8 +150,8 @@
 
 .messageIconContainer {
   flex-shrink: 0;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3rem;
+  height: 3rem;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;

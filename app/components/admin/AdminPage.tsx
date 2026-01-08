@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import AddUpdateForm from "./AddUpdateForm";
 import AdminUpdatesList from "./AdminUpdatesList";
 import styles from "./AdminPage.module.css";
@@ -14,31 +15,38 @@ export default function AdminPage() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>פאנל ניהול</h1>
-      </div>
-
       <div className={styles.content}>
         {viewMode === "main" && (
           <>
-            <button
-              className={styles.publishButton}
-              onClick={() => setViewMode("form")}
-            >
-              פרסם עדכון חדש
-            </button>
-            <button
-              className={styles.updatesButton}
-              onClick={() => setViewMode("updates")}
-            >
-              עדכונים
-            </button>
+            <div className={styles.buttonsContainer}>
+              <button
+                className={styles.publishButton}
+                onClick={() => setViewMode("form")}
+              >
+                פרסם עדכון
+              </button>
+              <button
+                className={styles.updatesButton}
+                onClick={() => setViewMode("updates")}
+              >
+                עדכונים קיימים
+              </button>
+            </div>
             <button
               className={styles.logoutButton}
               onClick={() => router.push("/logout")}
             >
               התנתקות
             </button>
+            <div className={styles.logoContainer}>
+              <Image
+                src="/icons/bottom_screen_logo.svg"
+                alt="TchickCheck Logo"
+                width={280}
+                height={84}
+                className={styles.logo}
+              />
+            </div>
           </>
         )}
 
