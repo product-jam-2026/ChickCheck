@@ -6,10 +6,25 @@ import { createClient } from "@/lib/supabase/client";
 import { SUPABASE_ENABLED } from "@/lib/config";
 import HomePage from "./HomePage";
 
+// Utility functions to track seen updates
+const getSeenUpdateIds = (): number[] => {
+  if (typeof window === "undefined") return [];
+  const seen = localStorage.getItem("seenUpdateIds");
+  return seen ? JSON.parse(seen) : [];
+};
+
+const markAllUpdatesAsSeen = (updateIds: number[]) => {
+  if (typeof window === "undefined") return;
+  const currentSeen = getSeenUpdateIds();
+  const allSeen = [...new Set([...currentSeen, ...updateIds])];
+  localStorage.setItem("seenUpdateIds", JSON.stringify(allSeen));
+};
+
 export default function HomeClient() {
   const router = useRouter();
   const [userName, setUserName] = useState<string>("משתמש");
   const [isLoading, setIsLoading] = useState(true);
+  const [unseenCount, setUnseenCount] = useState<number>(0);
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -83,7 +98,85 @@ export default function HomeClient() {
     }
   };
 
-  const handleUpdatesClick = () => {
+  // Load updates and calculate unseen count
+  useEffect(() => {
+    const loadUpdatesAndCount = async () => {
+      try {
+        if (!SUPABASE_ENABLED) {
+          setUnseenCount(0);
+          return;
+        }
+
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from("isoc_pushes")
+          .select("id, created_at")
+          .order("created_at", { ascending: false });
+
+        if (error || !data) {
+          setUnseenCount(0);
+          return;
+        }
+
+        const seenIds = getSeenUpdateIds();
+        const unseenUpdates = data.filter((update) => !seenIds.includes(update.id));
+        setUnseenCount(unseenUpdates.length);
+      } catch (error) {
+        console.error("Error loading updates count:", error);
+        setUnseenCount(0);
+      }
+    };
+
+    loadUpdatesAndCount();
+
+    // Set up real-time subscription
+    if (SUPABASE_ENABLED) {
+      const supabase = createClient();
+      const channel = supabase
+        .channel("updates-count-changes")
+        .on(
+          "postgres_changes",
+          {
+            event: "*",
+            schema: "public",
+            table: "isoc_pushes",
+          },
+          () => {
+            loadUpdatesAndCount();
+          }
+        )
+        .subscribe();
+
+      // Poll every 5 seconds as fallback
+      const interval = setInterval(loadUpdatesAndCount, 5000);
+
+      return () => {
+        supabase.removeChannel(channel);
+        clearInterval(interval);
+      };
+    }
+  }, []);
+
+  const handleUpdatesClick = async () => {
+    // Mark all updates as seen when user clicks on updates button
+    try {
+      if (SUPABASE_ENABLED) {
+        const supabase = createClient();
+        const { data } = await supabase
+          .from("isoc_pushes")
+          .select("id")
+          .order("created_at", { ascending: false });
+
+        if (data) {
+          const allUpdateIds = data.map((update) => update.id);
+          markAllUpdatesAsSeen(allUpdateIds);
+          setUnseenCount(0);
+        }
+      }
+    } catch (error) {
+      console.error("Error marking updates as seen:", error);
+    }
+    
     router.push("/home/updates");
   };
 
@@ -106,7 +199,7 @@ export default function HomeClient() {
     <main>
       <HomePage
         userName={userName}
-        updateNotificationsCount={2}
+        updateNotificationsCount={unseenCount}
         onImageSelect={handleImageSelect}
         onUpdatesClick={handleUpdatesClick}
         onHelplineClick={handleHelplineClick}

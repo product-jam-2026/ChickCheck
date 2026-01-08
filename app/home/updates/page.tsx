@@ -54,6 +54,29 @@ export default function Updates() {
   useEffect(() => {
     loadUpdates();
 
+    // Mark all updates as seen when user visits the updates page
+    const markUpdatesAsSeen = async () => {
+      try {
+        const supabase = createClient();
+        const { data } = await supabase
+          .from("isoc_pushes")
+          .select("id")
+          .order("created_at", { ascending: false });
+
+        if (data && typeof window !== "undefined") {
+          const seen = localStorage.getItem("seenUpdateIds");
+          const seenIds = seen ? JSON.parse(seen) : [];
+          const allUpdateIds = data.map((update) => update.id);
+          const allSeen = [...new Set([...seenIds, ...allUpdateIds])];
+          localStorage.setItem("seenUpdateIds", JSON.stringify(allSeen));
+        }
+      } catch (error) {
+        console.error("Error marking updates as seen:", error);
+      }
+    };
+
+    markUpdatesAsSeen();
+
     // Set up Supabase real-time subscription for updates
     const supabase = createClient();
     const channel = supabase
