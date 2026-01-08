@@ -15,6 +15,7 @@ interface UploadPageProps {
   onHelplineClick?: () => void;
   onSubmit?: () => void;
   isAnalyzing: boolean;
+  errorMessage?: string | null;
 }
 
 export default function UploadPage({
@@ -26,6 +27,7 @@ export default function UploadPage({
   onHelplineClick,
   onSubmit,
   isAnalyzing,
+  errorMessage,
 }: UploadPageProps) {
   return (
     <div className={styles.uploadPage}>
@@ -40,6 +42,12 @@ export default function UploadPage({
         <div className={styles.imageWrapper}>
            <UploadImageDisplay imageUrl={imageUrl} />
         </div>
+        
+        {errorMessage && (
+          <div className={styles.errorMessage}>
+            {errorMessage}
+          </div>
+        )}
         
         <UploadSubmitButton onSubmit={onSubmit} isAnalyzing={isAnalyzing} />
       </div>

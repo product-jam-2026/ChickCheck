@@ -1,6 +1,6 @@
 .homeHeader {
   width: var(--page-width);
-  background: #fff;
+  background: #E3F0FA;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

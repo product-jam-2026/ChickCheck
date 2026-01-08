@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: #fff;
+  background: #E3F0FA;
 }
 
 
@@ -29,4 +29,17 @@
     justify-content: center; 
     width: 100%;
     margin-bottom: 1rem; /* רווח קטן אופציונלי מהכפתור */
+  }
+
+  .errorMessage {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    margin-bottom: 1rem;
+    background: #ff4444;
+    color: #ffffff;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    text-align: right;
+    direction: rtl;
+    box-sizing: border-box;
   }

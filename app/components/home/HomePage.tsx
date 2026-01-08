@@ -13,6 +13,7 @@ interface HomePageProps {
   onUpdatesClick?: () => void;
   onHelplineClick?: () => void;
   onImageSelect?: (file: File) => void;
+  errorMessage?: string | null;
 }
 
 export default function HomePage({
@@ -21,6 +22,7 @@ export default function HomePage({
   onUpdatesClick,
   onHelplineClick,
   onImageSelect,
+  errorMessage,
 }: HomePageProps) {
   return (
     <div className={styles.homePage}>
@@ -35,6 +37,11 @@ export default function HomePage({
         <HomeImageUploadArea onImageSelect={onImageSelect} />
         <HomeDisclaimer />
       </div>
+      {errorMessage && (
+        <div className={styles.errorMessage}>
+          {errorMessage}
+        </div>
+      )}
     </div>
   );
 }

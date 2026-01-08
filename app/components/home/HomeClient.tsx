@@ -25,6 +25,7 @@ export default function HomeClient() {
   const [userName, setUserName] = useState<string>("משתמש");
   const [isLoading, setIsLoading] = useState(true);
   const [unseenCount, setUnseenCount] = useState<number>(0);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -69,6 +70,22 @@ export default function HomeClient() {
 
     fetchUserName();
   }, [router]);
+
+  // Check for error messages from upload page
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const uploadError = sessionStorage.getItem("uploadError");
+      if (uploadError) {
+        setErrorMessage(uploadError);
+        // Clear the error from sessionStorage after displaying it
+        sessionStorage.removeItem("uploadError");
+        // Clear error message after 5 seconds
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+      }
+    }
+  }, []);
 
   const handleImageSelect = async (file: File) => {
     try {
@@ -203,6 +220,7 @@ export default function HomeClient() {
         onImageSelect={handleImageSelect}
         onUpdatesClick={handleUpdatesClick}
         onHelplineClick={handleHelplineClick}
+        errorMessage={errorMessage}
       />
     </main>
   );

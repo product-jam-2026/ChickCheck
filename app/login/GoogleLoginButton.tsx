@@ -28,7 +28,7 @@ const GoogleLoginButton = () => {
         alignItems: "center",
         justifyContent: "center",
         padding: "0.75rem 1rem",
-        backgroundColor: "#ffffff",
+        backgroundColor: "#E3F0FA",
         color: "#1f1f1f",
         border: "1px solid #dadce0",
         borderRadius: "4px",
