@@ -51,7 +51,9 @@ export default function Profile() {
   }, [router]);
 
   const handleBackClick = () => {
-    router.push("/");
+    // Use window.location.href for full page navigation to ensure middleware 
+    // correctly reads the session in production (Vercel)
+    window.location.href = "/";
   };
 
   // Load updates and calculate unseen count
