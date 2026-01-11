@@ -51,7 +51,7 @@ export default function Profile() {
   }, [router]);
 
   const handleBackClick = () => {
-    router.back();
+    router.push("/");
   };
 
   // Load updates and calculate unseen count
