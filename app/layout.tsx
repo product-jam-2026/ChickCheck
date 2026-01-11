@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "ChickCheck",
   description:
     "אפליקציה ייעודית לזיהוי הודעות חשודות בעזרת בינה מלאכותית, עם מידע, תמיכה וכלים מאיגוד האינטרנט הישראלי להגנה מפני פישינג והונאות.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
