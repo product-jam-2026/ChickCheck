@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { SUPABASE_ENABLED } from "@/lib/config";
 import ProfilePage from "@/app/components/home/profile/ProfilePage";
@@ -19,14 +19,22 @@ export default function Profile() {
   const [userEmail, setUserEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [unseenCount, setUnseenCount] = useState<number>(0);
+  const isMountedRef = useRef(true);
+  // Create supabase client once to avoid multiple instances causing cookie issues
+  const supabaseRef = useRef(createClient());
 
   useEffect(() => {
+    isMountedRef.current = true;
+    
     const fetchUserData = async () => {
       try {
-        const supabase = createClient();
+        // Use the same supabase client instance
         const {
           data: { user },
-        } = await supabase.auth.getUser();
+        } = await supabaseRef.current.auth.getUser();
+
+        // Only update state if component is still mounted
+        if (!isMountedRef.current) return;
 
         if (user) {
           // Get user's name from metadata or email
@@ -43,16 +51,19 @@ export default function Profile() {
         console.error("Error fetching user data:", error);
         // Let middleware handle authentication - don't redirect on errors
       } finally {
-        setIsLoading(false);
+        if (isMountedRef.current) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchUserData();
+
+    return () => {
+      isMountedRef.current = false;
+    };
   }, []);
 
-  const handleBackClick = () => {
-    router.push("/");
-  };
 
   // Load updates and calculate unseen count
   useEffect(() => {
@@ -63,8 +74,8 @@ export default function Profile() {
           return;
         }
 
-        const supabase = createClient();
-        const { data, error } = await supabase
+        // Use the same supabase client instance
+        const { data, error } = await supabaseRef.current
           .from("isoc_pushes")
           .select("id, created_at")
           .order("created_at", { ascending: false });
@@ -87,7 +98,8 @@ export default function Profile() {
 
     // Set up real-time subscription
     if (SUPABASE_ENABLED) {
-      const supabase = createClient();
+      // Use the same supabase client instance
+      const supabase = supabaseRef.current;
       const channel = supabase
         .channel("updates-count-changes-profile")
         .on(
@@ -117,8 +129,8 @@ export default function Profile() {
     // Mark all updates as seen when user clicks on updates button
     try {
       if (SUPABASE_ENABLED) {
-        const supabase = createClient();
-        const { data } = await supabase
+        // Use the same supabase client instance
+        const { data } = await supabaseRef.current
           .from("isoc_pushes")
           .select("id")
           .order("created_at", { ascending: false });
@@ -171,7 +183,6 @@ export default function Profile() {
         userEmail={userEmail}
         userPhone=""
         updateNotificationsCount={unseenCount}
-        onBackClick={handleBackClick}
         onUpdatesClick={handleUpdatesClick}
         onHelplineClick={handleHelplineClick}
         onHistoryClick={handleHistoryClick}

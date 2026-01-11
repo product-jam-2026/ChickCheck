@@ -33,19 +33,35 @@ export default function ProfilePage({
   return (
     <div className={styles.profilePage}>
       <div className={styles.topSpacer}>
-        <button
-          className={styles.backButton}
-          onClick={onBackClick}
-          aria-label="חזור"
-        >
-          <Image
-            src="/icons/back_white.svg"
-            alt="Back"
-            width={19.33}
-            height={19.33}
-            className={styles.backIcon}
-          />
-        </button>
+        {onBackClick ? (
+          <button
+            className={styles.backButton}
+            onClick={onBackClick}
+            aria-label="חזור"
+          >
+            <Image
+              src="/icons/back_white.svg"
+              alt="Back"
+              width={19.33}
+              height={19.33}
+              className={styles.backIcon}
+            />
+          </button>
+        ) : (
+          <Link
+            href="/"
+            className={styles.backButton}
+            aria-label="חזור"
+          >
+            <Image
+              src="/icons/back_white.svg"
+              alt="Back"
+              width={19.33}
+              height={19.33}
+              className={styles.backIcon}
+            />
+          </Link>
+        )}
       </div>
       
       <div className={styles.profileHeader}>
