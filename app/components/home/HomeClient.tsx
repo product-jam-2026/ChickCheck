@@ -16,7 +16,7 @@ const getSeenUpdateIds = (): number[] => {
 const markAllUpdatesAsSeen = (updateIds: number[]) => {
   if (typeof window === "undefined") return;
   const currentSeen = getSeenUpdateIds();
-  const allSeen = [...new Set([...currentSeen, ...updateIds])];
+  const allSeen = Array.from(new Set([...currentSeen, ...updateIds]));
   localStorage.setItem("seenUpdateIds", JSON.stringify(allSeen));
 };
 
