@@ -36,24 +36,22 @@ export default function Profile() {
                       "משתמש";
           setUserName(name);
           setUserEmail(user.email || "");
-        } else {
-          // If no user, redirect to login
-          router.push("/login");
         }
+        // If no user, let middleware handle redirect - don't redirect here
+        // This prevents race conditions and cookie issues in production
       } catch (error) {
         console.error("Error fetching user data:", error);
+        // Let middleware handle authentication - don't redirect on errors
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchUserData();
-  }, [router]);
+  }, []);
 
   const handleBackClick = () => {
-    // Use window.location.href for full page navigation to ensure middleware 
-    // correctly reads the session in production (Vercel)
-    window.location.href = "/";
+    router.push("/");
   };
 
   // Load updates and calculate unseen count
