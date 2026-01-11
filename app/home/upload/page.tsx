@@ -23,8 +23,6 @@ export default function Upload() {
   // States for image handling and UI feedback
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [isValidating, setIsValidating] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [userName, setUserName] = useState<string>("משתמש");
   const [unseenCount, setUnseenCount] = useState<number>(0);
@@ -228,68 +226,8 @@ export default function Upload() {
       return;
     }
 
-    setIsValidating(true);
-    setErrorMessage(null);
-
-    try {
-      // Validate that the image is a text message
-      const formData = new FormData();
-      formData.append("image", imageFile);
-
-      const validationResponse = await fetch("/api/validate-image", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!validationResponse.ok) {
-        setIsValidating(false);
-        const errorData = await validationResponse.json().catch(() => ({ error: "שגיאה בבדיקת התמונה" }));
-        const errorMessage = errorData.error || errorData.reasoning || "שגיאה בבדיקת התמונה";
-        // Check if it's an overload error
-        if (errorMessage === "MODEL_OVERLOADED" || 
-            errorMessage.includes("עמוסה") ||
-            errorMessage.toLowerCase().includes("overloaded")) {
-          // For overload errors, don't clear the image, just redirect with error
-          if (typeof window !== "undefined") {
-            sessionStorage.setItem("uploadError", "המערכת עמוסה כרגע. אנא נסה שוב בעוד כמה רגעים.");
-          }
-          router.push("/");
-          return;
-        }
-        // For other errors, clear image and redirect
-        clearImageAndRedirectWithError("המערכת לא זיהתה הודעות טקסט בתמונה שהועלת. אנא נסה/י שנית");
-        return;
-      }
-
-      const validationResult = await validationResponse.json();
-
-      if (!validationResult.isTextMessage) {
-        setIsValidating(false);
-        // Clear the image and redirect immediately with error message
-        clearImageAndRedirectWithError("המערכת לא זיהתה הודעות טקסט בתמונה שהועלת. אנא נסה/י שנית");
-        return;
-      }
-
-      // If validation passes, proceed to analysis
-      setIsValidating(false);
-      router.push("/home/loading");
-    } catch (error: any) {
-      console.error("Error validating image:", error);
-      // Check if it's an overload error
-      if (error.message === "MODEL_OVERLOADED" || 
-          error.message?.toLowerCase().includes("overloaded") ||
-          error.message?.includes("עמוסה")) {
-        setIsValidating(false);
-        // For overload errors, don't clear the image, just redirect with error
-        if (typeof window !== "undefined") {
-          sessionStorage.setItem("uploadError", "המערכת עמוסה כרגע. אנא נסה שוב בעוד כמה רגעים.");
-        }
-        router.push("/");
-      } else {
-        // Clear the image and redirect immediately with error message
-        clearImageAndRedirectWithError("המערכת לא זיהתה הודעות טקסט בתמונה שהועלת. אנא נסה/י שנית");
-      }
-    }
+    // Navigate directly to loading page
+    router.push("/home/loading");
   };
 
   if (!imageFile || !imageUrl) {
@@ -311,7 +249,6 @@ export default function Upload() {
         onHelplineClick={handleHelplineClick}
         onBackClick={handleBackClick}
         onSubmit={handleSubmit}
-        isAnalyzing={isValidating || isAnalyzing}
         errorMessage={errorMessage}
       />
     </main>

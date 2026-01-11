@@ -16,7 +16,6 @@ interface UploadPageProps {
   onHelplineClick?: () => void;
   onSubmit?: () => void;
   onBackClick?: () => void;
-  isAnalyzing: boolean;
   errorMessage?: string | null;
 }
 
@@ -29,7 +28,6 @@ export default function UploadPage({
   onHelplineClick,
   onSubmit,
   onBackClick,
-  isAnalyzing,
   errorMessage,
 }: UploadPageProps) {
   return (
@@ -68,7 +66,7 @@ export default function UploadPage({
           </div>
         )}
         
-        <UploadSubmitButton onSubmit={onSubmit} isAnalyzing={isAnalyzing} />
+        <UploadSubmitButton onSubmit={onSubmit} />
       </div>
     </div>
   );

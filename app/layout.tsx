@@ -30,6 +30,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           href="/icons/icon-192.png"
         />
         <link rel="manifest" href="/manifest.json" />
+        
+        {/* PWA Meta Tags for iOS */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="ChickCheck" />
+        
+        {/* PWA Meta Tags for Android/General */}
+        <meta name="theme-color" content="#050130" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="ChickCheck" />
+        
+        {/* Additional PWA Meta Tags */}
+        <meta name="msapplication-TileColor" content="#050130" />
+        <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body>{children}</body>
     </html>
