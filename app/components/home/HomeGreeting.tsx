@@ -29,6 +29,8 @@ export default function HomeGreeting({ userName }: HomeGreetingProps) {
     router.push("/profile");
   };
 
+  const firstName = userName.split(' ')[0];
+
   return (
     <div className={styles.homeGreeting}>
       <button
@@ -45,7 +47,7 @@ export default function HomeGreeting({ userName }: HomeGreetingProps) {
         />
       </button>
       <span className={styles.greetingText}>
-        {getGreeting()}, {userName} !
+        {getGreeting()}, {firstName} !
       </span>
     </div>
   );

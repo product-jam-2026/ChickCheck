@@ -6,8 +6,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 1rem;
-  border: 2px solid #050130;
-  background: #E3F0FA;
+  background: #C7DCED;
   gap: 0.5rem;
   flex-direction: row-reverse
 }
@@ -16,10 +15,11 @@
   width: 1.5rem;
   height: 1.5rem;
   flex-shrink: 0;
+  fill: var(--d-9-d-9-d-9, #1F1F1F);
 }
 
 .helplineButtonText {
-  color: #050130;
+  color: var(--d-9-d-9-d-9, #1F1F1F);
   font-family: inherit;
   text-align: center;
   font-size: 1.875rem;

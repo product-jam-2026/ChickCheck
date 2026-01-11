@@ -5,19 +5,37 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: #050130;
+  background: var(--d-9-d-9-d-9, #1F1F1F);
   position: relative;
+  overflow: hidden;
+}
+
+.backgroundVideo {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22.125rem;
+  height: 39.3125rem;
+  aspect-ratio: 354/629;
+  padding: 5.19rem 1.38rem 8.75rem 1.06rem;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .loadingContent {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: flex-start;
+  gap: 0;
   width: 100%;
-  flex: 1;
+  height: 100%;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  padding-top: calc(50% + 16.5rem);
 }
 
 .loadingDisclaimerWrapper {
@@ -26,5 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 

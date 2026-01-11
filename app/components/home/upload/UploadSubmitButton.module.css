@@ -1,30 +1,24 @@
 .uploadSubmitButton {
   display: flex;
-  width: 18.6875rem;
-  padding: 0 0.9375rem;
+  width: 13.6875rem;
+  height: 2.8125rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
   align-items: center;
   justify-content: center;
-  border-radius: 1.25rem;
+  border-radius: 1rem;
   border: 2px solid #050130;
-  background: #E3F0FA;
+  background: #C7DCED;
   gap: 0.625rem;
-  flex-direction: row-reverse;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.uploadSubmitButton:hover {
-  opacity: 0.9;
-}
-
-.uploadSubmitButton:active {
-  opacity: 0.8;
+  flex-shrink: 0;
+  margin-bottom: 1.25rem;
+  margin-top: 0.5rem;
 }
 
 .uploadIcon {
   width: 1.20831rem;
   height: 1.20831rem;
   flex-shrink: 0;
+  fill: var(--d-9-d-9-d-9, #1F1F1F);
 }
 
 .submitButtonText {
@@ -33,7 +27,6 @@
   text-align: right;
   font-size: 1.875rem;
   font-style: normal;
-  font-weight: 700;
-  line-height: 3.75rem;
+  font-weight: 400;
 }
 

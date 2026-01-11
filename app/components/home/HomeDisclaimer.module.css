@@ -7,11 +7,12 @@
 .disclaimerTitle {
   text-align: center;
   font-family: inherit;
-  font-size: 1.375rem;
+  font-size: 1.375em;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  color: #fff;
+  color: var(--D5E8FC, #E3F0FA);
+  line-height: 110%;
 }
 
 .disclaimerText {
@@ -20,6 +21,7 @@
   font-style: normal;
   font-weight: 200;
   line-height: normal;
-  color: #fff;
+  color: var(--D5E8FC, #E3F0FA);
+  line-height: 110%;
 }
 

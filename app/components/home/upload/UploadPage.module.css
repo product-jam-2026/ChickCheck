@@ -13,8 +13,8 @@
 .uploadContent {
     width: var(--page-width);
     height: 38.5rem;
-    padding: 1.4375rem 0.75rem;
-    background: #050130;
+    padding: 1.25rem 2.9375rem;
+    background: var(--d-9-d-9-d-9, #1F1F1F);
     display: flex;
     flex-direction: column;
     align-items: center;

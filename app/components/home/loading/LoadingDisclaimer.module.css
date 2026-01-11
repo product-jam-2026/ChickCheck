@@ -9,7 +9,7 @@
 }
 
 .disclaimerTitle {
-  color: #050130;
+  color: var(--D5E8FC, #E3F0FA);
   text-align: center;
   font-family: SimplerPro;
   font-size: 1.375rem;
@@ -20,7 +20,7 @@
 }
 
 .disclaimerText {
-  color: #050130;
+  color: var(--D5E8FC, #E3F0FA);
   font-family: SimplerPro;
   font-size: 1.375rem;
   font-style: normal;

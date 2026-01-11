@@ -8,7 +8,7 @@ export default function LoadingDisclaimer() {
     <div className={styles.loadingDisclaimer}>
       <h3 className={styles.disclaimerTitle}>שימו לב!</h3>
       <p className={styles.disclaimerText}>
-      הבדיקה מבוססת על בינה מלאכותית ואינה מבטיחה דיוק מלא. בכל מקרה של ספק, מומלץ לנהוג בזהירות ולפנות לקו הסיוע.       </p>
+      הבדיקה מבוססת על בינה מלאכותית ואינה מבטיחה דיוק מלא. אם יש ספק, מומלץ לנהוג בזהירות ולפנות לטופס הסיוע.       </p>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 .profilePage {
   width: var(--page-width);
   height: var(--page-height);
-  background: #E3F0FA;
+  background: var(--d-9-d-9-d-9, #1F1F1F);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,16 +38,16 @@
 .backIcon {
   width: 1.20831rem;
   height: 1.20831rem;
-  fill: #050130;
+  fill: #E3F0FA;
 }
 
 .profileTitle {
-  color: #050130;
+  color: var(--D5E8FC, #E3F0FA);
   text-align: right;
   font-family: SimplerPro;
   font-size: 1.875rem;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: normal;
   margin: 0;
   width: 100%;
@@ -70,9 +70,8 @@
   align-self: flex-start;
   margin-right: 1.1875rem;
   border-radius: 1rem;
-  border: 2px solid #050130;
-  background: #E3F0FA;
-  color: #050130;
+  background: #C7DCED;
+  color: var(--d-9-d-9-d-9, #1F1F1F);
   text-align: center;
   font-family: SimplerPro;
   font-size: 1.875rem;
@@ -129,10 +128,10 @@
 }
 
 .userDetailValue {
-  color: #050130;
+  color: var(--D5E8FC, #E3F0FA);
   text-align: right;
   font-family: SimplerPro;
-  font-size: 1.875rem;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 200;
   line-height: normal;

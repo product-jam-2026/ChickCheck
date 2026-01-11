@@ -127,7 +127,7 @@ export default function Profile() {
           const seen = localStorage.getItem("seenUpdateIds");
           const seenIds = seen ? JSON.parse(seen) : [];
           const allUpdateIds = data.map((update) => update.id);
-          const allSeen = [...new Set([...seenIds, ...allUpdateIds])];
+          const allSeen = Array.from(new Set([...seenIds, ...allUpdateIds]));
           localStorage.setItem("seenUpdateIds", JSON.stringify(allSeen));
           setUnseenCount(0);
         }

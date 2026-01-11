@@ -41,7 +41,7 @@ export default function ProfilePage({
           aria-label="חזור"
         >
           <Image
-            src="/icons/back.svg"
+            src="/icons/back_white.svg"
             alt="Back"
             width={19.33}
             height={19.33}
@@ -82,7 +82,7 @@ export default function ProfilePage({
           aria-label="עריכה"
         >
           <Image
-            src="/icons/edit.svg"
+            src="/icons/edit_white.svg"
             alt="Edit"
             width={24}
             height={24}

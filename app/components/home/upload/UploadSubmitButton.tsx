@@ -20,7 +20,7 @@ export default function UploadSubmitButton({
       aria-label="שלח לבדיקה"
     >
       <span className={styles.submitButtonText}>
-        {isAnalyzing ? "מנתח..." : "שלח לבדיקה"}
+        {"שלח לבדיקה"}
       </span>
       {!isAnalyzing && (
         <Image

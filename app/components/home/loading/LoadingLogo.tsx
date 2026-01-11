@@ -10,7 +10,7 @@ export default function LoadingLogo() {
       <div className={styles.redLine}></div>
       <Image
         src="/icons/loading_logo.png"
-        alt="CHECKצי"
+        alt="CHECKציק"
         width={266}
         height={54}
         className={styles.logoImage}

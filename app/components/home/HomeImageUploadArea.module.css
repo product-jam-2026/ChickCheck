@@ -2,7 +2,7 @@
   width: 23rem;
   height: 26rem;
   border-radius: 1.9375rem;
-  border: 3px dashed #fff;
+  border: 3px dashed var(--D5E8FC, #E3F0FA);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,11 +27,11 @@
 }
 
 .uploadText {
-  color: #fff;
+  color: var(--D5E8FC, #E3F0FA);
   font-family: inherit;
-  font-size: 2rem;
+  font-size: 1.875rem;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   line-height: normal;
   text-align: center;
 }
@@ -40,4 +40,3 @@
   opacity: 0.8;
   border-color: #d9d9d9;
 }
-
