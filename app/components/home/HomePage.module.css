@@ -10,7 +10,7 @@
 }
 
 .topSpacer {
-  height: calc(2.3125rem + var(--safe-area-inset-top));
+  height: calc(4.625rem + var(--safe-area-inset-top));
   width: 100%;
   position: absolute;
   top: 0;

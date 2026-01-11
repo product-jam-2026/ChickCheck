@@ -10,7 +10,7 @@
 }
 
 .topSpacer {
-  height: calc(2.3125rem + var(--safe-area-inset-top));
+  height: calc(4.625rem + var(--safe-area-inset-top));
   width: 100%;
   position: absolute;
   top: 0;
@@ -29,7 +29,7 @@
   justify-content: center;
   position: absolute;
   right: 1.44rem;
-  top: 100%;
+  top: 50%;
   transform: translateY(-50%);
 }
 
