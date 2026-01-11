@@ -11,6 +11,7 @@
 .topSpacer {
   height: 5.94rem;
   width: 100%;
+  position: relative;
 }
 
 .profileHeader {
@@ -32,7 +33,9 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  left: 1.44rem;
+  right: 1.44rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .backIcon {
@@ -57,7 +60,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.94rem;
+  margin-bottom: 1.5rem;
   padding: 0 1.1875rem;
 }
 
@@ -79,38 +82,37 @@
   font-weight: 400;
   line-height: normal;
   cursor: pointer;
-  margin-bottom: 3.56rem;
+  margin-bottom: 3rem;
   flex-shrink: 0;
 }
 
 .logoutButton {
-  display: flex;
-  width: 16.125rem;
-  padding: 0.4375rem 0.6875rem 0.4375rem 1.0625rem;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  margin-right: 1.1875rem;
-  border-radius: 1rem;
-  border: 2px solid #050130;
-  background: #E3F0FA;
-  color: #050130;
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--D5E8FC, #E3F0FA);
   text-align: center;
   font-family: SimplerPro;
   font-size: 1.875rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  background: none;
+  border: none;
   cursor: pointer;
-  margin-bottom: 1.5rem;
-  flex-shrink: 0;
-  text-decoration: none;
+  padding: 1.5rem;
 }
 
 .userDetailsContainer {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: flex-start;
   width: 100%;
   padding: 0 1.1875rem;
@@ -121,7 +123,7 @@
 .userDetails {
   display: flex;
   flex-direction: column;
-  gap: 1.69rem;
+  gap: 1rem;
   flex: 1;
   align-items: flex-start;
   text-align: right;
@@ -143,11 +145,12 @@
   cursor: pointer;
   padding: 0;
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
-  margin-top: 0.25rem;
-  margin-left: 0.75rem;
-  flex-shrink: 0;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  width: 100%;
 }
 
 .editIcon {
@@ -155,3 +158,11 @@
   height: 1.5rem;
 }
 
+.editText {
+  color: var(--D5E8FC, #E3F0FA);
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}

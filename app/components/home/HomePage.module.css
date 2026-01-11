@@ -2,11 +2,19 @@
   display: flex;
   width: var(--page-width);
   height: var(--page-height);
-  padding-top: 4.625rem;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
   background: #E3F0FA;
+  position: relative;
+}
+
+.topSpacer {
+  height: 4.625rem;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .errorMessage {
@@ -34,7 +42,7 @@
   background: var(--d-9-d-9-d-9, #1F1F1F);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   padding: 1.6875rem 1rem;
   box-sizing: border-box;

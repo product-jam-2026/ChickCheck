@@ -32,9 +32,7 @@ export default function ProfilePage({
 }: ProfilePageProps) {
   return (
     <div className={styles.profilePage}>
-      <div className={styles.topSpacer}></div>
-      
-      <div className={styles.profileHeader}>
+      <div className={styles.topSpacer}>
         <button
           className={styles.backButton}
           onClick={onBackClick}
@@ -48,6 +46,9 @@ export default function ProfilePage({
             className={styles.backIcon}
           />
         </button>
+      </div>
+      
+      <div className={styles.profileHeader}>
         <h1 className={styles.profileTitle}>הפרופיל שלי</h1>
       </div>
 
@@ -67,6 +68,29 @@ export default function ProfilePage({
         היסטוריית בדיקות
       </button>
 
+      <div className={styles.userDetailsContainer}>
+        <div className={styles.userDetails}>
+          <div className={styles.userDetailValue}>{userName}</div>
+          <div className={styles.userDetailValue}>{userEmail}</div>
+          {userPhone && <div className={styles.userDetailValue}>{userPhone}</div>}
+        </div>
+      </div>
+
+      <button
+        className={styles.editButton}
+        onClick={onEditClick}
+        aria-label="עריכה"
+      >
+        <Image
+          src="/icons/edit_white.svg"
+          alt="Edit"
+          width={24}
+          height={24}
+          className={styles.editIcon}
+        />
+        <span className={styles.editText}>עריכה</span>
+      </button>
+
       <Link
         href="/logout"
         className={styles.logoutButton}
@@ -74,27 +98,6 @@ export default function ProfilePage({
       >
         התנתקות
       </Link>
-
-      <div className={styles.userDetailsContainer}>
-        <button
-          className={styles.editButton}
-          onClick={onEditClick}
-          aria-label="עריכה"
-        >
-          <Image
-            src="/icons/edit_white.svg"
-            alt="Edit"
-            width={24}
-            height={24}
-            className={styles.editIcon}
-          />
-        </button>
-        <div className={styles.userDetails}>
-          <div className={styles.userDetailValue}>{userName}</div>
-          <div className={styles.userDetailValue}>{userEmail}</div>
-          {userPhone && <div className={styles.userDetailValue}>{userPhone}</div>}
-        </div>
-      </div>
     </div>
   );
 }

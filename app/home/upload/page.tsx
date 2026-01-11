@@ -190,6 +190,10 @@ export default function Upload() {
     console.log("Helpline clicked");
   };
 
+  const handleBackClick = () => {
+    router.push("/");
+  };
+
   // Function to clear the uploaded image
   const clearImage = () => {
     // Clear sessionStorage so image won't reload
@@ -305,6 +309,7 @@ export default function Upload() {
         updateNotificationsCount={unseenCount}
         onUpdatesClick={handleUpdatesClick}
         onHelplineClick={handleHelplineClick}
+        onBackClick={handleBackClick}
         onSubmit={handleSubmit}
         isAnalyzing={isValidating || isAnalyzing}
         errorMessage={errorMessage}

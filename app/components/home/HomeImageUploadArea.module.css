@@ -1,13 +1,23 @@
 .homeImageUploadArea {
-  width: 23rem;
-  height: 26rem;
+  width: 100%;
+  height: 29.4375rem;
   border-radius: 1.9375rem;
-  border: 3px dashed var(--D5E8FC, #E3F0FA);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   position: relative;
+  background: var(--d-9-d-9-d-9, #1F1F1F);
+}
+
+.borderSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .fileInput {
@@ -24,6 +34,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .uploadText {
@@ -38,5 +50,45 @@
 
 .dragging {
   opacity: 0.8;
-  border-color: #d9d9d9;
+}
+
+.dragging .borderSvg {
+  opacity: 0.5;
+}
+
+.helpButton {
+  position: absolute;
+  bottom: 0.2rem;
+  right: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 2;
+  flex-direction: row-reverse;
+}
+
+.helpIcon {
+  width: 1.45831rem;
+  height: 1.45831rem;
+  flex-shrink: 0;
+}
+
+.helpText {
+  color: var(--D5E8FC, #E3F0FA);
+  text-align: right;
+  font-family: SimplerPro;
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: 6.5%;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
 }

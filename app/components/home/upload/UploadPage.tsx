@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import HomeHeader from "../HomeHeader";
 import UploadImageDisplay from "./UploadImageDisplay";
 import UploadSubmitButton from "./UploadSubmitButton";
@@ -14,6 +15,7 @@ interface UploadPageProps {
   onUpdatesClick?: () => void;
   onHelplineClick?: () => void;
   onSubmit?: () => void;
+  onBackClick?: () => void;
   isAnalyzing: boolean;
   errorMessage?: string | null;
 }
@@ -26,11 +28,28 @@ export default function UploadPage({
   onUpdatesClick,
   onHelplineClick,
   onSubmit,
+  onBackClick,
   isAnalyzing,
   errorMessage,
 }: UploadPageProps) {
   return (
     <div className={styles.uploadPage}>
+      <div className={styles.topSpacer}>
+        <button
+          className={styles.backButton}
+          onClick={onBackClick}
+          aria-label="חזור"
+        >
+          <Image
+            src="/icons/back_black.svg"
+            alt="Back"
+            width={19.33}
+            height={19.33}
+            className={styles.backIcon}
+          />
+        </button>
+      </div>
+      
       <HomeHeader
         userName={userName}
         updateNotificationsCount={updateNotificationsCount}

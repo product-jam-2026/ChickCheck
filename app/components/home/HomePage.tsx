@@ -25,6 +25,8 @@ export default function HomePage({
 }: HomePageProps) {
   return (
     <div className={styles.homePage}>
+      <div className={styles.topSpacer}></div>
+      
       <HomeHeader
         userName={userName}
         updateNotificationsCount={updateNotificationsCount}
