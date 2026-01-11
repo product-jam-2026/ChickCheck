@@ -12,7 +12,6 @@
   height: calc(5.94rem + var(--safe-area-inset-top));
   width: 100%;
   position: relative;
-  background: var(--d-9-d-9-d-9, #1F1F1F);
 }
 
 .profileHeader {
