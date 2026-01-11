@@ -52,27 +52,29 @@ export default function ProfilePage({
         <h1 className={styles.profileTitle}>הפרופיל שלי</h1>
       </div>
 
-      <div className={styles.actionButtons}>
-        <HomeUpdateButton
-          notificationsCount={updateNotificationsCount}
-          onClick={onUpdatesClick}
-        />
-        <HomeHelplineButton onClick={onHelplineClick} />
-      </div>
+      <div className={styles.contentContainer}>
+        <div className={styles.actionButtons}>
+          <HomeUpdateButton
+            notificationsCount={updateNotificationsCount}
+            onClick={onUpdatesClick}
+          />
+          <HomeHelplineButton onClick={onHelplineClick} />
+        </div>
 
-      <button
-        className={styles.historyButton}
-        onClick={onHistoryClick}
-        aria-label="היסטוריית בדיקות"
-      >
-        היסטוריית בדיקות
-      </button>
+        <button
+          className={styles.historyButton}
+          onClick={onHistoryClick}
+          aria-label="היסטוריית בדיקות"
+        >
+          היסטוריית בדיקות
+        </button>
 
-      <div className={styles.userDetailsContainer}>
-        <div className={styles.userDetails}>
-          <div className={styles.userDetailValue}>{userName}</div>
-          <div className={styles.userDetailValue}>{userEmail}</div>
-          {userPhone && <div className={styles.userDetailValue}>{userPhone}</div>}
+        <div className={styles.userDetailsContainer}>
+          <div className={styles.userDetails}>
+            <div className={styles.userDetailValue}>{userName}</div>
+            <div className={styles.userDetailValue}>{userEmail}</div>
+            {userPhone && <div className={styles.userDetailValue}>{userPhone}</div>}
+          </div>
         </div>
       </div>
 

@@ -101,9 +101,15 @@
   /* Typography */
   --font-family-default: "SimplerPro", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   
-  /* Page Dimensions */
-  --page-width: 24.5625rem;
-  --page-height: 53.25rem;
+  /* Safe Area Insets (for notches and rounded corners) */
+  --safe-area-inset-top: env(safe-area-inset-top, 0);
+  --safe-area-inset-right: env(safe-area-inset-right, 0);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0);
+  --safe-area-inset-left: env(safe-area-inset-left, 0);
+
+  /* Page Dimensions - Fluid for responsive design */
+  --page-width: 100vw;
+  --page-height: 100dvh;
 }
 
 /* Base Styles */
