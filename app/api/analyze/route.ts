@@ -19,8 +19,10 @@ export async function POST(req: Request) {
 
     const systemPrompt = `Analyze the content for fraud. 
     Respond ONLY with a valid JSON object.
+    
+    First, extract ALL text visible in the image. Include every word, number, and character exactly as it appears.
           
-    Calculate 'scamPercentage' (0-100) with adjusted weights:
+    Then, calculate 'scamPercentage' (0-100) with adjusted weights:
     - RISKS: Sensitive Info Request (50% - e.g. asking for credit card/password/PIN), Suspicious Links (20%), Urgency (15%), Reward (15%).
     - TRUST FACTORS (Mandatory reduction):
       1. If it tells the user to open an official app without a direct login link: -40%.
@@ -33,9 +35,10 @@ export async function POST(req: Request) {
 
     JSON Structure:
     {
+      "extractedText": "Complete text extracted from the image, preserving line breaks and formatting as much as possible",
       "scamPercentage": number,
-      "reasoning": "Short Hebrew explanation, devided into numeric bullet points if multiple reasons, with a space of a line between each bullet point.",
-      "action": "Short Hebrew advice",
+      "reasoning": "Short as possible Hebrew explanation, devided into numeric bullet points if multiple reasons, with a space of a line between each bullet point.",
+      "action": "Really short Hebrew advice",
       "detectedUrls": []
     }`;
 
@@ -84,7 +87,7 @@ export async function POST(req: Request) {
       throw new Error("המערכת התקשתה לעבד את התשובה. נסו שוב.");
     }
 
-    // לוגיקת Safe Browsing
+    // Safe Browsing logic
     finalResult.technicalCheck = { activated: false, isDangerous: false };
     if (finalResult.detectedUrls?.length > 0) {
       finalResult.technicalCheck.activated = true;
@@ -96,7 +99,7 @@ export async function POST(req: Request) {
       }
     }
 
-    // קביעת סטטוס סופי
+    // Determine final status
     if (finalResult.scamPercentage > 60) finalResult.status = "NOT_SAFE";
     else if (finalResult.scamPercentage >= 40) finalResult.status = "UNCLEAR";
     else finalResult.status = "SAFE";

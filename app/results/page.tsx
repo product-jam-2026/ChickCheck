@@ -12,6 +12,7 @@ interface AnalysisResult {
   scamPercentage: number;
   reasoning: string;
   action: string;
+  extractedText?: string;
   technicalCheck?: {
     activated: boolean;
     isDangerous: boolean;

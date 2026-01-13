@@ -1,10 +1,8 @@
 .container {
   width: 100%;
-  max-width: 24.5625rem;
-  min-height: 100vh;
-  height: 100vh;
-  background: #050130;
-  color: #ffffff;
+  min-height: var(--page-height);
+  background: #1F1F1F;
+  color: #E3F0FA;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,7 +76,7 @@
 .logoutButton {
   background: transparent;
   border: none;
-  color: #ffffff;
+  color: #E3F0FA;
   font-size: 1.375rem;
   font-weight: 500;
   cursor: pointer;
@@ -91,7 +89,7 @@
 }
 
 .logoutButton:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(227, 240, 250, 0.8);
 }
 
 .logoContainer {

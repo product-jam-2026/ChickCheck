@@ -43,7 +43,6 @@ export default function UpdatesPage({
     <div className={styles.container}>
       <div className={styles.headerContainer}>
         <header className={styles.header}>
-          <h1 className={styles.title}>עדכונים</h1>
           <button
             className={styles.backButton}
             onClick={onBackClick}
@@ -57,6 +56,7 @@ export default function UpdatesPage({
               className={styles.arrowIcon}
             />
           </button>
+          <h1 className={styles.title}>עדכונים</h1>
         </header>
       </div>
 
@@ -87,10 +87,10 @@ export default function UpdatesPage({
           <div key={update.id} className={styles.updateItemWrapper}>
             <div className={styles.messageIconContainer}>
               <Image
-                src="/icons/isoc_message_icon.png"
+                src="/icons/isoc_icon.svg"
                 alt="ISOC Message"
-                width={48}
-                height={48}
+                width={32}
+                height={32}
                 className={styles.messageIcon}
               />
             </div>

@@ -118,12 +118,12 @@
 }
 
 .submitButton {
-  background: #050130;
+  background: #1F1F1F;
   color: #ffffff;
 }
 
 .submitButton:hover {
-  background: rgba(5, 1, 48, 0.9);
+  background: rgba(31, 31, 31, 0.9);
 }
 
 .submitButton:disabled,
