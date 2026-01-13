@@ -1,26 +1,43 @@
 import styles from "./page.module.css";
 import GoogleLoginButton from "./GoogleLoginButton";
 
-const ADMIN_EMAIL = "galeliahu30@gmail.com";
+// Local brand icon from public/icons
+const BRAND_IMAGE = "/icons/chickckeckicon.svg";
 
 export default async function Login({
   searchParams,
 }: {
   searchParams: Promise<{ message?: string }>;
 }) {
-  // Middleware handles redirecting logged-in users away from login page
-  // No need to duplicate the check here
-  
   const params = await searchParams;
 
   return (
-    <div className="content">
-      <div className={styles.loginForm}>
-        {params?.message && (
-          <p className={styles.errorMessage}>{params.message}</p>
-        )}
-        <GoogleLoginButton />
-      </div>
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <h1 className={styles.greeting}>
+          שלום:)
+          <br />
+          ברוכים הבאים!
+        </h1>
+      </header>
+
+      <main className={styles.main}>
+        <p className={styles.subtitle}>התחברות באמצעות:</p>
+        <div className={styles.loginForm}>
+          {params?.message && (
+            <p className={styles.errorMessage}>{params.message}</p>
+          )}
+          <GoogleLoginButton className={styles.googleButton} />
+        </div>
+      </main>
+
+      <footer className={styles.brand} aria-hidden>
+        <img
+          src={BRAND_IMAGE}
+          alt="CheckCheck brand"
+          className={styles.brandImage}
+        />
+      </footer>
     </div>
   );
 }

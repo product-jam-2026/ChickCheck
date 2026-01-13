@@ -77,7 +77,12 @@
 :root {
   /* Primary Colors */
   --color-primary: #050130; /* כחול כהה - רקע, לוגואים וכיתובים */
-  --color-background-light: #d9d9d9; /* לבן/רקע בהיר */
+
+  --color-background-primary: #1F1F1F;
+  --color-background-light: #E3F0FA; /* לבן/רקע בהיר */
+
+
+
   
   /* Text Colors */
   --color-text-dark: #050130;
