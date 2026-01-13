@@ -2,11 +2,15 @@
 
 import { createClient } from "@/lib/supabase/client";
 
-const GoogleLoginButton = () => {
+type Props = {
+  className?: string;
+};
+
+const GoogleLoginButton = ({ className }: Props) => {
   const supabase = createClient();
 
   const handleGoogleLogin = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
@@ -20,32 +24,8 @@ const GoogleLoginButton = () => {
   };
 
   return (
-    <button
-      type="button"
-      onClick={handleGoogleLogin}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "0.75rem 1rem",
-        backgroundColor: "#E3F0FA",
-        color: "#1f1f1f",
-        border: "1px solid #dadce0",
-        borderRadius: "4px",
-        fontSize: "0.875rem",
-        fontWeight: 500,
-        cursor: "pointer",
-        width: "100%",
-        maxWidth: "290px",
-        marginTop: "1rem",
-      }}
-    >
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 18 18"
-        style={{ marginLeft: "8px" }}
-      >
+    <button type="button" onClick={handleGoogleLogin} className={className}>
+      <svg width="18" height="18" viewBox="0 0 18 18" style={{ marginLeft: 8 }}>
         <path
           fill="#4285F4"
           d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"
