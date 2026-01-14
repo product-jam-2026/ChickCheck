@@ -583,6 +583,8 @@ export default function ReportProcess() {
     }
   };
 
+  const exitProcess = () => router.push('/');
+
   const handleFinalSubmit = async () => {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -624,7 +626,7 @@ export default function ReportProcess() {
     }}>
       {/* Step Rendering */}
       {step === 0 && <LandingStep onNext={nextStep} onBack={prevStep}/>}
-      {step === 1 && <IdentityStep data={formData} set={setFormData} onNext={nextStep} />}
+      {step === 1 && <IdentityStep data={formData} set={setFormData} onNext={nextStep} onBack={prevStep} onExit={exitProcess}/>}
       {step === 2 && <IncidentTypeStep data={formData} set={setFormData} onNext={nextStep} />}
       {step === 3 && <PlatformStep data={formData} set={setFormData} onNext={nextStep} />}
       {step === 4 && <DescriptionStep data={formData} set={setFormData} onNext={nextStep} />}
