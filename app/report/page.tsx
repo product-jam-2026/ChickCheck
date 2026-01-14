@@ -33,82 +33,70 @@ const ProgressHeader = ({ step, onBack, onExit }: { step: number, onBack: () => 
   );
 
   return (
-    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-       {/* 1. Header with X and Back Arrow */}
-       <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x} style={{ padding: '20px 0' }}>
-            
-            {/* Arrow Icon (Back) - Right Side in RTL */}
-            <button 
-              onClick={onBack} 
-              className={styles.backButtonWrapper} 
-              style={{ width: 'auto' }}
-            >
-              <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_arrow}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 20 20" fill="none">
-                  <path d="M14.7111 10.875L7.94447 17.6417L9.66634 19.3333L19.333 9.66667L9.66634 0L7.94447 1.69167L14.7111 8.45833H-0.000326157V10.875H14.7111Z" fill="#1F1F1F"/>
-                </svg>
-              </div>
-            </button>
+  <div className={styles.step_one_sub_sub_sub_frame_progress_bar}>
+    <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame}>      {/* 1. Header with X and Back Arrow */}
+      <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x}> 
+        {/* Arrow Icon (Back) - Right Side in RTL */}
+        <button 
+          onClick={onBack} 
+          className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_arrow} 
+          style={{ width: 'auto' }}
+        >
+          <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_arrow}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 20 20" fill="none">
+              <path d="M14.7111 10.875L7.94447 17.6417L9.66634 19.3333L19.333 9.66667L9.66634 0L7.94447 1.69167L14.7111 8.45833H-0.000326157V10.875H14.7111Z" fill="#1F1F1F"/>
+            </svg>
+          </div>
+        </button>
 
-            {/* X Icon (Exit) - Left Side in RTL */}
-            <button 
-              onClick={onExit} 
-              className={styles.backButtonWrapper} 
-              style={{ width: 'auto' }}
-            >
-              <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_x}>
-                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
-                  <path d="M16.793 1.75L9.79297 8.75L16.793 15.75L15.75 16.793L8.75 9.79297L1.75 16.793L0.707031 15.75L7.70703 8.75L0.707031 1.75L1.75 0.707031L8.75 7.70703L15.75 0.707031L16.793 1.75Z" fill="#1F1F1F" stroke="#1F1F1F"/>
-                </svg>
-              </div>
-            </button>
+        {/* X Icon (Exit) - Left Side in RTL */}
+        <button 
+          onClick={onExit} 
+          className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_x} 
+          style={{ width: 'auto' }}
+        >
+          <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_x}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+              <path d="M16.793 1.75L9.79297 8.75L16.793 15.75L15.75 16.793L8.75 9.79297L1.75 16.793L0.707031 15.75L7.70703 8.75L0.707031 1.75L1.75 0.707031L8.75 7.70703L15.75 0.707031L16.793 1.75Z" fill="#1F1F1F" stroke="#1F1F1F"/>
+            </svg>
+          </div>
+        </button>
       </div>
 
       {/* 2. Progress Bar */}
-      <div className={styles.step_one_sub_sub_sub_frame_progress_bar}>
-          <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame}>
-            <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar}>
+      <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar}>
+
+          {/* The Lines and Circles */}
+          <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar}>
+            <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame}>
                 
-                {/* The Lines and Circles */}
-                <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar}>
-                  <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                      
-                      {/* Right Circle (Details) */}
-                      {renderCircle(isDetailsActive)}
-                      
-                      {/* Line 1 */}
-                      <div style={{ flex: 1, height: '1px', background: '#1F1F1F', margin: '0 8px', opacity: 0.3 }}></div>
-                      
-                      {/* Middle Circle (Topic) */}
-                      {renderCircle(isTopicActive)}
-                      
-                      {/* Line 2 */}
-                      <div style={{ flex: 1, height: '1px', background: '#1F1F1F', margin: '0 8px', opacity: 0.3 }}></div>
-                      
-                      {/* Left Circle (Finish) */}
-                      {renderCircle(isFinishActive)}
-                      
-                  </div>
-                </div>
-
-                {/* The Text Labels */}
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  width: '100%', 
-                  padding: '0 5px', 
-                  marginTop: '-5px',
-                  direction: 'rtl' // Force Hebrew direction for text
-                }}>
-                  <span style={{ fontSize: '14px', color: isDetailsActive ? '#000' : '#666', fontWeight: isDetailsActive ? 600 : 400 }}>פרטים</span>
-                  <span style={{ fontSize: '14px', color: isTopicActive ? '#000' : '#666', fontWeight: isTopicActive ? 600 : 400 }}>נושא</span>
-                  <span style={{ fontSize: '14px', color: isFinishActive ? '#000' : '#666', fontWeight: isFinishActive ? 600 : 400 }}>סיום</span>
-                </div>
-
+                {/* Right Circle (Details) */}
+                {renderCircle(isDetailsActive)}
+                
+                {/* Line 1 */}
+                <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame_line_icon}></div>
+                
+                {/* Middle Circle (Topic) */}
+                {renderCircle(isTopicActive)}
+                
+                {/* Line 2 */}
+                <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame_line_icon}></div>
+                
+                {/* Left Circle (Finish) */}
+                {renderCircle(isFinishActive)}
+                
             </div>
+          </div>
+
+          {/* The Text Labels */}
+          <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_text}>
+            <span className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_text_var_text}>פרטים</span>
+            <span className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_text_var_text}>נושא</span>
+            <span className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_text_var_text}>סיום</span>
           </div>
       </div>
     </div>
+  </div>
   );
 };
 
@@ -158,7 +146,6 @@ const LandingStep = ({ onNext, onBack }: { onNext: () => void; onBack: () => voi
 };
 
 // STEP 1: IDENTITY (Auto-fills from Google Auth)
-// STEP 1: IDENTITY (Auto-fills from Google Auth)
 const IdentityStep = ({ 
   data, 
   set, 
@@ -197,14 +184,13 @@ const IdentityStep = ({
 
   return (
     // MAIN FRAME
-    <div className={styles.step_one_all_frame}>
+    <div className={styles.step_one_auto}>
       {/* --- FORM CONTENT --- */}
-      {/* INSERT HEADER HERE (Active Step = 1) */}
-      <ProgressHeader step={1} onBack={onBack} onExit={onExit} /> {/* TODO CHECK TO PUT ELSEWHERE */}
       <div className={styles.step_one_sub_frame}>
         <div className={styles.step_one_sub_sub_frame}>
-          
-          {/* Name & Email Section */}
+          {/* INSERT HEADER HERE (Active Step = 1) */}
+          <ProgressHeader step={1} onBack={onBack} onExit={onExit} /> {/* TODO CHECK TO PUT ELSEWHERE */}
+          {/* Name Email & Correction Section */}
           <div className={styles.step_one_sub_sub_sub_frame_text_correct_button}>
             <div className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_text}>
               <span className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_text_one}>
@@ -217,7 +203,6 @@ const IdentityStep = ({
                  כדי שנוכל לעזור, אנחנו צריכים שתמלא/י את הפרטים הבאים:
               </span>
             </div>
-            
             {/* The "Not Me?" / Correct Button */}
             <div className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_button}>
                <div className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_button_icon}>
@@ -230,39 +215,13 @@ const IdentityStep = ({
                </span>
             </div>
           </div>
-
-          {/* Inputs for Phone & Gender */}
-          {/* Note: I am wrapping standard inputs in the text styles for now, 
-              as the CSS didn't explicitly give input box styles, only text layouts. */}
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
-            <input 
-              value={data.phone}
-              onChange={(e) => set({ ...data, phone: e.target.value })}
-              placeholder="מספר טלפון (050-0000000)"
-              style={{ padding: '15px', borderRadius: '10px', border: '1px solid #ccc', fontSize: '1rem', textAlign: 'right' }}
-            />
-
-            <select 
-              value={data.gender}
-              onChange={(e) => set({ ...data, gender: e.target.value })}
-              style={{ padding: '15px', borderRadius: '10px', border: '1px solid #ccc', fontSize: '1rem', textAlign: 'right', backgroundColor: '#fff' }}
-            >
-              <option value="">בחר מגדר</option>
-              <option value="male">זכר</option>
-              <option value="female">נקבה</option>
-              <option value="other">מעדיף לא לענות</option>
-            </select>
-          </div>
-
         </div>
       </div>
 
       {/* --- FORWARD BUTTON --- */}
       <button 
         onClick={onNext} 
-        disabled={!data.gender || !data.phone}
         className={styles.step_one_forward_button}
-        style={{ margin: '20px auto', opacity: (!data.gender || !data.phone) ? 0.5 : 1 }}
       >
         <span className={styles.step_one_forward_button_text}>
           המשך

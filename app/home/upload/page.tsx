@@ -186,6 +186,7 @@ export default function Upload() {
 
   const handleHelplineClick = () => {
     console.log("Helpline clicked");
+    router.push('/report');
   };
 
   const handleBackClick = () => {
