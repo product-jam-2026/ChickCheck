@@ -154,6 +154,7 @@ export default function Profile() {
   const handleHelplineClick = () => {
     console.log("Helpline clicked");
     // TODO: Navigate to helpline or open contact
+    router.push('/report');
   };
 
   const handleHistoryClick = () => {
