@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
-import AccordionButton from "./AccordionButton";
+import HomeDisclaimer from "@/app/components/home/HomeDisclaimer";
 import ActionAccordion from "./ActionAccordion";
 import DetailAccordion from "./DetailAccordion";
 
@@ -67,7 +67,6 @@ export default function Page() {
                     />
                 </button>
             </div>
-
             <div className={styles.resultSection}>
                 <div className={styles.iconContainer}>
                     <Icon status={status} />
@@ -89,14 +88,8 @@ export default function Page() {
                 />)}
             
 
-                {/* Keep these inside the result flow to avoid overlap */}
-                <div className={styles.notice} aria-label="שימו לב">
-                    <p>
-                        <strong>שימו לב!</strong>
-                        <br />
-                        התוכן נבדק באמצעות מערכות בינה מלאכותית ולכן יש לשים לב שהתוצאה אינה וודאית במאת האחוזים.
-                    </p>
-                </div>
+                {/* Disclaimer component from home */}
+                <HomeDisclaimer />
 
                 <div className={styles.footer}>
                     <a 
@@ -210,20 +203,6 @@ function ShareButton() {
         <button className={styles.pillButton} onClick={onShare}>
             <Image src="/icons/share_icon.svg" alt="שיתוף" width={20} height={20} className={styles.pillIcon} />
             שיתוף
-        </button>
-    );
-}
-
-function AssistButton() {
-    const onAssist = () => {
-        const mail = 'mailto:?subject=' + encodeURIComponent('בקשת סיוע מ-ChickCheck') + '&body=' + encodeURIComponent('אשמח לסיוע בהקשר התוכן שבדקתי.');
-        window.location.href = mail;
-    };
-
-    return (
-        <button className={styles.pillButton} onClick={onAssist}>
-            <Image src="/icons/mail.svg" alt="פנייה לסיוע" width={20} height={20} className={styles.pillIcon} />
-            פנייה לסיוע
         </button>
     );
 }

@@ -18,7 +18,7 @@
   font-weight: 600; /* Semibold */
   line-height: 1.05;
   text-align: right;
-  font-size: clamp(2.25rem, 9vw, 3.75rem); /* up to 60px */
+  font-size: 3.75rem;
   white-space: pre-line;
 }
 
@@ -31,7 +31,7 @@
 .subtitle {
   margin-top: 1.75rem; /* ~28px before button */
   color: var(--color-background-light);
-  font-weight: 300; /* Light */
+  font-weight: 200; /* Light */
   font-size: 1.5rem; /* 24px */
   text-align: center;
 }
