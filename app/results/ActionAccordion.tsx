@@ -7,13 +7,11 @@ import AccordionButton from "./AccordionButton";
 
 type Props = {
   title?: string;
-  actionText: string;
   maxWidth?: string; // align with title width for the current status
 };
 
 export default function ActionAccordion({
   title = "מה עושים עכשיו?",
-  actionText,
   maxWidth = "22.0625rem",
 }: Props) {
   const [open, setOpen] = useState(false);
@@ -47,17 +45,8 @@ export default function ActionAccordion({
 
   const extra = (
     <div className={styles.ctaRow}>
-      <button className={styles.pillButton} onClick={onAssist}>
-        <Image
-          src="/icons/mail.svg"
-          alt="פנייה לסיוע"
-          width={20}
-          height={20}
-          className={styles.pillIcon}
-        />
-        פנייה לסיוע
-      </button>
       <button className={styles.pillButton} onClick={onShare}>
+        שיתוף
         <Image
           src="/icons/share_icon.svg"
           alt="שיתוף"
@@ -65,7 +54,16 @@ export default function ActionAccordion({
           height={20}
           className={styles.pillIcon}
         />
-        שיתוף
+      </button>
+      <button className={styles.pillButton} onClick={onAssist}>
+        פנייה לסיוע
+        <Image
+          src="/icons/mail.svg"
+          alt="פנייה לסיוע"
+          width={20}
+          height={20}
+          className={styles.pillIcon}
+        />
       </button>
     </div>
   );
@@ -76,7 +74,7 @@ export default function ActionAccordion({
         title={title}
         isOpen={open}
         onToggle={() => setOpen((v) => !v)}
-        content={actionText}
+        variant="action"
         extra={extra}
       />
     </div>
