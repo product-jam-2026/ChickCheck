@@ -40,7 +40,7 @@ export async function saveScanToSupabase(
     const { error: dbError } = await supabaseAdmin
       .from("search_history") // שם הטבלה שלך
       .insert({
-        created_at: new Date().toISOString(),
+        created_at: new Date().toISOString().split('T')[0],
         user_id: userId,
         content : analysisResult.extractedText,
         image_url: filePath,

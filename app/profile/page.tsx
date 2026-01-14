@@ -158,8 +158,7 @@ export default function Profile() {
   };
 
   const handleHistoryClick = () => {
-    console.log("History clicked");
-    // TODO: Navigate to history page
+    router.push("/history");
   };
 
   const handleEditClick = () => {
