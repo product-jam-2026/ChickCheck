@@ -11,6 +11,107 @@ import styles from './report.module.css';
    ADD THESE COMPONENTS ABOVE YOUR "ReportProcess" FUNCTION
 ------------------------------------------------------------ */
 
+// Reusable Header for Steps 1-5
+const ProgressHeader = ({ step, onBack, onExit }: { step: number, onBack: () => void, onExit: () => void }) => {
+  
+  // Logic for which circle is active (Black)
+  const isDetailsActive = step === 1;
+  const isTopicActive = step >= 2 && step <= 4;
+  const isFinishActive = step === 5;
+
+  const renderCircle = (isActive: boolean) => (
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+      <circle 
+        cx="6.23" 
+        cy="6.23" 
+        r="5.45" 
+        fill={isActive ? "#1F1F1F" : "#E3F0FA"} 
+        stroke="#1F1F1F" 
+        strokeWidth="1.55"
+      />
+    </svg>
+  );
+
+  return (
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+       {/* 1. Header with X and Back Arrow */}
+       <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x} style={{ padding: '20px 0' }}>
+            
+            {/* Arrow Icon (Back) - Right Side in RTL */}
+            <button 
+              onClick={onBack} 
+              className={styles.backButtonWrapper} 
+              style={{ width: 'auto' }}
+            >
+              <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_arrow}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 20 20" fill="none">
+                  <path d="M14.7111 10.875L7.94447 17.6417L9.66634 19.3333L19.333 9.66667L9.66634 0L7.94447 1.69167L14.7111 8.45833H-0.000326157V10.875H14.7111Z" fill="#1F1F1F"/>
+                </svg>
+              </div>
+            </button>
+
+            {/* X Icon (Exit) - Left Side in RTL */}
+            <button 
+              onClick={onExit} 
+              className={styles.backButtonWrapper} 
+              style={{ width: 'auto' }}
+            >
+              <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_x}>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M16.793 1.75L9.79297 8.75L16.793 15.75L15.75 16.793L8.75 9.79297L1.75 16.793L0.707031 15.75L7.70703 8.75L0.707031 1.75L1.75 0.707031L8.75 7.70703L15.75 0.707031L16.793 1.75Z" fill="#1F1F1F" stroke="#1F1F1F"/>
+                </svg>
+              </div>
+            </button>
+      </div>
+
+      {/* 2. Progress Bar */}
+      <div className={styles.step_one_sub_sub_sub_frame_progress_bar}>
+          <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame}>
+            <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar}>
+                
+                {/* The Lines and Circles */}
+                <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar}>
+                  <div className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                      
+                      {/* Right Circle (Details) */}
+                      {renderCircle(isDetailsActive)}
+                      
+                      {/* Line 1 */}
+                      <div style={{ flex: 1, height: '1px', background: '#1F1F1F', margin: '0 8px', opacity: 0.3 }}></div>
+                      
+                      {/* Middle Circle (Topic) */}
+                      {renderCircle(isTopicActive)}
+                      
+                      {/* Line 2 */}
+                      <div style={{ flex: 1, height: '1px', background: '#1F1F1F', margin: '0 8px', opacity: 0.3 }}></div>
+                      
+                      {/* Left Circle (Finish) */}
+                      {renderCircle(isFinishActive)}
+                      
+                  </div>
+                </div>
+
+                {/* The Text Labels */}
+                <div style={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between', 
+                  width: '100%', 
+                  padding: '0 5px', 
+                  marginTop: '-5px',
+                  direction: 'rtl' // Force Hebrew direction for text
+                }}>
+                  <span style={{ fontSize: '14px', color: isDetailsActive ? '#000' : '#666', fontWeight: isDetailsActive ? 600 : 400 }}>פרטים</span>
+                  <span style={{ fontSize: '14px', color: isTopicActive ? '#000' : '#666', fontWeight: isTopicActive ? 600 : 400 }}>נושא</span>
+                  <span style={{ fontSize: '14px', color: isFinishActive ? '#000' : '#666', fontWeight: isFinishActive ? 600 : 400 }}>סיום</span>
+                </div>
+
+            </div>
+          </div>
+      </div>
+    </div>
+  );
+};
+
 // STEP 0: LANDING / INTRO
 const LandingStep = ({ onNext, onBack }: { onNext: () => void; onBack: () => void }) => {
   return (
@@ -57,19 +158,24 @@ const LandingStep = ({ onNext, onBack }: { onNext: () => void; onBack: () => voi
 };
 
 // STEP 1: IDENTITY (Auto-fills from Google Auth)
+// STEP 1: IDENTITY (Auto-fills from Google Auth)
 const IdentityStep = ({ 
   data, 
   set, 
-  onNext 
+  onNext,
+  onBack,
+  onExit
 }: { 
   data: any; 
   set: any; 
-  onNext: () => void 
+  onNext: () => void;
+  onBack: () => void;
+  onExit: () => void;
 }) => {
   const supabase = createClient();
   const [loading, setLoading] = React.useState(true);
 
-  // Auto-fetch user details ONLY ONCE when this step loads
+  // Auto-fetch user details ONLY ONCE
   React.useEffect(() => {
     const fetchUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -78,7 +184,6 @@ const IdentityStep = ({
           ...prev,
           fullName: user.user_metadata.full_name || '',
           email: user.email || '',
-          // We don't overwrite phone/gender if they already typed it
           phone: prev.phone || user.user_metadata.phone || '', 
         }));
       }
@@ -86,53 +191,84 @@ const IdentityStep = ({
     };
     fetchUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // <--- CHANGED TO EMPTY ARRAY
+  }, []); 
 
-  if (loading) return <div>Loading user details...</div>;
+  if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="step-container">
-      <h2>פרטים אישיים</h2>
-      <label>שם מלא</label>
-      <input 
-        value={data.fullName} 
-        disabled 
-        className="input-disabled"
-      />
-      
-      <label>אימייל</label>
-      <input 
-        value={data.email} 
-        disabled 
-        className="input-disabled"
-      />
+    // MAIN FRAME
+    <div className={styles.step_one_all_frame}>
+      {/* --- FORM CONTENT --- */}
+      {/* INSERT HEADER HERE (Active Step = 1) */}
+      <ProgressHeader step={1} onBack={onBack} onExit={onExit} /> {/* TODO CHECK TO PUT ELSEWHERE */}
+      <div className={styles.step_one_sub_frame}>
+        <div className={styles.step_one_sub_sub_frame}>
+          
+          {/* Name & Email Section */}
+          <div className={styles.step_one_sub_sub_sub_frame_text_correct_button}>
+            <div className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_text}>
+              <span className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_text_one}>
+                היי {data.fullName},
+              </span>
+              <span className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_text_two}>
+                 אנחנו מצטערים לשמוע שזה מה שקרה.
+              </span>
+               <span className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_text_three}>
+                 כדי שנוכל לעזור, אנחנו צריכים שתמלא/י את הפרטים הבאים:
+              </span>
+            </div>
+            
+            {/* The "Not Me?" / Correct Button */}
+            <div className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_button}>
+               <div className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_button_icon}>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M2 16H3.425L13.2 6.225L11.775 4.8L2 14.575V16ZM0 18V13.75L13.2 0.575C13.4 0.391667 13.6208 0.25 13.8625 0.15C14.1042 0.05 14.3583 0 14.625 0C14.8917 0 15.15 0.05 15.4 0.15C15.65 0.25 15.8667 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.7708 2.4 17.8625 2.65C17.9542 2.9 18 3.15 18 3.4C18 3.66667 17.9542 3.92083 17.8625 4.1625C17.7708 4.40417 17.625 4.625 17.425 4.825L4.25 18H0ZM12.475 5.525L11.775 4.8L13.2 6.225L12.475 5.525Z" fill="#1F1F1F"/>
+                </svg>
+               </div>
+               <span className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_button_text}>
+                 תיקון
+               </span>
+            </div>
+          </div>
 
-      <label>טלפון</label>
-      <input 
-        value={data.phone}
-        onChange={(e) => set({ ...data, phone: e.target.value })}
-        placeholder="050-0000000"
-      />
+          {/* Inputs for Phone & Gender */}
+          {/* Note: I am wrapping standard inputs in the text styles for now, 
+              as the CSS didn't explicitly give input box styles, only text layouts. */}
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
+            <input 
+              value={data.phone}
+              onChange={(e) => set({ ...data, phone: e.target.value })}
+              placeholder="מספר טלפון (050-0000000)"
+              style={{ padding: '15px', borderRadius: '10px', border: '1px solid #ccc', fontSize: '1rem', textAlign: 'right' }}
+            />
 
-      <label>מגדר</label>
-      <select 
-        value={data.gender}
-        onChange={(e) => set({ ...data, gender: e.target.value })}
-      >
-        <option value="">בחר מגדר</option>
-        <option value="male">זכר</option>
-        <option value="female">נקבה</option>
-        <option value="other">מעדיף לא לענות</option>
-      </select>
+            <select 
+              value={data.gender}
+              onChange={(e) => set({ ...data, gender: e.target.value })}
+              style={{ padding: '15px', borderRadius: '10px', border: '1px solid #ccc', fontSize: '1rem', textAlign: 'right', backgroundColor: '#fff' }}
+            >
+              <option value="">בחר מגדר</option>
+              <option value="male">זכר</option>
+              <option value="female">נקבה</option>
+              <option value="other">מעדיף לא לענות</option>
+            </select>
+          </div>
 
-      {/* Button is disabled until Phone AND Gender are filled */}
+        </div>
+      </div>
+
+      {/* --- FORWARD BUTTON --- */}
       <button 
         onClick={onNext} 
-        disabled={!data.gender}
-        style={{ opacity: (!data.gender) ? 0.5 : 1 }} // Visual feedback
+        disabled={!data.gender || !data.phone}
+        className={styles.step_one_forward_button}
+        style={{ margin: '20px auto', opacity: (!data.gender || !data.phone) ? 0.5 : 1 }}
       >
-        המשך
+        <span className={styles.step_one_forward_button_text}>
+          המשך
+        </span>
       </button>
+
     </div>
   );
 };
@@ -483,28 +619,9 @@ export default function ReportProcess() {
       paddingRight: 'env(safe-area-inset-right)',
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      alignItems: 'center'
     }}>
-    {step !== 0 && (
-      <header style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px' }}>
-         <button onClick={prevStep} className={styles.backButtonWrapper}>
-          <svg 
-           className={styles.step_zero_arrow} // Apply your custom size class here
-           xmlns="http://www.w3.org/2000/svg" 
-           width="20" 
-           height="20" 
-           viewBox="0 0 20 20" 
-           fill="none"
-          >
-           <path 
-             d="M14.7111 10.875L7.94447 17.6417L9.66634 19.3333L19.333 9.66667L9.66634 0L7.94447 1.69167L14.7111 8.45833H-0.000326157V10.875H14.7111Z" 
-             fill="currentColor" 
-           />
-          </svg>
-         </button>
-      </header>
-    )}
-
       {/* Step Rendering */}
       {step === 0 && <LandingStep onNext={nextStep} onBack={prevStep}/>}
       {step === 1 && <IdentityStep data={formData} set={setFormData} onNext={nextStep} />}
