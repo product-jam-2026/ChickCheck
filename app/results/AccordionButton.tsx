@@ -12,6 +12,7 @@ interface AccordionButtonProps {
         activated: boolean;
         isDangerous: boolean;
     };
+    extra?: React.ReactNode; // optional extra content rendered below the text
 }
 
 export default function AccordionButton({
@@ -20,26 +21,27 @@ export default function AccordionButton({
     onToggle,
     content,
     technicalCheck,
+    extra,
 }: AccordionButtonProps) {
     return (
-        <div className={styles.accordionWrapper}>
+        <div className={styles.accordionWrapperPlain}>
             <button 
-                className={`${styles.resultButton} ${isOpen ? styles.active : ''}`}
+                className={ styles.linkButton}
                 onClick={onToggle}
             >
                 <span>{title}</span>
-                <span className={styles.arrow}> {isOpen ? 'v' : '<'}</span>
             </button>
             
             {isOpen && (
-                <div className={styles.contentBox}>
-                    <div className={styles.scrollableContent}>
+                <div className={styles.contentPlain}>
+                    <div className={styles.contentPlainInner}>
                         <p className={styles.contentText}>{content}</p>
                         {technicalCheck?.activated && (
                             <div className={`${styles.techBadge} ${technicalCheck.isDangerous ? styles.techDanger : styles.techSafe}`}>
                                 {technicalCheck.isDangerous ? "⚠️ זוהה איום טכני בקישור" : "🛡️ הקישור נסרק ונמצא נקי"}
                             </div>
                         )}
+                        {extra}
                     </div>
                 </div>
             )}
