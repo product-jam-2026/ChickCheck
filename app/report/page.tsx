@@ -5,10 +5,56 @@ import { useRouter } from 'next/navigation';
 // Import your Supabase functions
 import { updatePublicUser, createIncidentReport } from '@/lib/supabase/report';
 import { createClient } from '@/lib/supabase/client';
+import styles from './report.module.css';
 
 /* ------------------------------------------------------------
    ADD THESE COMPONENTS ABOVE YOUR "ReportProcess" FUNCTION
 ------------------------------------------------------------ */
+
+// STEP 0: LANDING / INTRO
+const LandingStep = ({ onNext, onBack }: { onNext: () => void; onBack: () => void }) => {
+  return (
+    // Main Background Frame
+    <div className={styles.step_zero_main_frame}>
+      
+      {/* Container for Arrow + Text + Button */}
+      <div className={styles.step_zero_text_arrow_frame}>
+        
+        {/* 1. The Back Arrow (Now inside the step) */}
+        <button onClick={onBack} className={styles.backButtonWrapper}>
+          <svg 
+            className={styles.step_zero_arrow} 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="20" 
+            height="20" 
+            viewBox="0 0 20 20" 
+            fill="none"
+          >
+            <path d="M14.7111 10.875L7.94447 17.6417L9.66634 19.3333L19.333 9.66667L9.66634 0L7.94447 1.69167L14.7111 8.45833H-0.000326157V10.875H14.7111Z" fill="currentColor"/>
+          </svg>
+        </button>
+
+        {/* 2. The Text Blocks */}
+        <div className={styles.step_zero_text_forward}>
+          <h1 className={styles.step_zero_first_text}>
+            פנייה לסיוע:
+          </h1>
+          <p className={styles.step_zero_second_text}>
+            כדי שנוכל לעזור ביעילות המרבית, מלאו את הטופס, ונחזור אליכם בהקדם.
+            <br />
+            בסוף הטופס אפשרות לפנייה בווצאפ למקרים דחופים בלבד.
+          </p>
+          <button 
+          onClick={onNext}
+          className={styles.step_zero_button}
+        >
+          <span className={styles.step_zero_button_text}>טופס פנייה</span>
+        </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // STEP 1: IDENTITY (Auto-fills from Google Auth)
 const IdentityStep = ({ 
@@ -76,14 +122,14 @@ const IdentityStep = ({
         <option value="">בחר מגדר</option>
         <option value="male">זכר</option>
         <option value="female">נקבה</option>
-        <option value="other">אחר</option>
+        <option value="other">מעדיף לא לענות</option>
       </select>
 
       {/* Button is disabled until Phone AND Gender are filled */}
       <button 
         onClick={onNext} 
-        disabled={!data.phone || !data.gender}
-        style={{ opacity: (!data.phone || !data.gender) ? 0.5 : 1 }} // Visual feedback
+        disabled={!data.gender}
+        style={{ opacity: (!data.gender) ? 0.5 : 1 }} // Visual feedback
       >
         המשך
       </button>
@@ -224,7 +270,7 @@ const DescriptionStep = ({
 
       <button 
         onClick={onNext} 
-        disabled={!data.description || data.description.length < 10} // Require at least 10 characters
+        disabled={!data.description || data.description.length < 1} // Require at least 10 characters
         className="next-button"
       >
         המשך
@@ -373,7 +419,7 @@ const SuccessStep = () => {
 
 export default function ReportProcess() {
   const router = useRouter();
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   
   // Single state object to hold all data from Figma screens
   const [formData, setFormData] = useState({
@@ -394,7 +440,7 @@ export default function ReportProcess() {
   
   // The "Arrow in the up right" logic
   const prevStep = () => {
-    if (step === 1) {
+    if (step === 0) {
       router.back(); // If at start, go back to previous website page
     } else {
       setStep((prev) => prev - 1); // Otherwise, go to previous form step
@@ -430,15 +476,37 @@ export default function ReportProcess() {
   };
 
   return (
-    <div className="report-container">
-      {/* Header with the Back Arrow */}
+    <div className="report-container" style={{
+      paddingTop: 'env(safe-area-inset-top)',
+      paddingBottom: 'env(safe-area-inset-bottom)',
+      paddingLeft: 'env(safe-area-inset-left)',
+      paddingRight: 'env(safe-area-inset-right)',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column'
+    }}>
+    {step !== 0 && (
       <header style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px' }}>
-         <button onClick={prevStep}>
-           <img src="/icons/arrow_back.png" alt="Back" />
+         <button onClick={prevStep} className={styles.backButtonWrapper}>
+          <svg 
+           className={styles.step_zero_arrow} // Apply your custom size class here
+           xmlns="http://www.w3.org/2000/svg" 
+           width="20" 
+           height="20" 
+           viewBox="0 0 20 20" 
+           fill="none"
+          >
+           <path 
+             d="M14.7111 10.875L7.94447 17.6417L9.66634 19.3333L19.333 9.66667L9.66634 0L7.94447 1.69167L14.7111 8.45833H-0.000326157V10.875H14.7111Z" 
+             fill="currentColor" 
+           />
+          </svg>
          </button>
       </header>
+    )}
 
       {/* Step Rendering */}
+      {step === 0 && <LandingStep onNext={nextStep} onBack={prevStep}/>}
       {step === 1 && <IdentityStep data={formData} set={setFormData} onNext={nextStep} />}
       {step === 2 && <IncidentTypeStep data={formData} set={setFormData} onNext={nextStep} />}
       {step === 3 && <PlatformStep data={formData} set={setFormData} onNext={nextStep} />}
@@ -450,8 +518,6 @@ export default function ReportProcess() {
   );
 }
 
-// TODO Design using SAFE ZONE
-// TODO emcheh can go on even if phone empty
 // TODO emcheh even if details text is empty
 // TODO Link the tofes to the button that should lead to it
 // TODO Send the data to the database

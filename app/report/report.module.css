@@ -1,0 +1,88 @@
+.step_zero_main_frame{
+display: flex;
+width: 24.5625rem;
+padding: 2.375rem 0 27.875rem 0;
+flex-direction: column;
+align-items: center;
+background-color: #E3F0FA;
+max-width: 100%;
+min-height: 100%;
+}
+
+.step_zero_text_arrow_frame{
+display: flex;
+width: 24.5625rem;
+padding-inline: 1rem;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+gap: 5.1875rem;
+}
+
+.backButtonWrapper {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex; /* Ensures the SVG aligns perfectly */
+}
+
+.step_zero_arrow {
+  width: 1.20831rem;
+  height: 1.20831rem;
+  /* This CSS fill will only work if you remove the 'fill' attribute 
+     from the SVG tag itself, or if you use !important */
+  fill: var(--d-9-d-9-d-9, #1F1F1F); 
+}
+
+.step_zero_text_forward{
+display: flex;
+height: 15.625rem;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+gap: 0.75rem;
+align-self: stretch;
+}
+
+.step_zero_first_text{
+width: 13.9375rem;
+color: #1F1F1F;
+text-align: start;
+font-family: SimplerPro;
+font-size: 1.875rem;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.step_zero_second_text{
+width: 21.6875rem;
+color: #1F1F1F;
+text-align: start;
+font-family: SimplerPro_V3;
+font-size: 1.375rem;
+font-style: normal;
+font-weight: 400;
+line-height: 1.75rem; /* 127.273% */
+}
+
+.step_zero_button{
+    display: flex;
+padding: 0.5rem 0.75rem;
+justify-content: center;
+align-items: center;
+gap: 0.0625rem;
+border-radius: 1rem;
+background-color: #C7DCED;
+}
+
+.step_zero_button_text{
+color: #1F1F1F;
+text-align: start;
+font-family: SimplerPro;
+font-size: 1.875rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
