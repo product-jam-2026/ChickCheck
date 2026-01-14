@@ -1,5 +1,6 @@
 "use client";
 
+import React, { Suspense } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "../page.module.css";
@@ -12,11 +13,14 @@ const STATUS_ICON: Record<Status, string> = {
 	UNCLEAR: "/icons/unclear_icon.svg",
 };
 
-export default function HistoryDetailPage() {
+function HistoryContent() {
 	const router = useRouter();
 	const sp = useSearchParams();
 	const id = sp.get("id") ?? "1";
-	const status: Status = (sp.get("status") as Status) || "NOT_SAFE";
+	const statusParam = sp.get("status");
+	const status: Status = (statusParam === "SAFE" || statusParam === "NOT_SAFE" || statusParam === "UNCLEAR")
+		? statusParam
+		: "NOT_SAFE";
 
 	const onShare = async () => {
 		const shareData = {
@@ -92,6 +96,14 @@ export default function HistoryDetailPage() {
 				</p>
 			</section>
 		</main>
+	);
+}
+
+export default function HistoryDetailPage() {
+	return (
+		<Suspense fallback={<div>טוען נתונים...</div>}>
+			<HistoryContent />
+		</Suspense>
 	);
 }
 
