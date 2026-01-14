@@ -84,7 +84,6 @@ export default function Page() {
 
                { showWhatToDo && (
                 <ActionAccordion
-                  actionText={result.action}
                   maxWidth={status === 'NOT_SAFE' ? '22.1875rem' : '21.0625rem'}
                 />)}
             
