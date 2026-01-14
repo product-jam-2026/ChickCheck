@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import AccordionButton from "./AccordionButton";
 
@@ -15,6 +16,7 @@ export default function ActionAccordion({
   maxWidth = "22.0625rem",
 }: Props) {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const onShare = async () => {
     const shareData = {
@@ -35,12 +37,7 @@ export default function ActionAccordion({
   };
 
   const onAssist = () => {
-    const mail =
-      "mailto:?subject=" +
-      encodeURIComponent("בקשת סיוע מ-ChickCheck") +
-      "&body=" +
-      encodeURIComponent("אשמח לסיוע בהקשר התוכן שבדקתי.");
-    window.location.href = mail;
+    router.push("/report");
   };
 
   const extra = (
