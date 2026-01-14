@@ -3,8 +3,8 @@
 .container {
 	width: var(--page-width);
 	height: var(--page-height);
-	background: #050130;
-	color: #ffffff;
+	background: var(--color-background-primary);
+	color: var(--color-background-light);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -21,15 +21,29 @@
 	height: 1.875rem; /* 30px - matches Figma frame height */
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: flex-end;
 	padding: 0;
 	margin: 0;
 }
 
+/* Close button: left side with 2.12rem offset */
+.closeButton {
+	width: 1.875rem; /* 30px */
+	height: 1.875rem; /* 30px */
+	background: transparent;
+	border: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding: 0;
+	margin-left: 2.12rem;
+}
+
 .resultSection {
 	width: var(--page-width);
-	min-height: 35.8125rem; /* 573px - minimum height */
-	flex: 1;
+	/* Allow section to grow with content and push following items */
+	flex: 0 1 auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -48,46 +62,7 @@
 	box-sizing: border-box;
 }
 
-/* Icon containers - exact sizes from Figma */
-.untrustedIconContainer {
-	width: 14.1875rem; /* 227px */
-	height: 14.1875rem; /* 227px */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.untrustedIcon {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	display: block;
-}
-
-.trustedIconContainer {
-	width: 11.8125rem; /* 189px */
-	height: 11.8125rem; /* 189px */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.trustedIcon {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	display: block;
-}
-
-.unknownIconContainer {
-	width: 10.875rem; /* 174px */
-	height: 11.75rem; /* 188px */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.unknownIcon {
+.Icon {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
@@ -108,28 +83,14 @@
 	font-size: 3.5rem; /* 56px */
 	line-height: 3.75rem; /* 60px */
 	font-weight: 600; /* Semibold */
-	color: #DBE2FF; /* Matches Figma text color */
+	color: var(--color-background-light); /* Matches Figma text color */
 	text-align: right;
 	direction: rtl;
-	margin: 0;
+	margin-left: auto;
+    margin-right: auto;
 	white-space: pre-wrap;
 	width: 100%;
-}
-
-.titleText span {
-	color: #ffffff; /* White for regular text parts */
-}
-
-.titleTextTrusted {
-	max-width: 22.375rem; /* 358px - matches Figma */
-}
-
-.titleTextUntrusted {
-	max-width: 22.1875rem; /* 355px */
-}
-
-.titleTextUnknown {
-	max-width: 21.0625rem; /* 337px */
+	max-width: 21rem; /* 342px - matches Figma */
 }
 
 .accentRed {
@@ -144,22 +105,34 @@
 	color: #FF8D28;
 }
 
-.buttonsContainer {
+/* Ensure accent colors override the default white within titleText */
+.titleText .accentRed { color: #E00615; }
+.titleText .accentGreen { color: #74D03C; }
+.titleText .accentOrange { color: #FF8D28; }
+
+
+/* Link-style action (Safe variant: "פירוט >") */
+.linkRow {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
-	gap: 1.125rem; /* 18px - matches Figma */
-	padding: 0 1.25rem; /* 20px horizontal */
-	box-sizing: border-box;
 }
 
-.ctas {
-	width: 22.0625rem; /* 353px */
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	gap: 1.125rem; /* 18px */
+.linkButton {
+	background: transparent;
+	border: none;
+	color: var(--color-background-light, #e3f0fa);
+	font-size: 1.875rem; /* 30px */
+	font-weight: 400;
+	text-decoration: underline;
+	line-height: normal;
+	cursor: pointer;
+	width: 100%;
+	text-align: right;
+	direction: rtl;
+	padding: 0;
+	margin: 0;
 }
 
 .shareRow {
@@ -182,6 +155,48 @@
 	display: block;
 }
 
+/* Share + Assist buttons row (pill style) */
+.ctaRow {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 0.75rem; /* 12px */
+	margin-top: 0.75rem;
+}
+
+.pillButton {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.625rem 0.875rem;
+	min-width: 9.5rem; /* ~152px */
+	border-radius: 2rem; /* pill */
+	background: var(--color-background-light, #e3f0fa);
+	color: var(--color-background-primary, #1f1f1f);
+	border: 1px solid #dadce0;
+	font-size: 1.5rem; /* 24px */
+	line-height: 1;
+}
+
+.pillIcon {
+	width: 1.25rem; /* 20px */
+	height: 1.25rem; /* 20px */
+}
+
+/* Centered notice ("שימו לב") */
+.notice {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 0.75rem;
+
+}
+
+.notice p {
+	text-align: center;
+}
+
 .footer {
 	width: 4.4375rem; /* 71px */
 	height: 3.75rem; /* 60px */
@@ -198,25 +213,6 @@
 	font-weight: 400;
 	line-height: 3.75rem; /* 60px */
 	direction: rtl;
-}
-/* Add these to your existing page.module.css */
-
-.explanationBox {
-    width: 100%;
-    margin-top: 1.5rem;
-    padding: 1.25rem;
-    background: rgba(255, 255, 255, 0.08); /* Transparent glass effect */
-    border-radius: 1.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.reasoningText {
-    font-size: 1.5rem; /* Large enough for Bluma */
-    line-height: 1.4;
-    color: #f0f0f0;
-    text-align: right;
-    direction: rtl;
-    margin: 0;
 }
 
 .techBadge {
@@ -240,52 +236,16 @@
     border: 1px solid #74D03C;
 }
 
-.actionBanner {
-    width: 100%;
-    background: #FF8D28; /* High contrast for call to action */
-    color: #050130;
-    padding: 1.25rem;
-    border-radius: 1.25rem;
-    font-size: 1.75rem;
-    font-weight: 700;
-    text-align: right;
-    direction: rtl;
-    margin-bottom: 0.5rem;
+
+.accordionWrapperPlain {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
 }
 
 
-
-.accordionWrapper {
-    width: 22.0625rem; /* 353px - matches Figma */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.resultButton {
-    width: 100%;
-    padding: 0.4375rem 0.6875rem; /* 7px vertical, 11px horizontal - matches Figma */
-    background: transparent;
-    border: 2px solid #ffffff;
-    border-radius: 1rem; /* 16px - matches Figma */
-    color: #ffffff;
-    font-size: 1.875rem; /* 30px - matches Figma */
-    font-weight: 400; /* Regular - matches Figma */
-    font-family: 'SimplerPro', sans-serif;
-    line-height: normal;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    direction: rtl;
-    text-align: right;
-}
-
-.resultButton:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
+/* check if i need those classes */
 .active {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -299,43 +259,16 @@
     display: inline-block;
 }
 
-.contentBox {
-    width: 100%;
-    background: transparent;
-    border: 2px solid #ffffff;
-    border-top: none;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    animation: slideDown 0.3s ease-out;
-    max-height: 20rem; /* Limit height for scrolling */
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+/* Borderless open-state for "פירוט" aligned right */
+.contentPlain {
+	width: 100%;
+	background: transparent;
+	border: none;
+	animation: slideDown 0.3s ease-out;
 }
 
-.scrollableContent {
-    padding: 1.5rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-    max-height: 20rem;
-}
-
-.scrollableContent::-webkit-scrollbar {
-    width: 0.5rem;
-}
-
-.scrollableContent::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 0.25rem;
-}
-
-.scrollableContent::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 0.25rem;
-}
-
-.scrollableContent::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
+.contentPlainInner {
+	padding: 0; /* no extra padding to mimic plain text block */
 }
 
 .contentText {
