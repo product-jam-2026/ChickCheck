@@ -6,6 +6,7 @@ import styles from "./page.module.css";
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import BackButton from "../components/BackButton";
+import { formatDate, createPreview ,cleanSmsContent} from "./orgnizeDataFromDatabase";
 
 type Status = "SAFE" | "NOT_SAFE" | "UNCLEAR";
 
@@ -58,7 +59,7 @@ export default function HistoryListPage() {
             id: row.id,
             date: formatDate(row.created_at), // המרה לתאריך יפה
             status: row.status as Status,     // המרה לטיפוס Status
-            preview: createPreview(row.content), // יצירת תקציר מהתוכן
+            preview: createPreview(cleanSmsContent(row.content)), // יצירת תקציר מהתוכן
           }));
           console.log("Fetched history items:", formattedItems);
 
@@ -92,29 +93,34 @@ export default function HistoryListPage() {
 			<section className={styles.content}>
 				<div className={styles.list}>
 					{items.map((it) => (
-						<button
+						<div 
 							key={it.id}
 							className={styles.historyRow}
-							onClick={() => router.push(`/history/detail?id=${it.id}`)}
 						>
-							{/* Right: status icon */}
+                            {/* Right: status icon */}
 							<Image
 								src={STATUS_ICON[it.status]}
 								alt={it.status}
-								width={22}
-								height={22}
+								width={33}
+								height={33}
 								className={styles.statusIcon}
 							/>
 
 							{/* Middle: preview + date */}
-							<div className={styles.rowCenter}>
-								<div className={styles.historyPreview}>{it.preview}</div>
-								<div className={styles.historyDate}>{it.date}</div>
-							</div>
+						
+                            <div className={styles.historyPreview}>{it.preview}</div>
+                            <div className={styles.historyDate}>{it.date}</div>
 
 							{/* Left: chevron */}
-							<span className={styles.chevron} aria-hidden>‹</span>
-						</button>
+                            <button
+                                className={styles.chevronButton}
+                                onClick={(e) => {
+                                e.stopPropagation(); // מונע "בעבוע" של הלחיצה למעלה (ליתר ביטחון)
+                                router.push(`/history/detail?id=${it.id}`)}}
+                                aria-label="צפה בפרטים" >
+                                <span className={styles.chevron}>{">"}</span>
+                            </button>
+                        </div>
 					))}
 				</div>
 			</section>
@@ -123,23 +129,5 @@ export default function HistoryListPage() {
 }
 
 
-// 1. פונקציה להמרת התאריך מ-ISO לפורמט ישראלי (DD.MM.YY)
-const formatDate = (isoString: string): string => {
-  if (!isoString) return "";
-  const date = new Date(isoString);
-  // שימוש ב-Intl לפרמוט אמין
-  return new Intl.DateTimeFormat("en-GB", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "2-digit",
-  })
-    .format(date)
-    .replace(/\//g, "."); // מחליף סלאשים בנקודות
-};
 
-// 2. פונקציה לקיצור הטקסט לתצוגה מקדימה
-const createPreview = (text: string | null): string => {
-  if (!text) return "תוכן לא זמין";
-  return text.length > 25 ? text.substring(0, 25) + "..." : text;
-};
 
