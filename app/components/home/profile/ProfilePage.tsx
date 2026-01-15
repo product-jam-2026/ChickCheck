@@ -1,11 +1,12 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import HomeUpdateButton from "../HomeUpdateButton";
 import HomeHelplineButton from "../HomeHelplineButton";
 import styles from "./ProfilePage.module.css";
+import BackButton from "../../BackButton";
 
 interface ProfilePageProps {
   userName?: string;
@@ -48,19 +49,7 @@ export default function ProfilePage({
             />
           </button>
         ) : (
-          <Link
-            href="/"
-            className={styles.backButton}
-            aria-label="חזור"
-          >
-            <Image
-              src="/icons/back_white.svg"
-              alt="Back"
-              width={19.33}
-              height={19.33}
-              className={styles.backIcon}
-            />
-          </Link>
+          <BackButton href="/" />
         )}
       </div>
       

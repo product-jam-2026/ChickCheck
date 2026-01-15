@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
+import BackButton from "../components/BackButton";
 
 type Status = "SAFE" | "NOT_SAFE" | "UNCLEAR";
 
@@ -80,14 +81,8 @@ export default function HistoryListPage() {
 
 	return (
 		<main className={styles.container}>
-			<div className={styles.header}>
-				<button
-					className={styles.closeButton}
-					aria-label="סגור"
-					onClick={() => router.push("/")}
-				>
-					<Image src="/icons/close_icon.svg" alt="סגור" width={30} height={30} />
-				</button>
+			<div className={styles.topSpacer}>
+				<BackButton href="/profile" />
 			</div>
 
 			<div className={styles.titleBar}>
