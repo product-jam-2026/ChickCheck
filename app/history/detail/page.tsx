@@ -1,146 +1,16 @@
-"use client";
+// app/history/detail/page.tsx
 
-import React, { Suspense, useEffect, useState } from "react";
-import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import styles from "../page.module.css";
-import { createClient } from "@/lib/supabase/client";
-import BackButton from "@/app/components/BackButton";
-import { cleanSmsContent, formatDate } from "../orgnizeDataFromDatabase";
+import React, { Suspense } from "react";
+import DetailClient from "./detailClient"; // מייבאים את הקומפוננטה המקורית שלך
 
-type Status = "SAFE" | "NOT_SAFE" | "UNCLEAR";
+// זה הפקודה שעובדת רק בקובץ שרת (בלי use client)
+export const dynamic = "force-dynamic";
 
-const STATUS_ICON: Record<Status, string> = {
-	SAFE: "/icons/safe_icon.svg",
-	NOT_SAFE: "/icons/not_safe_icon.svg",
-	UNCLEAR: "/icons/unclear_icon.svg",
-};
-
-// זה המבנה שאנחנו מצפים לקבל מהדאטאבייס
-interface SearchHistoryItem {
-    id: string;
-    status: Status;
-    details: string; // רשימה של הערות/פירוט
-    date: string;      // תאריך הבדיקה
-    content: string;   // הטקסט שחולץ מהתמונה
+export default function HistoryDetailPage() {
+  return (
+    // חובה לעטוף ב-Suspense בגלל השימוש ב-SearchParams בקומפוננטה הפנימית
+    <Suspense fallback={<div>טוען פרטים...</div>}>
+      <DetailClient />
+    </Suspense>
+  );
 }
-
-export default function HistoryContent() {
-	const router = useRouter();
-	const sp = useSearchParams();
-	const id = sp.get("id");
-
-    // State לשמירת הנתונים שנשלפו
-    const [checkData, setCheckData] = useState<SearchHistoryItem | null>(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        if (!id) return;
-
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-
-                const supabase = createClient();
-                
-                const { data, error } = await supabase
-                    .from('search_history')
-                    .select('status, details, created_at, image_url, content')
-                    .eq('id', id)
-                    .single();
-                
-                if (error) throw error;
-                
-                // התאמת הנתונים ל-State שלנו:
-                const mappedData: SearchHistoryItem  = {
-                    id: id,
-                    status: data.status,
-                    details: data.details, 
-                    date: formatDate(data.created_at),
-                    content: cleanSmsContent(data.content)
-                };
-
-                console.log(mappedData.date)
-
-                setCheckData(mappedData);
-
-            } catch (error) {
-                console.error("Error fetching search history item:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [id]);
-	
-
-	return (
-		<main className={styles.container}>
-			<div className={styles.topSpacer}>
-				<BackButton href="/history" />
-			</div>
-
-			<div className={styles.titleBar}>
-				<h1 className={styles.pageTitle}>בדיקה בתאריך {checkData?.date}</h1>
-			</div>
-
-			<section className={styles.content}>
-				{/* Extracted text section */}
-				<div className={styles.extractedSection}>
-					<p className={styles.extractedTitle}>הטקסט שחולץ:</p>
-					<p className={styles.extractedText}>
-                        {checkData ? checkData.content : "טוען..."}
-					</p>
-				</div>
-				
-
-				{/* Button to zoom into screenshot */}
-				<button
-					className={styles.screenshotButton}
-					onClick={() => router.push(`/history/screenshot?id=${id}`)}
-				>
-					צפייה בצילום מסך
-                    <Image
-						src="/icons/screenshot_icon.svg"
-						alt="זום"
-						width={30}
-						height={30}
-						className={styles.screenshotIcon}
-					/>
-				</button>
-
-				{/* Result section with status */}
-				<div className={styles.resultHeader}>
-					<p className={styles.resultTitle}>תוצאת הבדיקה:</p>
-				</div>
-
-				<div className={styles.statusRow}>
-					{checkData?.status && (
-						<Image
-							src={STATUS_ICON[checkData.status]}
-							alt={checkData.status}
-							width={33}
-							height={33}
-							className={styles.statusIcon}
-						/>
-					)}
-					<p className={styles.statusText}>
-						התוכן שחולץ מהתמונה נמצא לא אמין
-					</p>
-				</div>
-
-				{/* Detail text */}
-                 <div className={styles.resultHeader}>
-					<p className={styles.resultTitle}>פירוט התוצאות:</p>
-				</div>
-				{checkData?.details && (
-                   
-					<div className={styles.detailSection}>
-						<p className={styles.detailText}>{checkData.details}</p>
-					</div>
-				)}
-			</section>
-
-		</main>)
-};
