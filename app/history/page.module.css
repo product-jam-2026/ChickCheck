@@ -12,6 +12,12 @@
   margin: 0 auto;
 }
 
+.topSpacer {
+  height: calc(5.94rem + var(--safe-area-inset-top));
+  width: 100%;
+  position: relative;
+}
+
 .header {
   width: var(--page-width);
   height: 1.875rem; /* 30px */
