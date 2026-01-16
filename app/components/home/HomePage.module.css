@@ -1,12 +1,13 @@
 .homePage {
   display: flex;
   width: 100%;
-  min-height: var(--page-height);
+  height: var(--page-height);
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
   background: #E3F0FA;
   position: relative;
+  overflow: hidden;
 }
 
 .topSpacer {
@@ -47,6 +48,6 @@
   position: relative;
   padding: 1.6875rem 1rem;
   box-sizing: border-box;
-  gap: 1.5rem;
+  gap: 1.3125rem;
 }
 
