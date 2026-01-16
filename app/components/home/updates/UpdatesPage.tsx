@@ -42,20 +42,20 @@ export default function UpdatesPage({
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
+        <button
+          className={styles.backButton}
+          onClick={onBackClick}
+          aria-label="חזרה"
+        >
+          <Image
+            src="/icons/back.svg"
+            alt="Back"
+            width={24}
+            height={24}
+            className={styles.arrowIcon}
+          />
+        </button>
         <header className={styles.header}>
-          <button
-            className={styles.backButton}
-            onClick={onBackClick}
-            aria-label="חזרה"
-          >
-            <Image
-              src="/icons/back.svg"
-              alt="Back"
-              width={24}
-              height={24}
-              className={styles.arrowIcon}
-            />
-          </button>
           <h1 className={styles.title}>עדכונים</h1>
         </header>
       </div>

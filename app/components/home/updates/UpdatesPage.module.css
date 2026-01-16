@@ -1,6 +1,7 @@
 .container {
   width: 100%;
-  min-height: var(--page-height);
+  height: 100vh;
+  max-height: 100vh;
   background: #1F1F1F;
   color: #E3F0FA;
   display: flex;
@@ -9,10 +10,11 @@
   justify-content: flex-start;
   padding: 0;
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: 0;
   overflow-y: auto;
   overflow-x: hidden;
   direction: rtl;
+  position: relative;
 }
 
 .headerContainer {
@@ -21,9 +23,7 @@
   padding: clamp(1rem, 3vh, 1.5rem) 1rem 0.25rem 1rem; 
   margin-bottom: 0;
   box-sizing: border-box;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  position: relative;
 }
 
 .header {
@@ -32,13 +32,15 @@
   flex-direction: column;
   align-items: flex-start; 
   justify-content: center;
-  position: relative;
-  gap: clamp(1.25rem, 3vw, 1.5rem);
+  position: sticky;
+  top: 0;
+  background: #1F1F1F;
   padding-left: 1rem;
+  z-index: 10;
 }
 
 .backButton {
-  position: static;
+  position: relative;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -50,6 +52,7 @@
   min-height: 2.5rem;
   visibility: visible;
   opacity: 1;
+  margin-bottom: clamp(1.25rem, 3vw, 1.5rem);
 }
 
 .title {

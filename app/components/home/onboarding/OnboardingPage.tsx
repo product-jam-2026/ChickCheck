@@ -385,7 +385,7 @@ function GalleryInstructions({
     <>
       {/* Instruction Text */}
       <div className={styles.galleryInstruction}>
-      גלריית התמונות שלכם תפתח. תבחרו בתמונה שצילמתם על ידי לחיצה.
+      גלריית התמונות שלכם תפתח.<br />תבחרו בתמונה שצילמתם על ידי לחיצה.
       </div>
 
       {/* Phone Mockup */}

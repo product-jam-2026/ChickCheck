@@ -14,25 +14,13 @@
   direction: rtl;
 }
 
-.loadingOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #1F1F1F;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  direction: rtl;
-}
-
 .onboardingContainer {
-  width: min(393px, 90vw);
-  height: min(852px, 90vh);
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
   background: transparent;
-  padding: clamp(120px, 25vh, 193px) clamp(12px, 3vw, 16px);
+  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -40,22 +28,33 @@
   align-items: center;
   gap: clamp(32px, 6vw, 48px);
   position: relative;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .continueContainer {
-  padding: clamp(80px, 15vh, 120px) clamp(12px, 3vw, 16px) clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px);
-  justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
+  justify-content: center;
   align-items: center;
   gap: clamp(24px, 5vw, 32px);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .screenshotContainer {
-  padding: clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px) clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px);
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
   justify-content: flex-start;
+  align-items: center;
   gap: clamp(24px, 5vw, 32px);
+  overflow: hidden;
 }
 
 .greeting {
@@ -69,18 +68,7 @@
   margin-bottom: clamp(8px, 2vw, 12px);
 }
 
-.readiness {
-  font-size: clamp(24px, 5vw, 30px);
-  font-weight: 600;
-  color: #E3F0FA;
-  text-align: center;
-  align-self: stretch;
-  line-height: normal;
-  margin: 0;
-}
-
-.description,
-.instruction {
+.description {
   font-size: clamp(20px, 4vw, 18px);
   color: #E3F0FA;
   text-align: center;
@@ -105,45 +93,14 @@
 }
 
 
-.helpLinks {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.helpLink {
-  background: transparent;
-  border: none;
-  color: #E3F0FA;
-  text-align: center;
-  text-decoration: underline;
-  text-decoration-style: solid;
-  text-decoration-skip-ink: auto;
-  text-decoration-thickness: auto;
-  text-underline-offset: 15%;
-  text-underline-position: from-font;
-  font-size: clamp(22px, 4.5vw, 26px);
-  font-weight: 400;
-  line-height: normal;
-  cursor: pointer;
-  padding: clamp(0.15rem, 0.5vw, 0.25rem);
-  font-family: inherit;
-}
-
-.helpLink:hover {
-  color: rgba(227, 240, 250, 0.8);
-}
-
-
 .startButtonWelcome {
   background: transparent;
   border: none;
   color: #E3F0FA;
   text-decoration: underline;
-  font-size: clamp(21px, 4.5vw, 26px);
+  font-size: clamp(24px, 5vw, 30px);
   cursor: pointer;
-  padding: clamp(0.5rem, 1.5vw, 0.75rem);
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
   font-family: inherit;
   display: flex;
   flex-direction: column;
@@ -161,9 +118,9 @@
 
 .welcomeNextButton {
   display: flex;
-  width: 10rem;
-  height: 2rem;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  width: 12rem;
+  height: 2.5rem;
+  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
   align-items: center;
   justify-content: center;
   border-radius: 0.8rem;
@@ -187,10 +144,12 @@
   color: #050130;
   font-family: inherit;
   text-align: right;
-  font-size: clamp(20px, 4vw, 18px);
+  font-size: clamp(22px, 4.5vw, 24px);
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .skipButton {
@@ -201,9 +160,9 @@
   border: none;
   color: #E3F0FA;
   text-decoration: underline;
-  font-size: clamp(21px, 4.5vw, 26px);
+  font-size: clamp(24px, 5vw, 30px);
   cursor: pointer;
-  padding: clamp(0.5rem, 1.5vw, 0.75rem);
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
   font-family: inherit;
   display: flex;
   flex-direction: column;
@@ -224,9 +183,9 @@
   border: none;
   color: #E3F0FA;
   text-decoration: underline;
-  font-size: clamp(21px, 4.5vw, 26px);
+  font-size: clamp(24px, 5vw, 30px);
   cursor: pointer;
-  padding: clamp(0.5rem, 1.5vw, 0.75rem);
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
   font-family: inherit;
   display: flex;
   flex-direction: column;
@@ -245,12 +204,17 @@
 
 /* Instruction Page Styles */
 .instructionContainer {
-  padding: clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px) clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px);
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
   justify-content: center;
   align-items: center;
   gap: clamp(24px, 5vw, 32px);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .instructionText {
@@ -264,9 +228,9 @@
 
 .instructionButton {
   display: flex;
-  width: 10rem;
-  height: 2rem;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  width: 12rem;
+  height: 2.5rem;
+  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
   align-items: center;
   justify-content: center;
   border-radius: 0.8rem;
@@ -288,58 +252,7 @@
   color: #050130;
   font-family: inherit;
   text-align: right;
-  font-size: clamp(20px, 4vw, 18px);
-  font-style: normal;
-  font-weight: 400;
-  white-space: nowrap;
-}
-
-/* Instruction Page Styles */
-.instructionContainer {
-  padding: clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px) clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px);
-  justify-content: center;
-  align-items: center;
-  gap: clamp(24px, 5vw, 32px);
-  display: flex;
-  flex-direction: column;
-}
-
-.instructionText {
-  font-size: clamp(20px, 4vw, 18px);
-  color: #E3F0FA;
-  text-align: center;
-  line-height: 1.4;
-  width: 100%;
-  margin-bottom: clamp(24px, 5vw, 32px);
-}
-
-.instructionButton {
-  display: flex;
-  width: 10rem;
-  height: 2rem;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.75rem;
-  border: 2px solid #050130;
-  background: #C7DCED;
-  gap: 0.625rem;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-family: inherit;
-  align-self: center;
-}
-
-.instructionButton:hover {
-  background: #b8d0e0;
-}
-
-.instructionButtonText {
-  color: #050130;
-  font-family: inherit;
-  text-align: right;
-  font-size: clamp(20px, 4vw, 18px);
+  font-size: clamp(22px, 4.5vw, 24px);
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
@@ -366,15 +279,15 @@
 }
 
 .continueProgressBarSvg {
-  width: min(120px, 30vw);
+  width: min(150px, 38vw);
   height: auto;
 }
 
 .continueButton {
   display: flex;
-  width: 9rem;
-  height: 1.875rem;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  width: 12rem;
+  height: 2.5rem;
+  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
   align-items: center;
   justify-content: center;
   border-radius: 0.8rem;
@@ -398,10 +311,12 @@
   color: #050130;
   font-family: inherit;
   text-align: right;
-  font-size: clamp(20px, 4vw, 18px);
+  font-size: clamp(22px, 4.5vw, 24px);
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Screenshot Instructions Styles */
@@ -411,7 +326,8 @@
   text-align: center;
   line-height: 1.5;
   width: 100%;
-  margin-bottom: clamp(24px, 5vw, 32px);
+  margin-top: clamp(8px, 1.5vh, 12px);
+  margin-bottom: clamp(12px, 2vw, 16px);
 }
 
 .phoneMockupContainer {
@@ -419,14 +335,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: clamp(24px, 5vw, 32px);
+  margin-bottom: clamp(12px, 2vw, 16px);
   position: relative;
 }
 
 .onboardingSvg {
-  width: min(280px, 70vw);
+  width: min(200px, 50vw);
   height: auto;
-  max-height: 600px;
+  max-height: 400px;
 }
 
 .backButton {
@@ -488,45 +404,11 @@
   opacity: 0.7;
 }
 
-.deviceToggle {
-  display: flex;
-  gap: clamp(12px, 3vw, 16px);
-  justify-content: center;
-  margin-bottom: clamp(24px, 5vw, 32px);
-}
-
-.deviceButton {
-  padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(1.25rem, 3vw, 1.75rem);
-  background: rgba(227, 240, 250, 0.2);
-  border: 2px solid rgba(227, 240, 250, 0.4);
-  border-radius: clamp(0.5rem, 1.5vw, 0.75rem);
-  color: #E3F0FA;
-  font-size: clamp(16px, 3vw, 18px);
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
-}
-
-.deviceButtonActive {
-  background: #E3F0FA;
-  color: #1F1F1F;
-  border-color: #E3F0FA;
-}
-
-.deviceButton:hover {
-  background: rgba(227, 240, 250, 0.3);
-}
-
-.deviceButtonActive:hover {
-  background: #d0e5f5;
-}
-
 .screenshotDoneButton {
   display: flex;
-  width: 12rem;
-  height: 2.25rem;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  width: 15rem;
+  height: 2.5rem;
+  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
   align-items: center;
   justify-content: center;
   border-radius: 0.8rem;
@@ -535,7 +417,7 @@
   gap: 0.625rem;
   flex-shrink: 0;
   margin-bottom: clamp(16px, 3vw, 24px);
-  margin-top: 0.5rem;
+  margin-top: 0;
   cursor: pointer;
   transition: background-color 0.2s;
   font-family: inherit;
@@ -550,32 +432,24 @@
   color: #050130;
   font-family: inherit;
   text-align: right;
-  font-size: clamp(16px, 3.5vw, 20px);
+  font-size: clamp(22px, 4.5vw, 24px);
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Upload Instructions Styles */
 .uploadContainer {
-  padding: clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px) clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px);
-  justify-content: flex-start;
-  gap: clamp(20px, 4vw, 28px);
-  overflow-y: auto;
-}
-
-.progressIndicator {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
   justify-content: center;
-  margin-bottom: clamp(16px, 3vw, 24px);
-}
-
-.progressBarSvg {
-  width: min(350px, 90vw);
-  height: auto;
+  gap: clamp(12px, 2vw, 16px);
+  overflow: hidden;
 }
 
 .uploadMainContent {
@@ -589,7 +463,7 @@
 
 .excellentText {
   color: #E3F0FA;
-  font-size: clamp(22px, 5vw, 28px);
+  font-size: clamp(20px, 4vw, 24px);
   font-weight: 600;
   text-align: center;
   margin: 0;
@@ -597,10 +471,10 @@
 
 .uploadInstruction {
   color: #E3F0FA;
-  font-size: clamp(16px, 3.5vw, 20px);
+  font-size: clamp(18px, 4vw, 22px);
   font-weight: 400;
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.4;
   width: 100%;
   margin: 0;
 }
@@ -609,16 +483,32 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  flex: 1;
+  flex: 0 0 auto;
   cursor: pointer;
+  max-width: min(360px, 80vw);
+  margin: 0 auto;
+}
+
+.uploadAreaWrapper > * {
+  height: clamp(320px, 60vh, 420px) !important;
+  max-width: 100%;
+  border-radius: clamp(1.3rem, 2.8vw, 1.8rem);
+}
+
+.uploadAreaWrapper > * :global(.uploadText) {
+  font-size: clamp(1.625rem, 4vw, 1.875rem) !important;
 }
 
 /* Gallery Instructions Styles */
 .galleryContainer {
-  padding: clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px) clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px);
-  justify-content: flex-start;
-  gap: clamp(20px, 4vw, 28px);
-  overflow-y: auto;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
+  justify-content: center;
+  gap: clamp(12px, 2vw, 16px);
+  overflow: hidden;
 }
 
 .galleryInstruction {
@@ -633,9 +523,9 @@
 
 .galleryNextButton {
   display: flex;
-  width: 12rem;
-  height: 2.25rem;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  width: 15rem;
+  height: 2.5rem;
+  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
   align-items: center;
   justify-content: center;
   border-radius: 0.8rem;
@@ -643,7 +533,7 @@
   background: #C7DCED;
   gap: 0.625rem;
   flex-shrink: 0;
-  margin-top: clamp(16px, 3vw, 24px);
+  margin-top: clamp(8px, 2vw, 12px);
   margin-bottom: 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -656,21 +546,33 @@
 }
 
 .galleryNextButtonText {
+  color: #050130;
+  font-family: inherit;
+  text-align: right;
+  font-size: clamp(22px, 4.5vw, 24px);
+  font-style: normal;
+  font-weight: 400;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .galleryPhoneSvg {
-  width: min(280px, 70vw);
+  width: min(200px, 50vw);
   height: auto;
-  max-height: 500px;
+  max-height: 350px;
 }
 
 /* Review Instructions Styles */
 .reviewContainer {
-  padding: clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px) clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px);
-  justify-content: flex-start;
-  gap: clamp(20px, 4vw, 28px);
-  overflow-y: auto;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
+  justify-content: center;
+  gap: clamp(12px, 2vw, 16px);
+  overflow: hidden;
 }
 
 .reviewInstruction {
@@ -680,20 +582,20 @@
   text-align: center;
   line-height: 1.5;
   width: 100%;
-  margin-bottom: clamp(16px, 3vw, 24px);
+  margin-bottom: clamp(12px, 2vw, 16px);
 }
 
 .reviewPhoneSvg {
-  width: min(280px, 70vw);
+  width: min(200px, 50vw);
   height: auto;
-  max-height: 500px;
+  max-height: 350px;
 }
 
 .reviewSendButton {
   display: flex;
   width: 12rem;
   height: 2.5rem;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
   align-items: center;
   justify-content: center;
   border-radius: 0.8rem;
@@ -701,7 +603,7 @@
   background: #C7DCED;
   gap: 0.625rem;
   flex-shrink: 0;
-  margin-top: clamp(16px, 3vw, 24px);
+  margin-top: clamp(8px, 2vw, 12px);
   margin-bottom: 0;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -717,21 +619,12 @@
   color: #050130;
   font-family: inherit;
   text-align: right;
-  font-size: clamp(16px, 3.5vw, 20px);
+  font-size: clamp(22px, 4.5vw, 24px);
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
-}
-
-.startButtonText,
-.screenshotDoneButtonText,
-.galleryNextButtonText {
-  color: #050130;
-  font-family: inherit;
-  text-align: right;
-  font-size: clamp(16px, 3.5vw, 20px);
-  font-style: normal;
-  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .uploadIcon {
@@ -739,85 +632,6 @@
   height: 0.9rem;
   flex-shrink: 0;
   fill: var(--d-9-d-9-d-9, #1F1F1F);
-}
-
-/* Loading Instructions Styles */
-.loadingContainer {
-  padding: clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px) clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px);
-  justify-content: flex-start;
-  gap: clamp(20px, 4vw, 28px);
-  overflow-y: auto;
-  background: #1F1F1F;
-}
-
-.loadingInstruction {
-  color: #E3F0FA;
-  font-size: clamp(16px, 3.5vw, 20px);
-  font-weight: 400;
-  text-align: center;
-  line-height: 1.5;
-  width: 100%;
-  margin-bottom: clamp(24px, 5vw, 32px);
-}
-
-.loadingVideoContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: clamp(24px, 5vw, 32px);
-  position: relative;
-  min-height: 400px;
-}
-
-.loadingVideo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 22.125rem;
-  height: 39.3125rem;
-  aspect-ratio: 354/629;
-  padding: 5.19rem 1.38rem 8.75rem 1.06rem;
-  object-fit: cover;
-  z-index: 0;
-  pointer-events: none;
-  max-width: min(22.125rem, 90vw);
-  max-height: min(39.3125rem, 70vh);
-}
-
-.loadingNextButton {
-  display: flex;
-  width: 12rem;
-  height: 2.5rem;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.8rem;
-  border: 2px solid #050130;
-  background: #C7DCED;
-  gap: 0.625rem;
-  flex-shrink: 0;
-  margin-top: clamp(24px, 5vw, 32px);
-  margin-bottom: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-family: inherit;
-  align-self: center;
-}
-
-.loadingNextButton:hover {
-  background: #b8d0e0;
-}
-
-.loadingNextButtonText {
-  color: #050130;
-  font-family: inherit;
-  text-align: right;
-  font-size: clamp(16px, 3.5vw, 20px);
-  font-style: normal;
-  font-weight: 400;
-  white-space: nowrap;
 }
 
 /* Results Instructions Styles */
@@ -838,10 +652,14 @@
 }
 
 .resultsContainer {
-  padding: clamp(30px, 6vh, 50px) clamp(8px, 2vw, 12px) clamp(30px, 6vh, 50px) clamp(8px, 2vw, 12px);
-  justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: clamp(75px, 12vh, 90px) clamp(8px, 2vw, 12px) clamp(20px, 4vh, 30px) clamp(8px, 2vw, 12px);
+  justify-content: center;
   gap: clamp(20px, 4vw, 28px);
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .resultsInstruction {
@@ -895,9 +713,9 @@
 
 .resultsReadyButton {
   display: flex;
-  width: 15rem;
+  width: 12rem;
   height: 2.5rem;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
   align-items: center;
   justify-content: center;
   border-radius: 0.8rem;
@@ -921,10 +739,12 @@
   color: #050130;
   font-family: inherit;
   text-align: right;
-  font-size: clamp(16px, 3.5vw, 20px);
+  font-size: clamp(22px, 4.5vw, 24px);
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 

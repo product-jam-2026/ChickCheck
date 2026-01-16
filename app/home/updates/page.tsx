@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import UpdatesPage from "@/app/components/home/updates/UpdatesPage";
+import styles from "./page.module.css";
 
 interface Update {
   id: number;
@@ -116,7 +117,7 @@ export default function Updates() {
   };
 
   return (
-    <main>
+    <main className={styles.main}>
       <UpdatesPage
         updates={updates}
         onBackClick={handleBackClick}
