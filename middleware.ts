@@ -91,10 +91,24 @@ export async function middleware(request: NextRequest) {
       return response;
     }
 
+    // Fallback: if we have auth cookies but no session, try getUser once (prod edge can be flaky)
+    const hasAuthCookie = request.cookies
+      .getAll()
+      .some((cookie) => cookie.name.startsWith("sb-") || cookie.name.includes("supabase"));
+    let effectiveUser = session?.user ?? null;
+    if (!effectiveUser && hasAuthCookie) {
+      const {
+        data: { user: fallbackUser },
+        error: userError,
+      } = await supabase.auth.getUser();
+      if (!userError && fallbackUser) {
+        effectiveUser = fallbackUser;
+      }
+    }
 
     // If forceLogin is requested, clear the session and redirect to login
-    if (forceLogin && session && !isLoginPage) {
-      console.log("🔄 Force login requested - clearing session for user:", session.user?.email);
+    if (forceLogin && effectiveUser && !isLoginPage) {
+      console.log("🔄 Force login requested - clearing session for user:", effectiveUser.email);
       await supabase.auth.signOut();
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.delete("forceLogin"); // Remove the forceLogin param
@@ -105,8 +119,8 @@ export async function middleware(request: NextRequest) {
     const isClearingSession = request.nextUrl.searchParams.get("clearingSession") === "true";
     
     // If on login page with a session and we're clearing, clear it and remove the flag
-    if (session && isLoginPage && !isFromLogout && isClearingSession) {
-      console.log("🔄 Clearing session on login page to force fresh login for user:", session.user?.email);
+    if (effectiveUser && isLoginPage && !isFromLogout && isClearingSession) {
+      console.log("🔄 Clearing session on login page to force fresh login for user:", effectiveUser.email);
       await supabase.auth.signOut();
       // Remove the clearingSession flag from URL
       const loginUrl = new URL("/login", request.url);
@@ -122,7 +136,13 @@ export async function middleware(request: NextRequest) {
     // The "force fresh login" only applies when they first visit, not after successful login
 
     // If not logged in and not on login page, redirect to login
-    if (!session && !isLoginPage) {
+    if (!effectiveUser && !isLoginPage) {
+      if (hasAuthCookie) {
+        console.warn("⚠️ Auth cookie present but no session - allowing request", {
+          pathname,
+        });
+        return response;
+      }
       // #region agent log
       const allCookies = request.cookies.getAll();
       const supabaseCookies = allCookies.filter(c => c.name.includes('supabase') || c.name.includes('sb-'));
@@ -140,14 +160,14 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
     
-    if (session && pathname !== "/") {
-      console.log("✅ Session found for user:", session.user?.email);
+    if (effectiveUser && pathname !== "/") {
+      console.log("✅ Session found for user:", effectiveUser.email);
     }
 
     // If logged in, check admin status
-    if (session) {
+    if (effectiveUser) {
       // Get user email from session
-      const userEmail = session.user?.email;
+      const userEmail = effectiveUser.email;
 
       // If user is admin and trying to access home page, redirect to admin
       if (userEmail === ADMIN_EMAIL && pathname === "/") {
