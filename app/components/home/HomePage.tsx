@@ -66,8 +66,8 @@ export default function HomePage({
   };
 
   const handleHelpGeneral = () => {
-    // TODO: Show general help
-    console.log("General help");
+    // Show onboarding when help button is clicked
+    setShowOnboarding(true);
   };
 
   return (
@@ -81,7 +81,10 @@ export default function HomePage({
         onHelplineClick={onHelplineClick}
       />
       <div className={styles.homeContent}>
-        <HomeImageUploadArea onImageSelect={onImageSelect} />
+        <HomeImageUploadArea 
+          onImageSelect={onImageSelect}
+          onHelpClick={handleHelpGeneral}
+        />
         <HomeDisclaimer />
       </div>
       {errorMessage && (
