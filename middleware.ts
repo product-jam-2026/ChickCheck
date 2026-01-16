@@ -44,12 +44,14 @@ export async function middleware(request: NextRequest) {
       return response;
     }
 
+    // Use getUser instead of getSession for better reliability in production
+    // getUser validates the session token with Supabase, while getSession only reads from cookies
     const {
-      data: { session },
+      data: { user },
       error,
-    } = await supabase.auth.getSession();
+    } = await supabase.auth.getUser();
 
-    // If there's an error getting the session, redirect to login (unless already on login page)
+    // If there's an error getting the user, redirect to login (unless already on login page)
     if (error) {
       console.error("❌ Middleware auth error:", error);
       if (!isLoginPage) {
@@ -58,10 +60,12 @@ export async function middleware(request: NextRequest) {
       return response;
     }
 
+    // Note: We use user.email for admin checks, so we don't need to get session separately
+
 
     // If forceLogin is requested, clear the session and redirect to login
-    if (forceLogin && session && !isLoginPage) {
-      console.log("🔄 Force login requested - clearing session for user:", session.user?.email);
+    if (forceLogin && user && !isLoginPage) {
+      console.log("🔄 Force login requested - clearing session for user:", user.email);
       await supabase.auth.signOut();
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.delete("forceLogin"); // Remove the forceLogin param
@@ -71,9 +75,9 @@ export async function middleware(request: NextRequest) {
     // Check if we're in the process of clearing session (to prevent loop)
     const isClearingSession = request.nextUrl.searchParams.get("clearingSession") === "true";
     
-    // If on login page with a session and we're clearing, clear it and remove the flag
-    if (session && isLoginPage && !isFromLogout && isClearingSession) {
-      console.log("🔄 Clearing session on login page to force fresh login for user:", session.user?.email);
+    // If on login page with a user and we're clearing, clear it and remove the flag
+    if (user && isLoginPage && !isFromLogout && isClearingSession) {
+      console.log("🔄 Clearing session on login page to force fresh login for user:", user.email);
       await supabase.auth.signOut();
       // Remove the clearingSession flag from URL
       const loginUrl = new URL("/login", request.url);
@@ -89,21 +93,22 @@ export async function middleware(request: NextRequest) {
     // The "force fresh login" only applies when they first visit, not after successful login
 
     // If not logged in and not on login page, redirect to login
-    if (!session && !isLoginPage) {
-      console.log("🔒 No session found - redirecting to /login");
+    // Use user instead of session for more reliable check
+    if (!user && !isLoginPage) {
+      console.log("🔒 No user found - redirecting to /login");
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("next", pathname);
       return NextResponse.redirect(loginUrl);
     }
     
-    if (session && pathname !== "/") {
-      console.log("✅ Session found for user:", session.user?.email);
+    if (user && pathname !== "/") {
+      console.log("✅ User authenticated:", user.email);
     }
 
     // If logged in, check admin status
-    if (session) {
-      // Get user email from session
-      const userEmail = session.user?.email;
+    if (user) {
+      // Get user email from user object
+      const userEmail = user.email;
 
       // If user is admin and trying to access home page, redirect to admin
       if (userEmail === ADMIN_EMAIL && pathname === "/") {
