@@ -20,6 +20,7 @@ export async function middleware(request: NextRequest) {
   }
 
   const isLoginPage = pathname.startsWith("/login");
+  const isSplashPage = pathname.startsWith("/splash");
   const isAuthCallback = pathname.startsWith("/auth/callback");
   const isLogoutPage = pathname.startsWith("/logout");
   const isAdminPage = pathname.startsWith("/admin");
@@ -30,8 +31,8 @@ export async function middleware(request: NextRequest) {
   // Check if we need to force login (clear session and redirect to login)
   const forceLogin = request.nextUrl.searchParams.get("forceLogin") === "true";
 
-  // Always allow auth callback and logout route handlers (they handle their own redirects)
-  if (isAuthCallback || isLogoutPage) {
+  // Always allow auth callback, logout, and splash route handlers (they handle their own redirects)
+  if (isAuthCallback || isLogoutPage || isSplashPage) {
     return NextResponse.next();
   }
 
@@ -55,8 +56,12 @@ export async function middleware(request: NextRequest) {
       // #region agent log
       fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:40',message:'Supabase client not created',data:{pathname},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
       // #endregion
-      console.warn("❌ Supabase client not created - redirecting to login");
-      if (!isLoginPage) {
+      console.warn("❌ Supabase client not created - redirecting to splash");
+      if (!isLoginPage && !isSplashPage) {
+        // Redirect to splash if accessing root, otherwise to login
+        if (pathname === "/") {
+          return NextResponse.redirect(new URL("/splash", request.url));
+        }
         return NextResponse.redirect(new URL("/login", request.url));
       }
       return response;
@@ -135,8 +140,8 @@ export async function middleware(request: NextRequest) {
     // Allow logged-in users to access the home page (don't force them back to login)
     // The "force fresh login" only applies when they first visit, not after successful login
 
-    // If not logged in and not on login page, redirect to login
-    if (!effectiveUser && !isLoginPage) {
+    // If not logged in and not on login or splash page, redirect appropriately
+    if (!effectiveUser && !isLoginPage && !isSplashPage) {
       if (hasAuthCookie) {
         console.warn("⚠️ Auth cookie present but no session - allowing request", {
           pathname,
@@ -146,14 +151,19 @@ export async function middleware(request: NextRequest) {
       // #region agent log
       const allCookies = request.cookies.getAll();
       const supabaseCookies = allCookies.filter(c => c.name.includes('supabase') || c.name.includes('sb-'));
-      console.error(`[DEBUG] No session - redirecting to login from ${pathname}`, {
+      console.error(`[DEBUG] No session - redirecting from ${pathname}`, {
         referer: request.headers.get('referer'),
         cookieCount: allCookies.length,
         supabaseCookies: supabaseCookies.map(c => ({ name: c.name, hasValue: !!c.value })),
         requestCookies: allCookies.map(c => c.name),
       });
-      fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:92',message:'No session - redirecting to login',data:{pathname,referer:request.headers.get('referer'),cookieCount:request.cookies.getAll().length,supabaseCookies:supabaseCookies.map(c => ({ name: c.name, hasValue: !!c.value }))},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,D,E'})}).catch(()=>{});
+      fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:92',message:'No session - redirecting',data:{pathname,referer:request.headers.get('referer'),cookieCount:request.cookies.getAll().length,supabaseCookies:supabaseCookies.map(c => ({ name: c.name, hasValue: !!c.value }))},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,D,E'})}).catch(()=>{});
       // #endregion
+      // If accessing root, redirect to splash; otherwise redirect to login
+      if (pathname === "/") {
+        console.log("🔒 No session found - redirecting to /splash");
+        return NextResponse.redirect(new URL("/splash", request.url));
+      }
       console.log("🔒 No session found - redirecting to /login");
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("next", pathname);
