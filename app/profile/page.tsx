@@ -21,6 +21,7 @@ export default function Profile() {
   const [unseenCount, setUnseenCount] = useState<number>(0);
   const [hasSession, setHasSession] = useState(false);
   const isMountedRef = useRef(true);
+  
   // Create supabase client once to avoid multiple instances causing cookie issues
   const supabaseRef = useRef(createClient());
 
@@ -29,31 +30,25 @@ export default function Profile() {
     
     const fetchUserData = async () => {
       try {
-        // Use the same supabase client instance
         const {
           data: { session },
         } = await supabaseRef.current.auth.getSession();
 
-        // Only update state if component is still mounted
         if (!isMountedRef.current) return;
 
         const user = session?.user ?? null;
         setHasSession(!!user);
 
         if (user) {
-          // Get user's name from metadata or email
           const name = user.user_metadata?.full_name || 
-                      user.user_metadata?.name || 
-                      user.email?.split("@")[0] || 
-                      "משתמש";
+                       user.user_metadata?.name || 
+                       user.email?.split("@")[0] || 
+                       "משתמש";
           setUserName(name);
           setUserEmail(user.email || "");
         }
-        // If no user, let middleware handle redirect - don't redirect here.
-        // This prevents race conditions and cookie issues in production.
       } catch (error) {
         console.error("Error fetching user data:", error);
-        // Let middleware handle authentication - don't redirect on errors
       } finally {
         if (isMountedRef.current) {
           setIsLoading(false);
@@ -78,7 +73,6 @@ export default function Profile() {
           return;
         }
 
-        // Use the same supabase client instance
         const { data, error } = await supabaseRef.current
           .from("isoc_pushes")
           .select("id, created_at")
@@ -100,9 +94,7 @@ export default function Profile() {
 
     loadUpdatesAndCount();
 
-    // Set up real-time subscription
     if (SUPABASE_ENABLED && hasSession) {
-      // Use the same supabase client instance
       const supabase = supabaseRef.current;
       const channel = supabase
         .channel("updates-count-changes-profile")
@@ -119,7 +111,6 @@ export default function Profile() {
         )
         .subscribe();
 
-      // Poll every 5 seconds as fallback
       const interval = setInterval(loadUpdatesAndCount, 5000);
 
       return () => {
@@ -129,15 +120,14 @@ export default function Profile() {
     }
   }, [hasSession]);
 
+  // --- תיקון הפונקציות: הוספת async ורענון סשן לפני מעבר ---
+
   const handleUpdatesClick = async () => {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:128',message:'handleUpdatesClick entry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
-    // #endregion
-    
-    // Mark all updates as seen when user clicks on updates button
+    // רענון סשן כדי לוודא שהקוקיז מעודכנים לפני המעבר
+    await supabaseRef.current.auth.getSession();
+
     try {
       if (SUPABASE_ENABLED && hasSession) {
-        // Use the same supabase client instance
         const { data } = await supabaseRef.current
           .from("isoc_pushes")
           .select("id")
@@ -156,32 +146,22 @@ export default function Profile() {
       console.error("Error marking updates as seen:", error);
     }
     
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:151',message:'Before router.push to /home/updates',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
-    // #endregion
-    
     router.push("/home/updates");
   };
 
-  const handleHelplineClick = () => {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:154',message:'handleHelplineClick entry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
-    // #endregion
+  const handleHelplineClick = async () => { // הפכנו ל-async
     console.log("Helpline clicked");
-    // TODO: Navigate to helpline or open contact
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:158',message:'Before router.push to /report',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
-    // #endregion
+    
+    // ★ התיקון הקריטי: מוודאים שיש סשן תקוף ומסונכרן לקוקיז לפני הניווט
+    await supabaseRef.current.auth.getSession();
+    
     router.push('/report');
   };
 
-  const handleHistoryClick = () => {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:160',message:'handleHistoryClick entry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
-    // #endregion
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:162',message:'Before router.push to /history',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
-    // #endregion
+  const handleHistoryClick = async () => { // הפכנו ל-async
+    // ★ רענון סשן גם כאן
+    await supabaseRef.current.auth.getSession();
+    
     router.push("/history");
   };
 
@@ -215,4 +195,3 @@ export default function Profile() {
     </main>
   );
 }
-
