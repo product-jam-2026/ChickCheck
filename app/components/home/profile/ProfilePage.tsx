@@ -102,6 +102,7 @@ export default function ProfilePage({
         href="/logout"
         className={styles.logoutButton}
         aria-label="התנתקות"
+        prefetch={false}
       >
         התנתקות
       </Link>
