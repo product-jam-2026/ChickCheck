@@ -1,0 +1,930 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(23, 23, 23, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  direction: rtl;
+}
+
+.loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1F1F1F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  direction: rtl;
+}
+
+.onboardingContainer {
+  width: min(393px, 90vw);
+  height: min(852px, 90vh);
+  background: transparent;
+  padding: clamp(120px, 25vh, 193px) clamp(12px, 3vw, 16px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(32px, 6vw, 48px);
+  position: relative;
+  overflow-y: auto;
+}
+
+.continueContainer {
+  padding: clamp(80px, 15vh, 120px) clamp(12px, 3vw, 16px) clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px);
+  justify-content: flex-start;
+  align-items: center;
+  gap: clamp(24px, 5vw, 32px);
+  display: flex;
+  flex-direction: column;
+}
+
+.screenshotContainer {
+  padding: clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px) clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px);
+  justify-content: flex-start;
+  gap: clamp(24px, 5vw, 32px);
+}
+
+.greeting {
+  font-size: clamp(26px, 5.5vw, 32px);
+  font-weight: 600;
+  color: #E3F0FA;
+  text-align: center;
+  align-self: stretch;
+  line-height: 1.4;
+  margin: 0;
+  margin-bottom: clamp(8px, 2vw, 12px);
+}
+
+.readiness {
+  font-size: clamp(24px, 5vw, 30px);
+  font-weight: 600;
+  color: #E3F0FA;
+  text-align: center;
+  align-self: stretch;
+  line-height: normal;
+  margin: 0;
+}
+
+.description,
+.instruction {
+  font-size: clamp(20px, 4vw, 18px);
+  color: #E3F0FA;
+  text-align: center;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.fadeIn {
+  animation: fadeInUp 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.helpLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.helpLink {
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: 15%;
+  text-underline-position: from-font;
+  font-size: clamp(22px, 4.5vw, 26px);
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  padding: clamp(0.15rem, 0.5vw, 0.25rem);
+  font-family: inherit;
+}
+
+.helpLink:hover {
+  color: rgba(227, 240, 250, 0.8);
+}
+
+
+.startButtonWelcome {
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(21px, 4.5vw, 26px);
+  cursor: pointer;
+  padding: clamp(0.5rem, 1.5vw, 0.75rem);
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(7px, 1.5vw, 10px);
+  align-self: center;
+  margin-top: 0;
+  margin-bottom: clamp(16px, 3vw, 24px);
+}
+
+.startButtonWelcome:hover {
+  color: rgba(227, 240, 250, 0.8);
+}
+
+.welcomeNextButton {
+  display: flex;
+  width: 10rem;
+  height: 2rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  border: 2px solid #050130;
+  background: #C7DCED;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  margin-top: clamp(16px, 3vw, 24px);
+  margin-bottom: clamp(16px, 3vw, 24px);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+  align-self: center;
+}
+
+.welcomeNextButton:hover {
+  background: #b8d0e0;
+}
+
+.welcomeNextButtonText {
+  color: #050130;
+  font-family: inherit;
+  text-align: right;
+  font-size: clamp(20px, 4vw, 18px);
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.skipButton {
+  position: absolute;
+  left: clamp(20px, 4vw, 30px);
+  bottom: clamp(25px, 4vh, 35px);
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(21px, 4.5vw, 26px);
+  cursor: pointer;
+  padding: clamp(0.5rem, 1.5vw, 0.75rem);
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(7px, 1.5vw, 10px);
+}
+
+.skipButton:hover {
+  color: rgba(227, 240, 250, 0.8);
+}
+
+.skipButtonRelative {
+  position: absolute;
+  left: clamp(20px, 4vw, 30px);
+  bottom: clamp(25px, 4vh, 35px);
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(21px, 4.5vw, 26px);
+  cursor: pointer;
+  padding: clamp(0.5rem, 1.5vw, 0.75rem);
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(7px, 1.5vw, 10px);
+}
+
+.skipButtonRelative:hover {
+  color: rgba(227, 240, 250, 0.8);
+}
+
+.skipButtonText {
+  white-space: nowrap;
+}
+
+/* Instruction Page Styles */
+.instructionContainer {
+  padding: clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px) clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px);
+  justify-content: center;
+  align-items: center;
+  gap: clamp(24px, 5vw, 32px);
+  display: flex;
+  flex-direction: column;
+}
+
+.instructionText {
+  font-size: clamp(20px, 4vw, 18px);
+  color: #E3F0FA;
+  text-align: center;
+  line-height: 1.4;
+  width: 100%;
+  margin-bottom: clamp(24px, 5vw, 32px);
+}
+
+.instructionButton {
+  display: flex;
+  width: 10rem;
+  height: 2rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  border: 2px solid #050130;
+  background: #C7DCED;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+  align-self: center;
+}
+
+.instructionButton:hover {
+  background: #b8d0e0;
+}
+
+.instructionButtonText {
+  color: #050130;
+  font-family: inherit;
+  text-align: right;
+  font-size: clamp(20px, 4vw, 18px);
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* Instruction Page Styles */
+.instructionContainer {
+  padding: clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px) clamp(40px, 8vh, 60px) clamp(12px, 3vw, 16px);
+  justify-content: center;
+  align-items: center;
+  gap: clamp(24px, 5vw, 32px);
+  display: flex;
+  flex-direction: column;
+}
+
+.instructionText {
+  font-size: clamp(20px, 4vw, 18px);
+  color: #E3F0FA;
+  text-align: center;
+  line-height: 1.4;
+  width: 100%;
+  margin-bottom: clamp(24px, 5vw, 32px);
+}
+
+.instructionButton {
+  display: flex;
+  width: 10rem;
+  height: 2rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  border: 2px solid #050130;
+  background: #C7DCED;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+  align-self: center;
+}
+
+.instructionButton:hover {
+  background: #b8d0e0;
+}
+
+.instructionButtonText {
+  color: #050130;
+  font-family: inherit;
+  text-align: right;
+  font-size: clamp(20px, 4vw, 18px);
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* Continue Page Styles */
+.continueTitle {
+  font-size: clamp(26px, 5.5vw, 32px);
+  font-weight: 600;
+  color: #E3F0FA;
+  text-align: center;
+  line-height: 1.4;
+  width: 100%;
+  margin-bottom: clamp(4px, 1vw, 8px);
+}
+
+.continueProgressIndicator {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  margin-bottom: clamp(4px, 1vw, 8px);
+}
+
+.continueProgressBarSvg {
+  width: min(120px, 30vw);
+  height: auto;
+}
+
+.continueButton {
+  display: flex;
+  width: 9rem;
+  height: 1.875rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  border: 2px solid #050130;
+  background: #C7DCED;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  margin-top: clamp(4px, 1vw, 8px);
+  margin-bottom: clamp(32px, 6vw, 48px);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+  align-self: center;
+}
+
+.continueButton:hover {
+  background: #b8d0e0;
+}
+
+.continueButtonText {
+  color: #050130;
+  font-family: inherit;
+  text-align: right;
+  font-size: clamp(20px, 4vw, 18px);
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* Screenshot Instructions Styles */
+.screenshotInstruction {
+  font-size: clamp(18px, 4vw, 22px);
+  color: #E3F0FA;
+  text-align: center;
+  line-height: 1.5;
+  width: 100%;
+  margin-bottom: clamp(24px, 5vw, 32px);
+}
+
+.phoneMockupContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: clamp(24px, 5vw, 32px);
+  position: relative;
+}
+
+.onboardingSvg {
+  width: min(280px, 70vw);
+  height: auto;
+  max-height: 600px;
+}
+
+.backButton {
+  position: fixed;
+  top: clamp(20px, 4vh, 30px);
+  right: clamp(20px, 4vw, 30px);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 3000;
+  padding: clamp(8px, 1.5vw, 12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.backIcon {
+  width: 1.3rem;
+  height: 1.3rem;
+  object-fit: contain;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  filter: brightness(0) invert(1);
+  transform: scaleX(-1);
+}
+
+.backButton:hover {
+  opacity: 0.7;
+}
+
+.closeButton {
+  position: fixed;
+  top: clamp(20px, 4vh, 30px);
+  left: clamp(20px, 4vw, 30px);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 3000;
+  padding: clamp(8px, 1.5vw, 12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.closeIcon {
+  width: 1.875rem;
+  height: 1.875rem;
+  object-fit: contain;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  filter: brightness(0) invert(1);
+}
+
+.closeButton:hover {
+  opacity: 0.7;
+}
+
+.deviceToggle {
+  display: flex;
+  gap: clamp(12px, 3vw, 16px);
+  justify-content: center;
+  margin-bottom: clamp(24px, 5vw, 32px);
+}
+
+.deviceButton {
+  padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(1.25rem, 3vw, 1.75rem);
+  background: rgba(227, 240, 250, 0.2);
+  border: 2px solid rgba(227, 240, 250, 0.4);
+  border-radius: clamp(0.5rem, 1.5vw, 0.75rem);
+  color: #E3F0FA;
+  font-size: clamp(16px, 3vw, 18px);
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.deviceButtonActive {
+  background: #E3F0FA;
+  color: #1F1F1F;
+  border-color: #E3F0FA;
+}
+
+.deviceButton:hover {
+  background: rgba(227, 240, 250, 0.3);
+}
+
+.deviceButtonActive:hover {
+  background: #d0e5f5;
+}
+
+.screenshotDoneButton {
+  display: flex;
+  width: 12rem;
+  height: 2.25rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  border: 2px solid #050130;
+  background: #C7DCED;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  margin-bottom: clamp(16px, 3vw, 24px);
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+  align-self: center;
+}
+
+.screenshotDoneButton:hover {
+  background: #b8d0e0;
+}
+
+.screenshotDoneButtonText {
+  color: #050130;
+  font-family: inherit;
+  text-align: right;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* Upload Instructions Styles */
+.uploadContainer {
+  padding: clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px) clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px);
+  justify-content: flex-start;
+  gap: clamp(20px, 4vw, 28px);
+  overflow-y: auto;
+}
+
+.progressIndicator {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: clamp(16px, 3vw, 24px);
+}
+
+.progressBarSvg {
+  width: min(350px, 90vw);
+  height: auto;
+}
+
+.uploadMainContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 5vw, 32px);
+  flex: 1;
+}
+
+.excellentText {
+  color: #E3F0FA;
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+.uploadInstruction {
+  color: #E3F0FA;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.5;
+  width: 100%;
+  margin: 0;
+}
+
+.uploadAreaWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  cursor: pointer;
+}
+
+/* Gallery Instructions Styles */
+.galleryContainer {
+  padding: clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px) clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px);
+  justify-content: flex-start;
+  gap: clamp(20px, 4vw, 28px);
+  overflow-y: auto;
+}
+
+.galleryInstruction {
+  color: #E3F0FA;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.5;
+  width: 100%;
+  margin-bottom: clamp(16px, 3vw, 24px);
+}
+
+.galleryNextButton {
+  display: flex;
+  width: 12rem;
+  height: 2.25rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  border: 2px solid #050130;
+  background: #C7DCED;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  margin-top: clamp(16px, 3vw, 24px);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+  align-self: center;
+}
+
+.galleryNextButton:hover {
+  background: #b8d0e0;
+}
+
+.galleryNextButtonText {
+  white-space: nowrap;
+}
+
+.galleryPhoneSvg {
+  width: min(280px, 70vw);
+  height: auto;
+  max-height: 500px;
+}
+
+/* Review Instructions Styles */
+.reviewContainer {
+  padding: clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px) clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px);
+  justify-content: flex-start;
+  gap: clamp(20px, 4vw, 28px);
+  overflow-y: auto;
+}
+
+.reviewInstruction {
+  color: #E3F0FA;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.5;
+  width: 100%;
+  margin-bottom: clamp(16px, 3vw, 24px);
+}
+
+.reviewPhoneSvg {
+  width: min(280px, 70vw);
+  height: auto;
+  max-height: 500px;
+}
+
+.reviewSendButton {
+  display: flex;
+  width: 12rem;
+  height: 2.5rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  border: 2px solid #ff0000;
+  background: #C7DCED;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  margin-top: clamp(16px, 3vw, 24px);
+  margin-bottom: 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+  align-self: center;
+}
+
+.reviewSendButton:hover {
+  background: #b8d0e0;
+}
+
+.reviewSendButtonText {
+  color: #050130;
+  font-family: inherit;
+  text-align: right;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.startButtonText,
+.screenshotDoneButtonText,
+.galleryNextButtonText {
+  color: #050130;
+  font-family: inherit;
+  text-align: right;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.uploadIcon {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex-shrink: 0;
+  fill: var(--d-9-d-9-d-9, #1F1F1F);
+}
+
+/* Loading Instructions Styles */
+.loadingContainer {
+  padding: clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px) clamp(30px, 6vh, 50px) clamp(12px, 3vw, 16px);
+  justify-content: flex-start;
+  gap: clamp(20px, 4vw, 28px);
+  overflow-y: auto;
+  background: #1F1F1F;
+}
+
+.loadingInstruction {
+  color: #E3F0FA;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.5;
+  width: 100%;
+  margin-bottom: clamp(24px, 5vw, 32px);
+}
+
+.loadingVideoContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: clamp(24px, 5vw, 32px);
+  position: relative;
+  min-height: 400px;
+}
+
+.loadingVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22.125rem;
+  height: 39.3125rem;
+  aspect-ratio: 354/629;
+  padding: 5.19rem 1.38rem 8.75rem 1.06rem;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  max-width: min(22.125rem, 90vw);
+  max-height: min(39.3125rem, 70vh);
+}
+
+.loadingNextButton {
+  display: flex;
+  width: 12rem;
+  height: 2.5rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  border: 2px solid #050130;
+  background: #C7DCED;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  margin-top: clamp(24px, 5vw, 32px);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+  align-self: center;
+}
+
+.loadingNextButton:hover {
+  background: #b8d0e0;
+}
+
+.loadingNextButtonText {
+  color: #050130;
+  font-family: inherit;
+  text-align: right;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* Results Instructions Styles */
+.resultsOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1F1F1F;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  direction: rtl;
+}
+
+.resultsContainer {
+  padding: clamp(30px, 6vh, 50px) clamp(8px, 2vw, 12px) clamp(30px, 6vh, 50px) clamp(8px, 2vw, 12px);
+  justify-content: flex-start;
+  gap: clamp(20px, 4vw, 28px);
+  overflow-y: auto;
+}
+
+.resultsInstruction {
+  color: #E3F0FA;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.5;
+  width: 100%;
+  margin-bottom: clamp(24px, 5vw, 32px);
+}
+
+.resultsIconsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: clamp(24px, 5vw, 32px);
+}
+
+.resultsIconsSvg {
+  width: min(320px, 75vw);
+  height: auto;
+  object-fit: contain;
+}
+
+.disclaimerSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 3vw, 16px);
+  margin-bottom: clamp(24px, 5vw, 32px);
+}
+
+.disclaimerTitle {
+  color: #E3F0FA;
+  font-size: clamp(18px, 4vw, 22px);
+  font-weight: 600;
+  text-align: center;
+}
+
+.disclaimerText {
+  color: #E3F0FA;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.5;
+  width: 100%;
+}
+
+.resultsReadyButton {
+  display: flex;
+  width: 15rem;
+  height: 2.5rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  border: 2px solid #050130;
+  background: #C7DCED;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  margin-top: clamp(16px, 3vw, 24px);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+  align-self: center;
+}
+
+.resultsReadyButton:hover {
+  background: #b8d0e0;
+}
+
+.resultsReadyButtonText {
+  color: #050130;
+  font-family: inherit;
+  text-align: right;
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+

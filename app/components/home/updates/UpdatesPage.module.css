@@ -18,8 +18,8 @@
 .headerContainer {
   width: 100%;
   background: #1F1F1F;
-  padding: 2rem 1rem 1rem 1rem; 
-  margin-bottom: 0.5rem;
+  padding: clamp(1rem, 3vh, 1.5rem) 1rem 0.25rem 1rem; 
+  margin-bottom: 0;
   box-sizing: border-box;
   position: sticky;
   top: 0;
@@ -33,7 +33,7 @@
   align-items: flex-start; 
   justify-content: center;
   position: relative;
-  gap: 0.5rem;
+  gap: clamp(1.25rem, 3vw, 1.5rem);
   padding-left: 1rem;
 }
 
@@ -81,8 +81,8 @@
 }
 
 .searchContainer {
-  width: 95%;
-  padding: 1rem 0.75rem;
+  width: 90%;
+  padding: 1.25rem 0.75rem 0.75rem 0.75rem;
   background: #1F1F1F;
   box-sizing: border-box;
 }
@@ -97,12 +97,12 @@
 
 .searchInput {
   width: 100%;
-  padding: 0.4rem 3rem 0.4rem 1rem;
+  padding: 0.4rem 2.5rem 0.4rem 0.875rem;
   background: #1F1F1F;
-  border: 2px solid #ffffff;
-  border-radius: 1rem;
-  color: #ffffff;
-  font-size: 1.125rem;
+  border: 2px solid #E3F0FA;
+  border-radius: 1.5rem;
+  color: #E3F0FA;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
   font-family: inherit;
   box-sizing: border-box;
   direction: rtl;
@@ -125,12 +125,12 @@
 }
 
 .searchInput::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(227, 240, 250, 0.6);
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: #ffffff;
+  border-color: #E3F0FA;
   background: #1F1F1F;
 }
 
