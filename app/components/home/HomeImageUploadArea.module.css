@@ -7,7 +7,6 @@
   justify-content: center;
   cursor: pointer;
   position: relative;
-  background: var(--d-9-d-9-d-9, #1F1F1F);
 }
 
 .borderSvg {
@@ -33,7 +32,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.05rem;
   position: relative;
   z-index: 1;
 }
@@ -48,18 +47,13 @@
   text-align: center;
 }
 
-.dragging {
-  opacity: 0.8;
-}
-
-.dragging .borderSvg {
-  opacity: 0.5;
-}
 
 .helpButton {
   position: absolute;
-  bottom: 0.2rem;
-  right: 0.2rem;
+  bottom: 0.4rem;
+  right: 1.4rem;
+  left: auto;
+  max-width: calc(100% - 2.5rem);
   display: flex;
   align-items: center;
   gap: 0.625rem;
@@ -72,8 +66,8 @@
 }
 
 .helpIcon {
-  width: 1.45831rem;
-  height: 1.45831rem;
+  width: 1.08331rem;
+  height: 1.08331rem;
   flex-shrink: 0;
 }
 
@@ -81,7 +75,7 @@
   color: var(--D5E8FC, #E3F0FA);
   text-align: right;
   font-family: SimplerPro;
-  font-size: 1.875rem;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;

@@ -1,31 +1,30 @@
 .uploadSubmitButton {
   display: flex;
-  width: 13.6875rem;
+  width: 11.8125rem;
   height: 2.8125rem;
   padding: 0.4875rem 0.8125rem 0.4875rem 0.5625rem;
   align-items: center;
   justify-content: center;
   border-radius: 1rem;
-  border: 2px solid #050130;
   background: #C7DCED;
-  gap: 0.625rem;
+  gap: 1rem;
   flex-shrink: 0;
   margin-bottom: 1.25rem;
   margin-top: 0.5rem;
 }
 
 .uploadIcon {
-  width: 1.20831rem;
-  height: 1.20831rem;
+  width: 1rem;
+  height: 1rem;
   flex-shrink: 0;
   fill: var(--d-9-d-9-d-9, #1F1F1F);
 }
 
 .submitButtonText {
-  color: #050130;
+  color: #1F1F1F;
   font-family: inherit;
-  text-align: right;
-  font-size: 1.875rem;
+  text-align: center;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
 }

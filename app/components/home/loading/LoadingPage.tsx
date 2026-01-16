@@ -2,7 +2,7 @@
 
 import React from "react";
 import LoadingProgressBar from "./LoadingProgressBar";
-import LoadingDisclaimer from "./LoadingDisclaimer";
+import HomeDisclaimer from "../HomeDisclaimer";
 import styles from "./LoadingPage.module.css";
 
 interface LoadingPageProps {
@@ -29,7 +29,7 @@ export default function LoadingPage({
         <LoadingProgressBar progress={progress} />
       </div>
       <div className={styles.loadingDisclaimerWrapper}>
-        <LoadingDisclaimer />
+        <HomeDisclaimer />
       </div>
     </div>
   );

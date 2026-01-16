@@ -22,7 +22,7 @@ export default function HomeHelplineButton({
         height={26}
         className={styles.phoneIcon}
       />
-      <span className={styles.helplineButtonText}>טופס סיוע</span>
+      <span className={styles.helplineButtonText}>פנייה לסיוע</span>
     </button>
   );
 }
