@@ -122,7 +122,7 @@
   border: none;
   cursor: pointer;
   padding: 1.5rem;
-  padding-bottom: calc(3rem + var(--safe-area-inset-bottom));
+  padding-bottom: calc(4rem + var(--safe-area-inset-bottom));
 }
 
 .userDetailsContainer {

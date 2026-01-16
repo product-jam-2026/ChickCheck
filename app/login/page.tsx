@@ -17,7 +17,9 @@ export default async function Login({
         <h1 className={styles.greeting}>
           שלום:)
           <br />
-          ברוכים הבאים!
+          ברוכים
+          <br />
+          הבאים!
         </h1>
       </header>
 
