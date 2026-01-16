@@ -33,11 +33,21 @@ export const createClient = (request: NextRequest) => {
             value,
             ...options,
           });
+          // Save existing cookies from the previous response before creating a new one
+          const existingCookies = response.cookies.getAll();
+          // Create new response
           response = NextResponse.next({
             request: {
               headers: request.headers,
             },
           });
+          // Copy all existing cookies from the previous response (except the one being updated)
+          existingCookies.forEach(cookie => {
+            if (cookie.name !== name) {
+              response.cookies.set(cookie);
+            }
+          });
+          // Set the new/updated cookie
           response.cookies.set({
             name,
             value,
@@ -51,11 +61,21 @@ export const createClient = (request: NextRequest) => {
             value: "",
             ...options,
           });
+          // Save existing cookies from the previous response before creating a new one
+          const existingCookies = response.cookies.getAll();
+          // Create new response
           response = NextResponse.next({
             request: {
               headers: request.headers,
             },
           });
+          // Copy all existing cookies from the previous response (except the one being removed)
+          existingCookies.forEach(cookie => {
+            if (cookie.name !== name) {
+              response.cookies.set(cookie);
+            }
+          });
+          // Remove the cookie
           response.cookies.set({
             name,
             value: "",

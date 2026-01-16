@@ -38,7 +38,13 @@ export async function middleware(request: NextRequest) {
   try {
     // #region agent log
     const cookieNames = Array.from(request.cookies.getAll()).map(c => c.name);
-    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:34',message:'Before supabase client creation',data:{pathname,cookieCount:request.cookies.getAll().length,cookieNames},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,D,E'})}).catch(()=>{});
+    const supabaseCookies = cookieNames.filter(name => name.includes('supabase') || name.includes('sb-'));
+    console.log(`[DEBUG] Middleware entry for ${pathname}`, {
+      cookieCount: request.cookies.getAll().length,
+      supabaseCookies,
+      referer: request.headers.get('referer'),
+    });
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:34',message:'Before supabase client creation',data:{pathname,cookieCount:request.cookies.getAll().length,cookieNames,supabaseCookies},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,D,E'})}).catch(()=>{});
     // #endregion
     
     const { supabase, response } = createSupabaseMiddlewareClient(request);
@@ -66,7 +72,14 @@ export async function middleware(request: NextRequest) {
     } = await supabase.auth.getSession();
     
     // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:54',message:'After getSession call',data:{pathname,hasSession:!!session,hasError:!!error,errorMessage:error?.message,userEmail:session?.user?.email},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,D,E'})}).catch(()=>{});
+    console.log(`[DEBUG] After getSession for ${pathname}`, {
+      hasSession: !!session,
+      hasError: !!error,
+      errorMessage: error?.message,
+      userEmail: session?.user?.email,
+      responseCookies: Array.from(response.cookies.getAll()).map(c => c.name),
+    });
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:54',message:'After getSession call',data:{pathname,hasSession:!!session,hasError:!!error,errorMessage:error?.message,userEmail:session?.user?.email,responseCookies:Array.from(response.cookies.getAll()).map(c => c.name)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,D,E'})}).catch(()=>{});
     // #endregion
 
     // If there's an error getting the session, redirect to login (unless already on login page)
@@ -111,7 +124,15 @@ export async function middleware(request: NextRequest) {
     // If not logged in and not on login page, redirect to login
     if (!session && !isLoginPage) {
       // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:92',message:'No session - redirecting to login',data:{pathname,referer:request.headers.get('referer'),cookieCount:request.cookies.getAll().length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,D,E'})}).catch(()=>{});
+      const allCookies = request.cookies.getAll();
+      const supabaseCookies = allCookies.filter(c => c.name.includes('supabase') || c.name.includes('sb-'));
+      console.error(`[DEBUG] No session - redirecting to login from ${pathname}`, {
+        referer: request.headers.get('referer'),
+        cookieCount: allCookies.length,
+        supabaseCookies: supabaseCookies.map(c => ({ name: c.name, hasValue: !!c.value })),
+        requestCookies: allCookies.map(c => c.name),
+      });
+      fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:92',message:'No session - redirecting to login',data:{pathname,referer:request.headers.get('referer'),cookieCount:request.cookies.getAll().length,supabaseCookies:supabaseCookies.map(c => ({ name: c.name, hasValue: !!c.value }))},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,D,E'})}).catch(()=>{});
       // #endregion
       console.log("🔒 No session found - redirecting to /login");
       const loginUrl = new URL("/login", request.url);
@@ -142,6 +163,12 @@ export async function middleware(request: NextRequest) {
     }
 
     // Continue normally (and propagate any cookie updates from Supabase)
+    // #region agent log
+    console.log(`[DEBUG] Returning response for ${pathname}`, {
+      hasSession: !!session,
+      responseCookies: Array.from(response.cookies.getAll()).map(c => ({ name: c.name, hasValue: !!c.value })),
+    });
+    // #endregion
     return response;
   } catch (error) {
     // If middleware fails completely, log and allow request through
