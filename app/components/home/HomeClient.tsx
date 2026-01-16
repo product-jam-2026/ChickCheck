@@ -20,12 +20,45 @@ const markAllUpdatesAsSeen = (updateIds: number[]) => {
   localStorage.setItem("seenUpdateIds", JSON.stringify(allSeen));
 };
 
+// Utility functions to track onboarding completion in Supabase
+const hasCompletedOnboarding = async (supabase: ReturnType<typeof createClient>): Promise<boolean> => {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return false;
+    
+    // Check user_metadata for onboarding completion
+    return user.user_metadata?.onboarding_completed === true;
+  } catch (error) {
+    console.error("Error checking onboarding status:", error);
+    return false;
+  }
+};
+
+const markOnboardingAsCompleted = async (supabase: ReturnType<typeof createClient>): Promise<void> => {
+  try {
+    const { data, error } = await supabase.auth.updateUser({
+      data: { onboarding_completed: true }
+    });
+    
+    if (error) {
+      console.error("Error marking onboarding as completed:", error);
+      throw error;
+    }
+    
+    console.log("Onboarding marked as completed successfully", data.user?.user_metadata);
+  } catch (error) {
+    console.error("Error updating user metadata:", error);
+    throw error;
+  }
+};
+
 export default function HomeClient() {
   const router = useRouter();
   const [userName, setUserName] = useState<string>("משתמש");
   const [isLoading, setIsLoading] = useState(true);
   const [unseenCount, setUnseenCount] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -57,6 +90,13 @@ export default function HomeClient() {
                     user.email?.split("@")[0] || 
                     "משתמש";
         setUserName(name);
+
+        // Check if user has completed onboarding
+        const completed = await hasCompletedOnboarding(supabase);
+        console.log("Onboarding completion status:", completed, "User metadata:", user.user_metadata);
+        if (!completed) {
+          setShowOnboarding(true);
+        }
       } catch (error) {
         console.error("Error fetching user name:", error);
         // On error, use default name but still show the page
@@ -202,6 +242,34 @@ export default function HomeClient() {
     console.log("Helpline clicked");
   };
 
+  const handleOnboardingComplete = async () => {
+    try {
+      if (SUPABASE_ENABLED) {
+        const supabase = createClient();
+        await markOnboardingAsCompleted(supabase);
+      }
+      setShowOnboarding(false);
+    } catch (error) {
+      console.error("Error marking onboarding as completed:", error);
+      // Still hide onboarding even if save fails
+      setShowOnboarding(false);
+    }
+  };
+
+  const handleOnboardingSkip = async () => {
+    try {
+      if (SUPABASE_ENABLED) {
+        const supabase = createClient();
+        await markOnboardingAsCompleted(supabase);
+      }
+      setShowOnboarding(false);
+    } catch (error) {
+      console.error("Error marking onboarding as completed:", error);
+      // Still hide onboarding even if save fails
+      setShowOnboarding(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <main>
@@ -221,6 +289,9 @@ export default function HomeClient() {
         onUpdatesClick={handleUpdatesClick}
         onHelplineClick={handleHelplineClick}
         errorMessage={errorMessage}
+        showOnboarding={showOnboarding}
+        onOnboardingComplete={handleOnboardingComplete}
+        onOnboardingSkip={handleOnboardingSkip}
       />
     </main>
   );

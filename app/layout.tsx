@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <meta name="msapplication-TileColor" content="#050130" />
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
-      <body>{children}</body>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }
