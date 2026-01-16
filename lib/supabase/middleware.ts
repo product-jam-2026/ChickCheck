@@ -33,8 +33,11 @@ export const createClient = (request: NextRequest) => {
             value,
             ...options,
           });
-          // Update the existing response instead of creating a new one
-          // This preserves all cookies that were set previously
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          });
           response.cookies.set({
             name,
             value,
@@ -48,8 +51,11 @@ export const createClient = (request: NextRequest) => {
             value: "",
             ...options,
           });
-          // Update the existing response instead of creating a new one
-          // This preserves all cookies that were set previously
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          });
           response.cookies.set({
             name,
             value: "",

@@ -126,6 +126,10 @@ export default function Profile() {
   }, []);
 
   const handleUpdatesClick = async () => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:128',message:'handleUpdatesClick entry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
+    
     // Mark all updates as seen when user clicks on updates button
     try {
       if (SUPABASE_ENABLED) {
@@ -148,16 +152,32 @@ export default function Profile() {
       console.error("Error marking updates as seen:", error);
     }
     
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:151',message:'Before router.push to /home/updates',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
+    
     router.push("/home/updates");
   };
 
   const handleHelplineClick = () => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:154',message:'handleHelplineClick entry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
     console.log("Helpline clicked");
     // TODO: Navigate to helpline or open contact
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:158',message:'Before router.push to /report',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
     router.push('/report');
   };
 
   const handleHistoryClick = () => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:160',message:'handleHistoryClick entry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:162',message:'Before router.push to /history',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
     router.push("/history");
   };
 

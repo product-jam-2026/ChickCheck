@@ -7,6 +7,10 @@ const ADMIN_EMAIL = "galeliahu30@gmail.com";
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:7',message:'Middleware entry',data:{pathname,referer:request.headers.get('referer'),userAgent:request.headers.get('user-agent')?.substring(0,50)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,C,D,E'})}).catch(()=>{});
+  // #endregion
+  
   // If Supabase is not enabled, skip authentication checks
   if (!SUPABASE_ENABLED) {
     console.warn("⚠️ SUPABASE_ENABLED is false - authentication is disabled");
@@ -32,11 +36,19 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
+    // #region agent log
+    const cookieNames = Array.from(request.cookies.getAll()).map(c => c.name);
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:34',message:'Before supabase client creation',data:{pathname,cookieCount:request.cookies.getAll().length,cookieNames},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,D,E'})}).catch(()=>{});
+    // #endregion
+    
     const { supabase, response } = createSupabaseMiddlewareClient(request);
 
     // If Supabase client couldn't be created, redirect to login
     // This ensures authentication is enforced when Supabase is enabled
     if (!supabase) {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:40',message:'Supabase client not created',data:{pathname},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+      // #endregion
       console.warn("❌ Supabase client not created - redirecting to login");
       if (!isLoginPage) {
         return NextResponse.redirect(new URL("/login", request.url));
@@ -44,14 +56,20 @@ export async function middleware(request: NextRequest) {
       return response;
     }
 
-    // Use getUser instead of getSession for better reliability in production
-    // getUser validates the session token with Supabase, while getSession only reads from cookies
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:50',message:'Before getSession call',data:{pathname},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,E'})}).catch(()=>{});
+    // #endregion
+    
     const {
-      data: { user },
+      data: { session },
       error,
-    } = await supabase.auth.getUser();
+    } = await supabase.auth.getSession();
+    
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:54',message:'After getSession call',data:{pathname,hasSession:!!session,hasError:!!error,errorMessage:error?.message,userEmail:session?.user?.email},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,D,E'})}).catch(()=>{});
+    // #endregion
 
-    // If there's an error getting the user, redirect to login (unless already on login page)
+    // If there's an error getting the session, redirect to login (unless already on login page)
     if (error) {
       console.error("❌ Middleware auth error:", error);
       if (!isLoginPage) {
@@ -60,12 +78,10 @@ export async function middleware(request: NextRequest) {
       return response;
     }
 
-    // Note: We use user.email for admin checks, so we don't need to get session separately
-
 
     // If forceLogin is requested, clear the session and redirect to login
-    if (forceLogin && user && !isLoginPage) {
-      console.log("🔄 Force login requested - clearing session for user:", user.email);
+    if (forceLogin && session && !isLoginPage) {
+      console.log("🔄 Force login requested - clearing session for user:", session.user?.email);
       await supabase.auth.signOut();
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.delete("forceLogin"); // Remove the forceLogin param
@@ -75,9 +91,9 @@ export async function middleware(request: NextRequest) {
     // Check if we're in the process of clearing session (to prevent loop)
     const isClearingSession = request.nextUrl.searchParams.get("clearingSession") === "true";
     
-    // If on login page with a user and we're clearing, clear it and remove the flag
-    if (user && isLoginPage && !isFromLogout && isClearingSession) {
-      console.log("🔄 Clearing session on login page to force fresh login for user:", user.email);
+    // If on login page with a session and we're clearing, clear it and remove the flag
+    if (session && isLoginPage && !isFromLogout && isClearingSession) {
+      console.log("🔄 Clearing session on login page to force fresh login for user:", session.user?.email);
       await supabase.auth.signOut();
       // Remove the clearingSession flag from URL
       const loginUrl = new URL("/login", request.url);
@@ -93,22 +109,24 @@ export async function middleware(request: NextRequest) {
     // The "force fresh login" only applies when they first visit, not after successful login
 
     // If not logged in and not on login page, redirect to login
-    // Use user instead of session for more reliable check
-    if (!user && !isLoginPage) {
-      console.log("🔒 No user found - redirecting to /login");
+    if (!session && !isLoginPage) {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:92',message:'No session - redirecting to login',data:{pathname,referer:request.headers.get('referer'),cookieCount:request.cookies.getAll().length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,D,E'})}).catch(()=>{});
+      // #endregion
+      console.log("🔒 No session found - redirecting to /login");
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("next", pathname);
       return NextResponse.redirect(loginUrl);
     }
     
-    if (user && pathname !== "/") {
-      console.log("✅ User authenticated:", user.email);
+    if (session && pathname !== "/") {
+      console.log("✅ Session found for user:", session.user?.email);
     }
 
     // If logged in, check admin status
-    if (user) {
-      // Get user email from user object
-      const userEmail = user.email;
+    if (session) {
+      // Get user email from session
+      const userEmail = session.user?.email;
 
       // If user is admin and trying to access home page, redirect to admin
       if (userEmail === ADMIN_EMAIL && pathname === "/") {
