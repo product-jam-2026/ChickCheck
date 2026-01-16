@@ -7,7 +7,6 @@
   justify-content: center;
   cursor: pointer;
   position: relative;
-  background: var(--d-9-d-9-d-9, #1F1F1F);
 }
 
 .borderSvg {
@@ -48,13 +47,6 @@
   text-align: center;
 }
 
-.dragging {
-  opacity: 0.8;
-}
-
-.dragging .borderSvg {
-  opacity: 0.5;
-}
 
 .helpButton {
   position: absolute;
