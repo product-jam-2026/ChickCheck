@@ -19,6 +19,7 @@ export default function Profile() {
   const [userEmail, setUserEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [unseenCount, setUnseenCount] = useState<number>(0);
+  const [hasSession, setHasSession] = useState(false);
   const isMountedRef = useRef(true);
   // Create supabase client once to avoid multiple instances causing cookie issues
   const supabaseRef = useRef(createClient());
@@ -30,11 +31,14 @@ export default function Profile() {
       try {
         // Use the same supabase client instance
         const {
-          data: { user },
-        } = await supabaseRef.current.auth.getUser();
+          data: { session },
+        } = await supabaseRef.current.auth.getSession();
 
         // Only update state if component is still mounted
         if (!isMountedRef.current) return;
+
+        const user = session?.user ?? null;
+        setHasSession(!!user);
 
         if (user) {
           // Get user's name from metadata or email
@@ -45,8 +49,8 @@ export default function Profile() {
           setUserName(name);
           setUserEmail(user.email || "");
         }
-        // If no user, let middleware handle redirect - don't redirect here
-        // This prevents race conditions and cookie issues in production
+        // If no user, let middleware handle redirect - don't redirect here.
+        // This prevents race conditions and cookie issues in production.
       } catch (error) {
         console.error("Error fetching user data:", error);
         // Let middleware handle authentication - don't redirect on errors
@@ -69,7 +73,7 @@ export default function Profile() {
   useEffect(() => {
     const loadUpdatesAndCount = async () => {
       try {
-        if (!SUPABASE_ENABLED) {
+        if (!SUPABASE_ENABLED || !hasSession) {
           setUnseenCount(0);
           return;
         }
@@ -97,7 +101,7 @@ export default function Profile() {
     loadUpdatesAndCount();
 
     // Set up real-time subscription
-    if (SUPABASE_ENABLED) {
+    if (SUPABASE_ENABLED && hasSession) {
       // Use the same supabase client instance
       const supabase = supabaseRef.current;
       const channel = supabase
@@ -123,12 +127,16 @@ export default function Profile() {
         clearInterval(interval);
       };
     }
-  }, []);
+  }, [hasSession]);
 
   const handleUpdatesClick = async () => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:128',message:'handleUpdatesClick entry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
+    
     // Mark all updates as seen when user clicks on updates button
     try {
-      if (SUPABASE_ENABLED) {
+      if (SUPABASE_ENABLED && hasSession) {
         // Use the same supabase client instance
         const { data } = await supabaseRef.current
           .from("isoc_pushes")
@@ -148,17 +156,33 @@ export default function Profile() {
       console.error("Error marking updates as seen:", error);
     }
     
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:151',message:'Before router.push to /home/updates',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
+    
     router.push("/home/updates");
   };
 
   const handleHelplineClick = () => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:154',message:'handleHelplineClick entry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
     console.log("Helpline clicked");
     // TODO: Navigate to helpline or open contact
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:158',message:'Before router.push to /report',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
+    router.push('/report');
   };
 
   const handleHistoryClick = () => {
-    console.log("History clicked");
-    // TODO: Navigate to history page
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:160',message:'handleHistoryClick entry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/profile/page.tsx:162',message:'Before router.push to /history',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B,C'})}).catch(()=>{});
+    // #endregion
+    router.push("/history");
   };
 
   const handleEditClick = () => {

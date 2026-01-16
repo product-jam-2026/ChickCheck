@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { checkSafeBrowsing } from "@/lib/safeBrowsing";
+import { saveScanToSupabase } from "./saveScan";
 
 export const runtime = "nodejs";
 
@@ -103,6 +104,17 @@ export async function POST(req: Request) {
     if (finalResult.scamPercentage > 60) finalResult.status = "NOT_SAFE";
     else if (finalResult.scamPercentage >= 40) finalResult.status = "UNCLEAR";
     else finalResult.status = "SAFE";
+
+    const userId = formData.get("userId") as string | null;
+
+    if (userId && imageFile) {
+    try {
+        // חשוב מאוד: await מבטיח שהשמירה תסתיים לפני שהתשובה חוזרת
+        await saveScanToSupabase(userId, imageFile, finalResult);
+    } catch (e) {
+        console.error("Save failed but sending result to user anyway", e);
+    }
+}
 
     return NextResponse.json(finalResult);
 

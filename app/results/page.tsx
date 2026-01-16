@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
-import AccordionButton from "./AccordionButton";
+import HomeDisclaimer from "@/app/components/home/HomeDisclaimer";
+import ActionAccordion from "./ActionAccordion";
+import DetailAccordion from "./DetailAccordion";
 
 
 interface AnalysisResult {
@@ -47,9 +49,7 @@ export default function Page() {
     };
 
     // Determine which buttons to show based on status
-    const showDetails = status === "NOT_SAFE" || status === "SAFE";
-    const showAction = status === "NOT_SAFE" || status === "UNCLEAR";
-    const showShare = status === "NOT_SAFE" || status === "UNCLEAR"; // Share only for NOT_SAFE and UNCLEAR
+    const showWhatToDo = status === "NOT_SAFE" || status === "UNCLEAR";
 
     return (
         <main className={styles.container}>
@@ -67,7 +67,6 @@ export default function Page() {
                     />
                 </button>
             </div>
-
             <div className={styles.resultSection}>
                 <div className={styles.iconContainer}>
                     <Icon status={status} />
@@ -77,126 +76,133 @@ export default function Page() {
                     <Title status={status} />
                 </div>
 
-                <div className={styles.buttonsContainer}>
-                    {/* כפתור פירוט - shown for NOT_SAFE and SAFE */}
-                    {showDetails && (
-                        <AccordionButton
-                            title="פירוט"
-                            isOpen={openSections.has('details')}
-                            onToggle={() => toggleSection('details')}
-                            content={result.reasoning}
-                            technicalCheck={result.technicalCheck}
-                        />
-                    )}
+                <DetailAccordion
+                    text={result.reasoning}
+                    technicalCheck={result.technicalCheck}
+                    maxWidth={status === 'SAFE' ? '22.375rem' : status === 'NOT_SAFE' ? '22.1875rem' : '21.0625rem'}
+                />
 
-                    {/* כפתור מה עושים עכשיו - shown for NOT_SAFE and UNCLEAR */}
-                    {showAction && (
-                        <AccordionButton
-                            title="מה עושים עכשיו?"
-                            isOpen={openSections.has('action')}
-                            onToggle={() => toggleSection('action')}
-                            content={result.action}
-                        />
-                    )}
+               { showWhatToDo && (
+                <ActionAccordion
+                  maxWidth={status === 'NOT_SAFE' ? '22.1875rem' : '21.0625rem'}
+                />)}
+            
 
-                    {showShare && (
-                        <div className={styles.shareContainer}>
-                            <ShareButton />
-                        </div>
-                    )}
+                {/* Disclaimer component from home */}
+                <HomeDisclaimer />
+
+                <div className={styles.footer}>
+                    <a 
+                        href="/"
+                        className={styles.footerLink}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            router.push("/");
+                        }}
+                        aria-label="סגירה"
+                    >
+                        סגירה
+                    </a>
                 </div>
-            </div>
-
-            <div className={styles.footer}>
-                <a 
-                    href="/"
-                    className={styles.footerLink}
-                    onClick={(e) => {
-                        e.preventDefault();
-                        router.push("/");
-                    }}
-                    aria-label="סגירה"
-                >
-                    סגירה
-                </a>
+                
             </div>
         </main>
     );
 }
 
 function Icon({ status }: { status: AnalysisResult['status'] }) {
-    if (status === "NOT_SAFE") {
-        return (
-            <div className={styles.untrustedIconContainer}>
-                <Image 
+
+    switch (status) {
+        case "NOT_SAFE":
+            return ( <Image 
                     src="/icons/not_safe_icon.svg" 
                     alt="לא אמין" 
                     width={227} 
                     height={227} 
-                    className={styles.untrustedIcon} 
-                />
-            </div>
-        );
-    }
-    if (status === "SAFE") {
-        return (
-            <div className={styles.trustedIconContainer}>
-                <Image 
+                    className={styles.Icon} 
+                     />
+                  );
+        case "SAFE":
+            return (   <Image 
                     src="/icons/safe_icon.svg" 
                     alt="אמין" 
-                    width={189} 
-                    height={189} 
-                    className={styles.trustedIcon} 
-                />
-            </div>
-        );
-    }
-    return (
-        <div className={styles.unknownIconContainer}>
-            <Image 
+                    width={227} 
+                    height={227} 
+                    className={styles.Icon} 
+                    />
+                    );
+
+        default:
+            return ( <Image 
                 src="/icons/unclear_icon.svg" 
                 alt="לא בטוח" 
-                width={174} 
-                height={188} 
-                className={styles.unknownIcon} 
+                width={500} 
+                height={500} 
+                className={styles.Icon} 
             />
-        </div>
-    );
-}
+                );
+ 
+        } 
+    }
 
 function Title({ status }: { status: AnalysisResult['status'] }) {
-    if (status === "NOT_SAFE") {
-        return (
-            <p className={`${styles.titleText} ${styles.titleTextUntrusted}`}>
+
+    switch (status) {
+        case "NOT_SAFE":
+            return (
+            <p className={styles.titleText}>
                 <span>התוכן שהתקבל </span><span>נמצא</span> <span className={styles.accentRed}>לא אמין</span>
             </p>
-        );
-    }
-    if (status === "SAFE") {
-        return (
-            <p className={`${styles.titleText} ${styles.titleTextTrusted}`}>
+            );
+        case "SAFE":
+            return (
+            <p className={styles.titleText}>
                 <span>התוכן שהתקבל </span><span>נמצא</span> <span className={styles.accentGreen}>אמין</span>
             </p>
-        );
-    }
-    return (
-        <p className={`${styles.titleText} ${styles.titleTextUnknown}`}>
-            <span className={styles.accentOrange}>לא הצלחנו</span> לקבוע אמינות
-        </p>
-    );
+            );
+
+        default:
+             return (
+            <p className={styles.titleText}>
+            <span className={styles.accentOrange}>לא הצלחנו</span> לקבוע את אמינות התוכן      
+            </p>
+            );
+
+        }
 }
 
+
+
+
+
+
+/* need to implement the share button
+need to connect the help button to Refael's work
+maybe implement that in the actionAccrodion component */
+
 function ShareButton() {
+    const onShare = async () => {
+        const shareData = {
+            title: "ChickCheck",
+            text: "בדקו גם אתם עם ChickCheck",
+            url: typeof window !== 'undefined' ? window.location.href : '/',
+        };
+        try {
+            if (navigator.share) {
+                await navigator.share(shareData);
+            } else if (navigator.clipboard) {
+                await navigator.clipboard.writeText(shareData.url);
+                alert("הקישור הועתק ללוח");
+            }
+        } catch (e) {
+            console.error('Share failed', e);
+        }
+    };
+
     return (
-        <div className={styles.shareRow}>
-            <span>שיתוף</span>
-			<Image 
-                src="/icons/share_icon.svg" 
-                alt="שיתוף" 
-                width={16} 
-                height={21} 
-                className={styles.shareIcon} 
-            />
-        </div>
+        <button className={styles.pillButton} onClick={onShare}>
+            <Image src="/icons/share_icon.svg" alt="שיתוף" width={20} height={20} className={styles.pillIcon} />
+            שיתוף
+        </button>
     );
 }

@@ -1,0 +1,318 @@
+/*ENTRY*/
+
+.step_zero_main_frame{
+display: flex;
+width: 24.5625rem;
+padding: 2.375rem 0 27.875rem 0;
+flex-direction: column;
+align-items: center;
+background-color: #E3F0FA;
+max-width: 100%;
+min-height: 100%;
+}
+
+.step_zero_text_arrow_frame{
+display: flex;
+width: 24.5625rem;
+padding-inline: 1rem;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+gap: 5.1875rem;
+}
+
+.backButtonWrapper {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex; /* Ensures the SVG aligns perfectly */
+}
+
+.step_zero_arrow {
+  width: 1.20831rem;
+  height: 1.20831rem;
+  /* This CSS fill will only work if you remove the 'fill' attribute 
+     from the SVG tag itself, or if you use !important */
+  fill: var(--d-9-d-9-d-9, #1F1F1F); 
+}
+
+.step_zero_text_forward{
+display: flex;
+height: 15.625rem;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+gap: 0.75rem;
+align-self: stretch;
+}
+
+.step_zero_first_text{
+width: 13.9375rem;
+color: #1F1F1F;
+text-align: start;
+font-family: SimplerPro;
+font-size: 1.875rem;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.step_zero_second_text{
+width: 21.6875rem;
+color: #1F1F1F;
+text-align: start;
+font-family: SimplerPro_V3;
+font-size: 1.375rem;
+font-style: normal;
+font-weight: 400;
+line-height: 1.75rem; /* 127.273% */
+}
+
+.step_zero_button{
+    display: flex;
+padding: 0.5rem 0.75rem;
+justify-content: center;
+align-items: center;
+gap: 0.0625rem;
+border-radius: 1rem;
+background-color: #C7DCED;
+}
+
+.step_zero_button_text{
+color: #1F1F1F;
+text-align: start;
+font-family: SimplerPro;
+font-size: 1.875rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+/*Step 1*/
+.step_one_auto{
+width: 24.5625rem;
+height: 53.25rem;
+background-color: #E3F0FA;
+}
+
+.step_one_forward_button{
+display: flex;
+width: 19.625rem;
+height: 3.75rem;
+padding: 0 0.9375rem;
+justify-content: center;
+align-items: center;
+gap: 0.625rem;
+border-radius: 1.25rem;
+background-color: #1F1F1F;
+}
+
+.step_one_forward_button_text{
+color: #FFF;
+text-align: right;
+font-family: SimplerPro;
+font-size: 1.875rem;
+font-style: normal;
+font-weight: 600;
+line-height: 3.75rem; /* 200% */
+}
+
+.step_one_sub_frame{
+display: flex;
+width: 24.5625rem;
+height: 17.1875rem;
+padding: 0 1rem;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 0.625rem;
+}
+
+.step_one_sub_sub_frame{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+gap: 1.125rem;
+align-self: stretch;
+}
+
+.step_one_sub_sub_sub_frame_text_correct_button{
+display: flex;
+width: 22.5625rem;
+flex-direction: column;
+align-items: center;
+gap: 2rem;
+}
+
+.step_one_sub_sub_sub_frame_text_correct_button_frame_text{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-end;
+gap: 0.75rem;
+align-self: stretch;
+}
+
+.step_one_sub_sub_sub_frame_text_correct_button_frame_text_one{
+align-self: stretch;
+color: #1F1F1F;
+text-align: right;
+font-family: SimplerPro;
+font-size: 1.875rem;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.step_one_sub_sub_sub_frame_text_correct_button_frame_text_two{
+align-self: stretch;
+color: #1F1F1F;
+text-align: right;
+font-family: SimplerPro_V3;
+font-size: 1.5rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+
+.step_one_sub_sub_sub_frame_text_correct_button_frame_text_three{
+align-self: stretch;
+color: #1F1F1F;
+text-align: right;
+font-family: SimplerPro;
+font-size: 1.5rem;
+font-style: normal;
+font-weight: 200;
+line-height: normal; 
+}
+
+.step_one_sub_sub_sub_frame_text_correct_button_frame_button{
+display: flex;
+width: 6.8125rem;
+justify-content: space-between;
+align-items: center;
+}
+
+.step_one_sub_sub_sub_frame_text_correct_button_frame_button_icon{
+width: 1.125rem;
+height: 1.125rem;
+fill: var(--d-9-d-9-d-9, #1F1F1F);
+}
+
+.step_one_sub_sub_sub_frame_text_correct_button_frame_button_text{
+width: 5.3125rem;
+flex-shrink: 0;
+color: #1F1F1F;
+text-align: right;
+font-family: SimplerPro;
+font-size: 1.5rem;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.step_one_sub_sub_sub_frame_progress_bar{
+display: flex;
+height: 7rem;
+padding-bottom: 0.8125rem;
+justify-content: center;
+align-items: center;
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame{
+display: flex;
+width: 24.72838rem;
+flex-direction: column;
+align-items: center;
+gap: 1.25rem;
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x{
+display: flex;
+width: 20.83331rem;
+justify-content: space-between;
+align-items: center;
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_x{
+width: 1.09375rem;
+height: 1.09375rem;
+fill: var(--d-9-d-9-d-9, #1F1F1F);
+stroke-width: 1px;
+stroke: var(--d-9-d-9-d-9, #1F1F1F);
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_arrow{
+width: 1.20831rem;
+height: 1.20831rem;
+flex-shrink: 0;
+fill: var(--d-9-d-9-d-9, #1F1F1F);
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar{
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: -0.71394rem;
+align-self: stretch;
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar{
+display: flex;
+padding: 0 1.39544rem 0.38944rem 0.94113rem;
+align-items: center;
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame{
+width: 20.12019rem;
+height: 0.77888rem;
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame_line_icon{
+width: 19.71644rem;
+height: 0; 
+stroke-width: 1.558px;
+stroke: var(--d-9-d-9-d-9, #1F1F1F);
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame_black_circle_icon{
+width: 0.77888rem;
+height: 0.77888rem;
+fill: var(--d-9-d-9-d-9, #1F1F1F);
+stroke-width: 1.558px;
+stroke: var(--d-9-d-9-d-9, #1F1F1F);
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame_white_middle_circle_icon{
+width: 0.8075rem;
+height: 0.77888rem;
+fill: var(--D5E8FC, #E3F0FA);
+stroke-width: 1.558px;
+stroke: var(--d-9-d-9-d-9, #1F1F1F);
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame_white_last_circle_icon{
+width: 0.8075rem;
+height: 0.77888rem;
+fill: var(--D5E8FC, #E3F0FA);
+stroke-width: 1.558px;
+stroke: var(--d-9-d-9-d-9, #1F1F1F);
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_text{
+height: 2.92069rem;
+align-self: stretch;
+}
+
+.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_text_var_text{
+color: #1F1F1F;
+text-align: right;
+font-family: SimplerPro_HLAR;
+font-size: 1.55769rem;
+font-style: normal;
+font-weight: 400;
+line-height: 3.89425rem; /* 250% */
+}

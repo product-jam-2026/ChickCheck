@@ -1,20 +1,25 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 import {
   PUBLIC_SUPABASE_URL,
   PUBLIC_SUPABASE_ANON_KEY,
+  SUPABASE_ENABLED,
 } from "@/lib/config";
 
-export const createClient = (request: NextRequest) => {
-  // Create an unmodified response
-  let response = NextResponse.next({
+type MiddlewareClientResult = {
+  supabase: SupabaseClient | null;
+  response: NextResponse;
+};
+
+export const createClient = (request: NextRequest): MiddlewareClientResult => {
+  const response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
 
-  // If Supabase is not configured, return early
-  if (!PUBLIC_SUPABASE_URL || !PUBLIC_SUPABASE_ANON_KEY) {
+  if (!SUPABASE_ENABLED) {
     return { supabase: null, response };
   }
 
@@ -27,43 +32,26 @@ export const createClient = (request: NextRequest) => {
           return request.cookies.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
-          // If the cookie is updated, update the cookies for the request and response
-          request.cookies.set({
-            name,
-            value,
-            ...options,
-          });
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          });
-          response.cookies.set({
-            name,
-            value,
-            ...options,
-          });
+          const safeOptions = options ?? {};
+          try {
+            request.cookies.set({ name, value, ...safeOptions });
+          } catch {
+            // In middleware this shouldn't fail often, but avoid blocking auth.
+          }
+          response.cookies.set({ name, value, ...safeOptions });
         },
         remove(name: string, options: CookieOptions) {
-          // If the cookie is removed, update the cookies for the request and response
-          request.cookies.set({
-            name,
-            value: "",
-            ...options,
-          });
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          });
-          response.cookies.set({
-            name,
-            value: "",
-            ...options,
-          });
+          const safeOptions = options ?? {};
+          try {
+            request.cookies.set({ name, value: "", ...safeOptions });
+          } catch {
+            // In middleware this shouldn't fail often, but avoid blocking auth.
+          }
+          response.cookies.set({ name, value: "", ...safeOptions });
         },
       },
     }
   );
+
   return { supabase, response };
 };

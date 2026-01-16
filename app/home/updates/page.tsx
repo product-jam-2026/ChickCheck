@@ -112,6 +112,7 @@ export default function Updates() {
 
   const handleHelplineClick = () => {
     console.log("Helpline clicked");
+    router.push('/report');
   };
 
   return (

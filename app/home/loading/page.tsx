@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import LoadingPage from "@/app/components/home/loading/LoadingPage";
+import { createClient } from "@/lib/supabase/client";
 
 const MIN_LOADING_TIME = 5000; // מינימום 5 שניות
 
@@ -41,10 +42,17 @@ const callAPI = async (): Promise<AnalysisResult> => {
   const file = new File([blob], imageData.name, {
     type: imageData.type,
   });
+  
 
   // Prepare FormData for API call
   const formData = new FormData();
   formData.append("image", file);
+  const supabase = createClient();
+          const {data: { user }} = await supabase.auth.getUser();
+          if (user){
+            formData.append("userId", user.id);
+          }
+  
 
   // Call the analyze API
   const response = await fetch("/api/analyze", {
@@ -82,6 +90,7 @@ export default function Loading() {
     stateRef.current.startTime = startTime;
     let animationFrameId: number;
     let isMounted = true;
+    let apiTimerId: NodeJS.Timeout;
 
     // פונקציית האנימציה המרכזית
     const animate = () => {
@@ -211,13 +220,16 @@ export default function Loading() {
       }
     };
 
-    performLoading();
+    apiTimerId = setTimeout(() => {
+        performLoading();
+    }, 50);
 
     return () => {
       isMounted = false;
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
+      clearTimeout(apiTimerId);
     };
   }, [router]);
 

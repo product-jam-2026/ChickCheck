@@ -240,6 +240,7 @@ export default function HomeClient() {
   const handleHelplineClick = () => {
     // TODO: Navigate to helpline or open contact
     console.log("Helpline clicked");
+    router.push("/report")
   };
 
   const handleOnboardingComplete = async () => {

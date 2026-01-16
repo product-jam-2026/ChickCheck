@@ -34,7 +34,7 @@ export default async function Login({
       <footer className={styles.brand} aria-hidden>
         <img
           src={BRAND_IMAGE}
-          alt="CheckCheck brand"
+          alt="ChickCheck brand"
           className={styles.brandImage}
         />
       </footer>

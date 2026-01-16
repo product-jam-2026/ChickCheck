@@ -1,0 +1,405 @@
+/* Shared styles for history pages */
+.container {
+  width: var(--page-width);
+  min-height: var(--page-height);
+  background: var(--color-background-primary);
+  color: var(--color-background-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.75rem 0 1.5rem 0; /* top/bottom spacing */
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.topSpacer {
+  height: calc(1.44rem + var(--safe-area-inset-top));
+  width: 100%;
+  position: relative;
+}
+
+.header {
+  width: var(--page-width);
+  height: 1.875rem; /* 30px */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.titleBar {
+  width: 100%;
+  padding: 0 1.25rem;
+  box-sizing: border-box;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pageTitle {
+  font-size: 1.875rem; /* 30px */
+  line-height: 2.25rem;
+  font-weight: 600;
+  color: var(--color-background-light);
+  direction: rtl;
+  margin-top: 3.23rem;
+}
+
+.sectionTitle {
+  font-size: 1.75rem; /* 28px */
+  font-weight: 600;
+  color: var(--color-background-light);
+  direction: rtl;
+  width: 100%;
+  text-align: right;
+  padding: 0 1.25rem;
+  box-sizing: border-box;
+}
+
+.content {
+  width: 21.1875rem;
+  gap: 2.125rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* page.module.css */
+
+/* page.module.css */
+
+.historyRow {
+  position: relative; /* חשוב! כדי שנוכל למקם את הקו המפריד ביחס לשורה */
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  
+  /* --- מחקנו את השורה הזאת: --- */
+  /* border-bottom: 1px solid rgba(255,255,255,0.15); */
+  
+  direction: rtl;
+  min-height: 70px;
+
+  /* Grid Setup */
+  display: grid;
+  grid-template-columns: 33px minmax(0, 1fr) auto; 
+  grid-template-rows: auto auto;
+  column-gap: 2.63rem;
+  row-gap: 0.25rem;
+  align-items: center;
+}
+
+.historyRow::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--color-background-light); /* צבע הפס */
+
+  /* החישוב המדויק: ריפוד (1rem) + אייקון (33px)  */
+  right: calc(2.0625rem + 1rem); 
+}
+
+.statusIcon {
+  grid-row: 1;
+  grid-column: 1;
+  width: 2.0625rem;
+  height: 2.0625rem;
+  display: block;
+}
+
+.historyPreview {
+  grid-row: 1;
+  grid-column: 2 / span 2;
+  font-size: 1.25rem;
+  color: var(--color-background-light);
+  white-space: normal;
+  overflow: visible;
+  text-align: right;
+  font-weight: 200;
+  width: 16.5rem;
+  height: 2.75rem;
+}
+
+.historyDate {
+    padding: 0.44rem;
+  grid-row: 2;
+  grid-column: 2;
+  font-size:  1.5rem;;
+  color: var(--color-background-light);
+  font-weight: 700;
+  text-align: right;
+}
+
+/* --- מחלקה חדשה לכפתור החץ --- */
+.chevronButton {
+  /* ממקמים את הכפתור בגריד במקום את החץ עצמו */
+  grid-row: 2;
+  grid-column: 3;
+  
+  /* איפוס עיצוב כפתור ברירת מחדל */
+  background: transparent;
+  border: none;
+  cursor: pointer; /* רק פה יש יד */
+  padding: 0;      /* מבטל רווחים פנימיים */
+  
+  /* מגדילים קצת את אזור הלחיצה שיהיה נוח באצבע */
+  width: 1.375rem; 
+  height: 2rem;
+  display: flex;
+  align-items: center; /* ממקם את ה-> באמצע הכפתור */
+  justify-content: flex-end; /* מצמיד לשמאל */
+}
+
+/* העיצוב של הסימן > עצמו */
+.chevron {
+  color: var(--color-background-light);
+  font-size: 2rem;
+  font-weight: 200;
+  line-height: 1;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 999px;
+  background: var(--color-background-light);
+  color: var(--color-background-primary);
+  border: 1px solid #dadce0;
+  font-size: 1.25rem;
+}
+
+.preview {
+  width: 100%;
+  max-width: 22rem;
+  margin: 0 auto;
+  aspect-ratio: 9 / 16;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06);
+}
+
+.meta, .bodyText {
+  color: var(--color-background-light);
+  font-size: 1.5rem;
+  line-height: 1.6;
+  direction: rtl;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* History detail page sections */
+.extractedSection {
+  width: 15.25rem;
+  padding: 0 1.25rem;
+  box-sizing: border-box;
+  margin-top: 1rem;
+}
+
+.extractedTitle {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 400;
+  color: var(--color-background-light);
+  text-decoration: underline;
+  text-align: right;
+  direction: rtl;
+  margin: 0 0 0.5rem 0;
+}
+
+.extractedText {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 300;
+  color: var(--color-background-light);
+  line-height: 1.6;
+  text-align: right;
+  direction: rtl;
+  margin: 0;
+  white-space: normal;
+}
+
+.screenshotButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 17.5rem; /* 280px */
+  height: 2.75rem; /* 44px */
+  margin: 1.5rem auto;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem; /* 7px 13px 7px 9px */
+  background: #c7dced;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.875rem; /* 30px */
+  font-weight: 400;
+  color: var(--color-background-primary);
+  direction: rtl;
+  cursor: pointer;
+}
+
+.screenshotIcon {
+  width:  1.875rem;
+  height: 1.875rem;
+}
+
+.resultHeader {
+  width: 100%;
+  padding: 0 1.25rem;
+  box-sizing: border-box;
+  margin-top: 2rem;
+}
+
+.resultTitle {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 400;
+  color: var(--color-background-light);
+  text-decoration: underline;
+  text-align: right;
+  direction: rtl;
+  margin: 0;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  box-sizing: border-box;
+  direction: rtl;
+}
+
+.statusIcon {
+  width: 2.0625rem; /* 33px */
+  height: 2.0625rem;
+}
+
+.statusText {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 700;
+  color: var(--color-background-light);
+  line-height: 1.75rem; /* 28px */
+  text-align: right;
+  margin: 0;
+}
+
+.detailSection {
+  width: 100%;
+  padding: 0 1.25rem;
+  box-sizing: border-box;
+  margin-top: 1rem;
+}
+
+.detailText {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 400;
+  color: var(--color-background-light);
+  line-height: 1.6;
+  text-align: right;
+  direction: rtl;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* Screenshot/Zoom page styles */
+.zoomContainer {
+  width: var(--page-width);
+  min-height: var(--page-height);
+  background: var(--color-background-primary);
+  color: var(--color-background-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.4375rem 0 1rem 0; /* 23px top, 16px bottom */
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.zoomContainer .header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.zoomContainer .pageTitle {
+  font-size: 1.875rem; /* 30px */
+  line-height: normal;
+  font-weight: 600;
+  color: var(--color-background-light);
+  text-align: center;
+  direction: rtl;
+  margin: 0;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 20.0625rem; /* 321px */
+  height: 44.125rem; /* 706px */
+  border: 4px solid var(--color-background-light);
+  border-radius: 1.875rem; /* 30px */
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.zoomedImage {
+  border-radius: 1.9375rem; /* 31px - slightly larger to account for border */
+}
+
+.zoomContainer .footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.zoomContainer .closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem; /* 10px */
+  width: 9.625rem; /* 154px */
+  height: 2.75rem; /* 44px */
+  padding: 0.4375rem 1.0625rem 0.4375rem 0.6875rem; /* 7px 17px 7px 11px */
+  background: #c7dced;
+  border: none;
+  border-radius: 1rem; /* 16px */
+  font-size: 1.875rem; /* 30px */
+  font-weight: 400;
+  color: var(--color-background-primary);
+  text-align: center;
+  direction: rtl;
+  cursor: pointer;
+}
+
+.closeIcon {
+  font-size: 1.875rem; /* 30px */
+  line-height: 1;
+}
+
+.loadingText,
+.errorText {
+  font-size: 1.5rem;
+  color: var(--color-background-light);
+  text-align: center;
+  padding: 2rem;
+}
