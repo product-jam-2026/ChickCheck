@@ -39,24 +39,27 @@ export default function HomePage({
     setShowOnboarding(showOnboardingProp);
   }, [showOnboardingProp]);
 
-  // הגדר את רקע ה-overscroll לאפור (רקע החלק התחתון של הדף)
-  // והחלק העליון (safe area) בצבע של ה-header
+  // מניעת overscroll בעמוד הבית
   useEffect(() => {
-    const bgColor = '#1F1F1F';
+    const headerColor = '#E3F0FA';
     
-    document.documentElement.style.setProperty('--overscroll-background', bgColor);
-    document.documentElement.style.backgroundColor = bgColor;
-    document.body.style.backgroundColor = bgColor;
-    // הוסף class ל-safe zone עליון
-    document.documentElement.classList.add('safe-zone-top');
-    document.body.classList.add('safe-zone-top');
+    // הגדר את רקע ה-html/body כך שהחלק העליון יהיה בצבע ה-header
+    document.documentElement.style.backgroundColor = headerColor;
+    document.body.style.backgroundColor = headerColor;
+    
+    // מניעת overscroll
+    document.documentElement.style.overscrollBehavior = 'none';
+    document.body.style.overscrollBehavior = 'none';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
     
     return () => {
-      document.documentElement.style.removeProperty('--overscroll-background');
       document.documentElement.style.removeProperty('background-color');
       document.body.style.removeProperty('background-color');
-      document.documentElement.classList.remove('safe-zone-top');
-      document.body.classList.remove('safe-zone-top');
+      document.documentElement.style.removeProperty('overscroll-behavior');
+      document.body.style.removeProperty('overscroll-behavior');
+      document.documentElement.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow');
     };
   }, []);
 
