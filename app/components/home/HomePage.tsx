@@ -97,6 +97,7 @@ export default function HomePage({
   return (
     <div className={styles.homePage}>
       <div className={styles.safeZoneTop}></div>
+      <div className={styles.topSpacer}></div>
       
       <HomeHeader
         userName={userName}
