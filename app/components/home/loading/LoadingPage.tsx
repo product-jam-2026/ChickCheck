@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import LoadingProgressBar from "./LoadingProgressBar";
-import LoadingDisclaimer from "./LoadingDisclaimer";
+import HomeDisclaimer from "../HomeDisclaimer";
 import styles from "./LoadingPage.module.css";
 
 interface LoadingPageProps {
@@ -14,6 +14,21 @@ export default function LoadingPage({
   progress,
   isLoading,
 }: LoadingPageProps) {
+  useEffect(() => {
+    // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+    const bgColor = '#1F1F1F';
+    document.documentElement.style.setProperty('--overscroll-background', bgColor);
+    document.documentElement.style.backgroundColor = bgColor;
+    document.body.style.backgroundColor = bgColor;
+    
+    return () => {
+      // איפוס בעת יציאה מהדף
+      document.documentElement.style.removeProperty('--overscroll-background');
+      document.documentElement.style.removeProperty('background-color');
+      document.body.style.removeProperty('background-color');
+    };
+  }, []);
+
   return (
     <div className={styles.loadingPage}>
       <video
@@ -29,7 +44,7 @@ export default function LoadingPage({
         <LoadingProgressBar progress={progress} />
       </div>
       <div className={styles.loadingDisclaimerWrapper}>
-        <LoadingDisclaimer />
+        <HomeDisclaimer />
       </div>
     </div>
   );

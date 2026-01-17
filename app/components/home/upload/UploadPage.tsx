@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import HomeHeader from "../HomeHeader";
 import UploadImageDisplay from "./UploadImageDisplay";
@@ -30,8 +30,33 @@ export default function UploadPage({
   onBackClick,
   errorMessage,
 }: UploadPageProps) {
+  useEffect(() => {
+    // מניעת overscroll בעמוד ההעלאה
+    const headerColor = '#E3F0FA';
+    
+    // הגדר את רקע ה-html/body כך שהחלק העליון יהיה בצבע ה-header
+    document.documentElement.style.backgroundColor = headerColor;
+    document.body.style.backgroundColor = headerColor;
+    
+    // מניעת overscroll
+    document.documentElement.style.overscrollBehavior = 'none';
+    document.body.style.overscrollBehavior = 'none';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      document.documentElement.style.removeProperty('background-color');
+      document.body.style.removeProperty('background-color');
+      document.documentElement.style.removeProperty('overscroll-behavior');
+      document.body.style.removeProperty('overscroll-behavior');
+      document.documentElement.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow');
+    };
+  }, []);
+
   return (
     <div className={styles.uploadPage}>
+      <div className={styles.safeZoneTop}></div>
       <div className={styles.topSpacer}>
         <button
           className={styles.backButton}

@@ -3,8 +3,19 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
+import BackButton from "../components/BackButton";
+import { formatDate, createPreview ,cleanSmsContent} from "./orgnizeDataFromDatabase";
 
 type Status = "SAFE" | "NOT_SAFE" | "UNCLEAR";
+
+interface HistoryItem {
+  id: number;
+  date: string;
+  status: Status;
+  preview: string;
+}
 
 const STATUS_ICON: Record<Status, string> = {
 	SAFE: "/icons/safe_icon.svg",
@@ -14,24 +25,80 @@ const STATUS_ICON: Record<Status, string> = {
 
 export default function HistoryListPage() {
 	const router = useRouter();
+    const [items, setItems] = useState<HistoryItem[]>([]);
+    const [loading, setLoading] = useState(true);
 
-	// Demo data – replace with real history later
-	const items: Array<{ id: number; date: string; status: Status; preview: string }>= [
-		{ id: 1, date: "21.10.25", status: "NOT_SAFE", preview: "כמות, אזהרה, יש שלם מיד…" },
-		{ id: 2, date: "21.10.25", status: "SAFE", preview: "כמות, אזהרה, יש שלם מיד…" },
-		{ id: 3, date: "21.10.25", status: "UNCLEAR", preview: "כמות, אזהרה, יש שלם מיד…" },
-	];
+    useEffect(() => {
+      // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+      const bgColor = '#1F1F1F';
+      document.documentElement.style.setProperty('--overscroll-background', bgColor);
+      document.documentElement.style.backgroundColor = bgColor;
+      document.body.style.backgroundColor = bgColor;
+      
+      return () => {
+        // איפוס בעת יציאה מהדף
+        document.documentElement.style.removeProperty('--overscroll-background');
+        document.documentElement.style.removeProperty('background-color');
+        document.body.style.removeProperty('background-color');
+      };
+    }, []);
+
+    useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const supabase = createClient();
+        
+        // 1. קבלת המשתמש הנוכחי
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if (!user) {
+            console.error("User not logged in");
+            return;
+        }
+
+        // 2. שליפת הנתונים מהדאטאבייס
+        const { data, error } = await supabase
+          .from("search_history") // וודאי שזה שם הטבלה שלך
+          .select("id, status, content, created_at") // שדות ספציפיים שביקשת
+          .eq("user_id", user.id) // סינון לפי היוזר הנוכחי
+          .order("created_at", { ascending: false }); // מיון מהחדש לישן
+
+        console.log("Raw history data:", data);
+        console.log("user ID:", user.id);
+
+        if (error) throw error;
+
+        // 3. מניפולציה על הנתונים (Mapping)
+        if (data) {
+          const formattedItems: HistoryItem[] = data.map((row) => ({
+            id: row.id,
+            date: formatDate(row.created_at), // המרה לתאריך יפה
+            status: row.status as Status,     // המרה לטיפוס Status
+            preview: createPreview(cleanSmsContent(row.content)), // יצירת תקציר מהתוכן
+          }));
+          console.log("Fetched history items:", formattedItems);
+
+          setItems(formattedItems);
+        }
+      } catch (err) {
+        console.error("Failed to fetch history:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHistory();
+  }, []);
+
+  // אופציונלי: מצב טעינה
+  if (loading) {
+      return <div className={styles.container}>טוען היסטוריה...</div>; // אפשר להחליף ב-Skeleton יפה
+  }
 
 	return (
 		<main className={styles.container}>
-			<div className={styles.header}>
-				<button
-					className={styles.closeButton}
-					aria-label="סגור"
-					onClick={() => router.push("/")}
-				>
-					<Image src="/icons/close_icon.svg" alt="סגור" width={30} height={30} />
-				</button>
+			<div className={styles.topSpacer}>
+				<BackButton href="/profile" />
 			</div>
 
 			<div className={styles.titleBar}>
@@ -41,33 +108,41 @@ export default function HistoryListPage() {
 			<section className={styles.content}>
 				<div className={styles.list}>
 					{items.map((it) => (
-						<button
+						<div 
 							key={it.id}
 							className={styles.historyRow}
-							onClick={() => router.push(`/history/detail?id=${it.id}`)}
 						>
-							{/* Right: status icon */}
+                            {/* Right: status icon */}
 							<Image
 								src={STATUS_ICON[it.status]}
 								alt={it.status}
-								width={22}
-								height={22}
+								width={33}
+								height={33}
 								className={styles.statusIcon}
 							/>
 
 							{/* Middle: preview + date */}
-							<div className={styles.rowCenter}>
-								<div className={styles.historyPreview}>{it.preview}</div>
-								<div className={styles.historyDate}>{it.date}</div>
-							</div>
+						
+                            <div className={styles.historyPreview}>{it.preview}</div>
+                            <div className={styles.historyDate}>{it.date}</div>
 
 							{/* Left: chevron */}
-							<span className={styles.chevron} aria-hidden>‹</span>
-						</button>
+                            <button
+                                className={styles.chevronButton}
+                                onClick={(e) => {
+                                e.stopPropagation(); // מונע "בעבוע" של הלחיצה למעלה (ליתר ביטחון)
+                                router.push(`/history/detail?id=${it.id}`)}}
+                                aria-label="צפה בפרטים" >
+                                <span className={styles.chevron}>{">"}</span>
+                            </button>
+                        </div>
 					))}
 				</div>
 			</section>
 		</main>
 	);
 }
+
+
+
 

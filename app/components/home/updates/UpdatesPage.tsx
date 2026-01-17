@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import styles from "./UpdatesPage.module.css";
 
@@ -26,6 +26,21 @@ export default function UpdatesPage({
 }: UpdatesPageProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
+  useEffect(() => {
+    // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+    const bgColor = '#1F1F1F';
+    document.documentElement.style.setProperty('--overscroll-background', bgColor);
+    document.documentElement.style.backgroundColor = bgColor;
+    document.body.style.backgroundColor = bgColor;
+    
+    return () => {
+      // איפוס בעת יציאה מהדף
+      document.documentElement.style.removeProperty('--overscroll-background');
+      document.documentElement.style.removeProperty('background-color');
+      document.body.style.removeProperty('background-color');
+    };
+  }, []);
+
   // Filter updates based on search query
   const filteredUpdates = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -42,20 +57,20 @@ export default function UpdatesPage({
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
+        <button
+          className={styles.backButton}
+          onClick={onBackClick}
+          aria-label="חזרה"
+        >
+          <Image
+            src="/icons/back.svg"
+            alt="Back"
+            width={24}
+            height={24}
+            className={styles.arrowIcon}
+          />
+        </button>
         <header className={styles.header}>
-          <button
-            className={styles.backButton}
-            onClick={onBackClick}
-            aria-label="חזרה"
-          >
-            <Image
-              src="/icons/back.svg"
-              alt="Back"
-              width={24}
-              height={24}
-              className={styles.arrowIcon}
-            />
-          </button>
           <h1 className={styles.title}>עדכונים</h1>
         </header>
       </div>

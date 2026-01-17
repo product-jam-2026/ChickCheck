@@ -1,5 +1,6 @@
 import styles from "./page.module.css";
 import GoogleLoginButton from "./GoogleLoginButton";
+import LoginPageClient from "./LoginPageClient";
 
 // Local brand icon from public/icons
 const BRAND_IMAGE = "/icons/chickckeckicon.svg";
@@ -12,12 +13,16 @@ export default async function Login({
   const params = await searchParams;
 
   return (
-    <div className={styles.page}>
+    <>
+      <LoginPageClient />
+      <div className={styles.page}>
       <header className={styles.header}>
         <h1 className={styles.greeting}>
           שלום:)
           <br />
-          ברוכים הבאים!
+          ברוכים
+          <br />
+          הבאים!
         </h1>
       </header>
 
@@ -39,5 +44,6 @@ export default async function Login({
         />
       </footer>
     </div>
+    </>
   );
 }

@@ -1,19 +1,30 @@
 .homePage {
   display: flex;
   width: 100%;
-  min-height: var(--page-height);
+  height: var(--page-height);
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
   background: #E3F0FA;
   position: relative;
+  overflow: hidden;
+}
+
+.safeZoneTop {
+  height: var(--safe-area-inset-top);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #E3F0FA;
+  z-index: 1000;
 }
 
 .topSpacer {
-  height: calc(4.625rem + var(--safe-area-inset-top));
+  height: 3.225rem;
   width: 100%;
   position: absolute;
-  top: 0;
+  top: var(--safe-area-inset-top);
   left: 0;
 }
 
@@ -37,6 +48,32 @@
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
 }
 
+.debugOnboardingButton {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #1F1F1F;
+  color: #E3F0FA;
+  border: 2px solid #E3F0FA;
+  font-size: 1.25rem;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.debugOnboardingButton:hover {
+  background: #E3F0FA;
+  color: #1F1F1F;
+  transform: scale(1.1);
+}
+
 .homeContent {
   width: 100%;
   height: 38.5rem;
@@ -47,6 +84,6 @@
   position: relative;
   padding: 1.6875rem 1rem;
   box-sizing: border-box;
-  gap: 1.5rem;
+  gap: 1.3125rem;
 }
 

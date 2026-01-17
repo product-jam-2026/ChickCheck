@@ -7,13 +7,24 @@
   align-items: center;
   background: #E3F0FA;
   position: relative;
+  overflow: hidden;
+}
+
+.safeZoneTop {
+  height: var(--safe-area-inset-top);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #E3F0FA;
+  z-index: 1000;
 }
 
 .topSpacer {
-  height: 4.625rem;
+  height: 3.225rem;
   width: 100%;
   position: absolute;
-  top: 0;
+  top: var(--safe-area-inset-top);
   left: 0;
   z-index: 10;
 }

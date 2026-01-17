@@ -8,7 +8,7 @@
   border-radius: 1rem;
   background: #C7DCED;
   position: relative;
-  gap: 0.625rem;
+  gap: 1.1rem;
   flex-direction: row-reverse;
   margin-left: 0.8125rem;
 }
@@ -24,10 +24,13 @@
   color: var(--d-9-d-9-d-9, #1F1F1F);
   font-family: inherit;
   text-align: center;
-  font-size: 1.875rem;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  flex-shrink: 0;
+  white-space: nowrap;
+  margin-right: 0.5rem;
 }
 
 .notificationBadge {

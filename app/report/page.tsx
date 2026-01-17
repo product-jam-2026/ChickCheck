@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 // Import your Supabase functions
 import { createIncidentReport } from '@/lib/supabase/report';
@@ -571,6 +571,20 @@ export default function ReportProcess() {
   const [step, setStep] = useState(0);
 
   const [isEditingDetails, setIsEditingDetails] = useState(false);
+  
+  useEffect(() => {
+    // הגדר את רקע ה-overscroll ללבן (רקע הדף)
+    const bgColor = '#E3F0FA';
+    document.documentElement.style.setProperty('--overscroll-background', bgColor);
+    document.documentElement.style.backgroundColor = bgColor;
+    document.body.style.backgroundColor = bgColor;
+    
+    return () => {
+      document.documentElement.style.removeProperty('--overscroll-background');
+      document.documentElement.style.removeProperty('background-color');
+      document.body.style.removeProperty('background-color');
+    };
+  }, []);
   
   // Single state object to hold all data from Figma screens
   const [formData, setFormData] = useState({

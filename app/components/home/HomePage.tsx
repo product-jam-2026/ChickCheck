@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HomeHeader from "./HomeHeader";
 import HomeImageUploadArea from "./HomeImageUploadArea";
 import HomeDisclaimer from "./HomeDisclaimer";
+import OnboardingPage from "./onboarding/OnboardingPage";
 import styles from "./HomePage.module.css";
 
 interface HomePageProps {
@@ -13,6 +14,10 @@ interface HomePageProps {
   onHelplineClick?: () => void;
   onImageSelect?: (file: File) => void;
   errorMessage?: string | null;
+  onOnboardingStart?: () => void;
+  showOnboarding?: boolean;
+  onOnboardingComplete?: () => void;
+  onOnboardingSkip?: () => void;
 }
 
 export default function HomePage({
@@ -22,9 +27,76 @@ export default function HomePage({
   onHelplineClick,
   onImageSelect,
   errorMessage,
+  onOnboardingStart,
+  showOnboarding: showOnboardingProp = false,
+  onOnboardingComplete,
+  onOnboardingSkip,
 }: HomePageProps) {
+  const [showOnboarding, setShowOnboarding] = useState(showOnboardingProp);
+
+  // Update local state when prop changes
+  useEffect(() => {
+    setShowOnboarding(showOnboardingProp);
+  }, [showOnboardingProp]);
+
+  // מניעת overscroll בעמוד הבית
+  useEffect(() => {
+    const headerColor = '#E3F0FA';
+    
+    // הגדר את רקע ה-html/body כך שהחלק העליון יהיה בצבע ה-header
+    document.documentElement.style.backgroundColor = headerColor;
+    document.body.style.backgroundColor = headerColor;
+    
+    // מניעת overscroll
+    document.documentElement.style.overscrollBehavior = 'none';
+    document.body.style.overscrollBehavior = 'none';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      document.documentElement.style.removeProperty('background-color');
+      document.body.style.removeProperty('background-color');
+      document.documentElement.style.removeProperty('overscroll-behavior');
+      document.body.style.removeProperty('overscroll-behavior');
+      document.documentElement.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow');
+    };
+  }, []);
+
+  const handleOnboardingStart = () => {
+    setShowOnboarding(false);
+    if (onOnboardingStart) {
+      onOnboardingStart();
+    }
+  };
+
+  const handleOnboardingComplete = () => {
+    setShowOnboarding(false);
+    if (onOnboardingComplete) {
+      onOnboardingComplete();
+    }
+  };
+
+  const handleOnboardingSkip = () => {
+    setShowOnboarding(false);
+    if (onOnboardingSkip) {
+      onOnboardingSkip();
+    }
+  };
+
+  const handleHelpScreenshot = () => {
+    // TODO: Show screenshot help
+    console.log("Help with screenshot");
+  };
+
+  const handleHelpGeneral = () => {
+    // Show onboarding when help button is clicked
+    setShowOnboarding(true);
+  };
+
   return (
     <div className={styles.homePage}>
+      <div className={styles.safeZoneTop}></div>
       <div className={styles.topSpacer}></div>
       
       <HomeHeader
@@ -34,13 +106,27 @@ export default function HomePage({
         onHelplineClick={onHelplineClick}
       />
       <div className={styles.homeContent}>
-        <HomeImageUploadArea onImageSelect={onImageSelect} />
+        <HomeImageUploadArea 
+          onImageSelect={onImageSelect}
+          onHelpClick={handleHelpGeneral}
+        />
         <HomeDisclaimer />
       </div>
       {errorMessage && (
         <div className={styles.errorMessage}>
           {errorMessage}
         </div>
+      )}
+      
+      {showOnboarding && (
+        <OnboardingPage
+          userName={userName}
+          onStart={handleOnboardingStart}
+          onSkip={handleOnboardingSkip}
+          onComplete={handleOnboardingComplete}
+          onHelpScreenshot={handleHelpScreenshot}
+          onHelpGeneral={handleHelpGeneral}
+        />
       )}
     </div>
   );

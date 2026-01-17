@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import HomeUpdateButton from "../HomeUpdateButton";
 import HomeHelplineButton from "../HomeHelplineButton";
 import styles from "./ProfilePage.module.css";
+import BackButton from "../../BackButton";
 
 interface ProfilePageProps {
   userName?: string;
@@ -30,6 +31,21 @@ export default function ProfilePage({
   onHistoryClick,
   onEditClick,
 }: ProfilePageProps) {
+  useEffect(() => {
+    // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+    const bgColor = '#1F1F1F';
+    document.documentElement.style.setProperty('--overscroll-background', bgColor);
+    document.documentElement.style.backgroundColor = bgColor;
+    document.body.style.backgroundColor = bgColor;
+    
+    return () => {
+      // איפוס בעת יציאה מהדף
+      document.documentElement.style.removeProperty('--overscroll-background');
+      document.documentElement.style.removeProperty('background-color');
+      document.body.style.removeProperty('background-color');
+    };
+  }, []);
+
   return (
     <div className={styles.profilePage}>
       <div className={styles.topSpacer}>
@@ -48,19 +64,7 @@ export default function ProfilePage({
             />
           </button>
         ) : (
-          <Link
-            href="/"
-            className={styles.backButton}
-            aria-label="חזור"
-          >
-            <Image
-              src="/icons/back_white.svg"
-              alt="Back"
-              width={19.33}
-              height={19.33}
-              className={styles.backIcon}
-            />
-          </Link>
+          <BackButton href="/" />
         )}
       </div>
       
@@ -113,6 +117,7 @@ export default function ProfilePage({
         href="/logout"
         className={styles.logoutButton}
         aria-label="התנתקות"
+        prefetch={false}
       >
         התנתקות
       </Link>
