@@ -127,6 +127,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  background-color: var(--overscroll-background, var(--color-background-light));
 }
 
 body {

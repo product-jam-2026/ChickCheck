@@ -28,6 +28,16 @@ export default function Page() {
     const [openSections, setOpenSections] = useState<Set<"details" | "action">>(new Set());
 
     useEffect(() => {
+      // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+      document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+      
+      return () => {
+        // איפוס בעת יציאה מהדף
+        document.documentElement.style.removeProperty('--overscroll-background');
+      };
+    }, []);
+
+    useEffect(() => {
         const stored = sessionStorage.getItem("lastResult");
         if (stored) setResult(JSON.parse(stored));
     }, []);

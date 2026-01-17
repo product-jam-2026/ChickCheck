@@ -37,7 +37,7 @@
   justify-content: center;
   position: absolute;
   right: 1.44rem;
-  top: 50%;
+  top: 45%;
   transform: translateY(-50%);
 }
 
@@ -72,7 +72,7 @@
 .actionButtons {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 1.5rem;
   width: 100%;
   gap: 1rem;

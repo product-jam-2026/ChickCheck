@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import HomeHeader from "../HomeHeader";
 import UploadImageDisplay from "./UploadImageDisplay";
@@ -30,6 +30,15 @@ export default function UploadPage({
   onBackClick,
   errorMessage,
 }: UploadPageProps) {
+  useEffect(() => {
+    // הגדר את רקע ה-overscroll ללבן (רקע הדף)
+    document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+    
+    return () => {
+      document.documentElement.style.removeProperty('--overscroll-background');
+    };
+  }, []);
+
   return (
     <div className={styles.uploadPage}>
       <div className={styles.topSpacer}>

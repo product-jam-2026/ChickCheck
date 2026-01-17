@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import styles from "./UpdatesPage.module.css";
 
@@ -25,6 +25,16 @@ export default function UpdatesPage({
   onHelplineClick,
 }: UpdatesPageProps) {
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+    document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+    
+    return () => {
+      // איפוס בעת יציאה מהדף
+      document.documentElement.style.removeProperty('--overscroll-background');
+    };
+  }, []);
 
   // Filter updates based on search query
   const filteredUpdates = useMemo(() => {

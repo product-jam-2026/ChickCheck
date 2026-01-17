@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import HomeUpdateButton from "../HomeUpdateButton";
@@ -31,6 +31,16 @@ export default function ProfilePage({
   onHistoryClick,
   onEditClick,
 }: ProfilePageProps) {
+  useEffect(() => {
+    // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+    document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+    
+    return () => {
+      // איפוס בעת יציאה מהדף
+      document.documentElement.style.removeProperty('--overscroll-background');
+    };
+  }, []);
+
   return (
     <div className={styles.profilePage}>
       <div className={styles.topSpacer}>

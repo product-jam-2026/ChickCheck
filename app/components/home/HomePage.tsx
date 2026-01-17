@@ -39,6 +39,15 @@ export default function HomePage({
     setShowOnboarding(showOnboardingProp);
   }, [showOnboardingProp]);
 
+  // הגדר את רקע ה-overscroll ללבן (רקע הדף)
+  useEffect(() => {
+    document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+    
+    return () => {
+      document.documentElement.style.removeProperty('--overscroll-background');
+    };
+  }, []);
+
   const handleOnboardingStart = () => {
     setShowOnboarding(false);
     if (onOnboardingStart) {

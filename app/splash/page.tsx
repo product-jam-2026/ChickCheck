@@ -8,6 +8,16 @@ export default function SplashPage() {
   const router = useRouter();
 
   useEffect(() => {
+    // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+    document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+    
+    return () => {
+      // איפוס בעת יציאה מהדף
+      document.documentElement.style.removeProperty('--overscroll-background');
+    };
+  }, []);
+
+  useEffect(() => {
     // Redirect to login after 2 seconds
     const timer = setTimeout(() => {
       router.push("/login");

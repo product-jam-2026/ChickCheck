@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import AddUpdateForm from "./AddUpdateForm";
@@ -12,6 +12,16 @@ type ViewMode = "main" | "form" | "updates";
 export default function AdminPage() {
   const router = useRouter();
   const [viewMode, setViewMode] = useState<ViewMode>("main");
+
+  useEffect(() => {
+    // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+    document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+    
+    return () => {
+      // איפוס בעת יציאה מהדף
+      document.documentElement.style.removeProperty('--overscroll-background');
+    };
+  }, []);
 
   return (
     <div className={styles.container}>

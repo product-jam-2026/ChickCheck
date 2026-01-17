@@ -29,6 +29,16 @@ export default function HistoryListPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+      // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+      document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+      
+      return () => {
+        // איפוס בעת יציאה מהדף
+        document.documentElement.style.removeProperty('--overscroll-background');
+      };
+    }, []);
+
+    useEffect(() => {
     const fetchHistory = async () => {
       try {
         const supabase = createClient();

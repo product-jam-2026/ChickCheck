@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import LoadingProgressBar from "./LoadingProgressBar";
 import HomeDisclaimer from "../HomeDisclaimer";
 import styles from "./LoadingPage.module.css";
@@ -14,6 +14,16 @@ export default function LoadingPage({
   progress,
   isLoading,
 }: LoadingPageProps) {
+  useEffect(() => {
+    // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+    document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+    
+    return () => {
+      // איפוס בעת יציאה מהדף
+      document.documentElement.style.removeProperty('--overscroll-background');
+    };
+  }, []);
+
   return (
     <div className={styles.loadingPage}>
       <video
