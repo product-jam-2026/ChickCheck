@@ -43,17 +43,20 @@ export default function HomePage({
   // והחלק העליון (safe area) בצבע של ה-header
   useEffect(() => {
     const bgColor = '#1F1F1F';
-    const headerColor = '#E3F0FA';
     
     document.documentElement.style.setProperty('--overscroll-background', bgColor);
-    // הגדר את רקע ה-html/body כך שהחלק העליון יהיה בצבע ה-header
-    document.documentElement.style.backgroundColor = headerColor;
-    document.body.style.backgroundColor = headerColor;
+    document.documentElement.style.backgroundColor = bgColor;
+    document.body.style.backgroundColor = bgColor;
+    // הוסף class ל-safe zone עליון
+    document.documentElement.classList.add('safe-zone-top');
+    document.body.classList.add('safe-zone-top');
     
     return () => {
       document.documentElement.style.removeProperty('--overscroll-background');
       document.documentElement.style.removeProperty('background-color');
       document.body.style.removeProperty('background-color');
+      document.documentElement.classList.remove('safe-zone-top');
+      document.body.classList.remove('safe-zone-top');
     };
   }, []);
 

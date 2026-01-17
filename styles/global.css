@@ -235,3 +235,22 @@ main {
   white-space: nowrap;
   border-width: 0;
 }
+
+/* Safe zone styling for home and upload pages */
+html.safe-zone-top,
+body.safe-zone-top {
+  position: relative;
+}
+
+html.safe-zone-top::before,
+body.safe-zone-top::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--safe-area-inset-top);
+  background: #E3F0FA;
+  z-index: 9999;
+  pointer-events: none;
+}
