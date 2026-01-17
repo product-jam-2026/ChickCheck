@@ -518,10 +518,15 @@ export default function ReportProcess() {
   
   useEffect(() => {
     // הגדר את רקע ה-overscroll ללבן (רקע הדף)
-    document.documentElement.style.setProperty('--overscroll-background', '#E3F0FA');
+    const bgColor = '#E3F0FA';
+    document.documentElement.style.setProperty('--overscroll-background', bgColor);
+    document.documentElement.style.backgroundColor = bgColor;
+    document.body.style.backgroundColor = bgColor;
     
     return () => {
       document.documentElement.style.removeProperty('--overscroll-background');
+      document.documentElement.style.removeProperty('background-color');
+      document.body.style.removeProperty('background-color');
     };
   }, []);
   

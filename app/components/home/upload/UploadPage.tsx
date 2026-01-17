@@ -31,11 +31,16 @@ export default function UploadPage({
   errorMessage,
 }: UploadPageProps) {
   useEffect(() => {
-    // הגדר את רקע ה-overscroll ללבן (רקע הדף)
-    document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+    // הגדר את רקע ה-overscroll לאפור (רקע החלק התחתון של הדף)
+    const bgColor = '#1F1F1F';
+    document.documentElement.style.setProperty('--overscroll-background', bgColor);
+    document.documentElement.style.backgroundColor = bgColor;
+    document.body.style.backgroundColor = bgColor;
     
     return () => {
       document.documentElement.style.removeProperty('--overscroll-background');
+      document.documentElement.style.removeProperty('background-color');
+      document.body.style.removeProperty('background-color');
     };
   }, []);
 

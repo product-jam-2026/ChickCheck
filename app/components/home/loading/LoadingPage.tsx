@@ -16,11 +16,16 @@ export default function LoadingPage({
 }: LoadingPageProps) {
   useEffect(() => {
     // הגדר את רקע ה-overscroll לאפור (רקע הדף)
-    document.documentElement.style.setProperty('--overscroll-background', '#1F1F1F');
+    const bgColor = '#1F1F1F';
+    document.documentElement.style.setProperty('--overscroll-background', bgColor);
+    document.documentElement.style.backgroundColor = bgColor;
+    document.body.style.backgroundColor = bgColor;
     
     return () => {
       // איפוס בעת יציאה מהדף
       document.documentElement.style.removeProperty('--overscroll-background');
+      document.documentElement.style.removeProperty('background-color');
+      document.body.style.removeProperty('background-color');
     };
   }, []);
 
