@@ -2,12 +2,11 @@
 
 .step_zero_main_frame{
 display: flex;
-width: 24.5625rem;
-padding: 2.375rem 0 27.875rem 0;
+padding: 2rem 0 27.875rem 0;
 flex-direction: column;
 align-items: center;
 background-color: #E3F0FA;
-max-width: 100%;
+width: 100%;
 min-height: 100%;
 }
 
@@ -91,14 +90,20 @@ line-height: normal;
 
 /*Step 1*/
 .step_one_auto{
-width: 24.5625rem;
-height: 53.25rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+height: 100vh;
 background-color: #E3F0FA;
+
+justify-content: space-between; 
+padding-top: 2rem; /* Optional: Adds safety space from the very top edge */
 }
 
 .step_one_forward_button{
 display: flex;
-width: 19.625rem;
+width: 80%;
 height: 3.75rem;
 padding: 0 0.9375rem;
 justify-content: center;
@@ -106,6 +111,8 @@ align-items: center;
 gap: 0.625rem;
 border-radius: 1.25rem;
 background-color: #1F1F1F;
+margin-top: auto;
+margin-bottom: 1.94rem;
 }
 
 .step_one_forward_button_text{
@@ -124,7 +131,7 @@ width: 24.5625rem;
 height: 17.1875rem;
 padding: 0 1rem;
 flex-direction: column;
-justify-content: center;
+justify-content: flex-start;
 align-items: center;
 gap: 0.625rem;
 }
@@ -224,7 +231,7 @@ align-items: center;
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame{
 display: flex;
-width: 24.72838rem;
+width: 100%;
 flex-direction: column;
 align-items: center;
 gap: 1.25rem;
@@ -232,7 +239,7 @@ gap: 1.25rem;
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x{
 display: flex;
-width: 20.83331rem;
+width: 100%;
 justify-content: space-between;
 align-items: center;
 }
@@ -243,6 +250,12 @@ height: 1.09375rem;
 fill: var(--d-9-d-9-d-9, #1F1F1F);
 stroke-width: 1px;
 stroke: var(--d-9-d-9-d-9, #1F1F1F);
+
+background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex; /* Ensures SVG centers inside */
 }
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_arrow{
@@ -250,6 +263,12 @@ width: 1.20831rem;
 height: 1.20831rem;
 flex-shrink: 0;
 fill: var(--d-9-d-9-d-9, #1F1F1F);
+
+background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex; /* Ensures SVG centers inside */
 }
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar{
@@ -262,49 +281,23 @@ align-self: stretch;
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar{
 display: flex;
-padding: 0 1.39544rem 0.38944rem 0.94113rem;
 align-items: center;
+width: 100%; /* Ensure it fills the space */
+justify-content: center; /* Center the image inside */
 }
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame{
-width: 20.12019rem;
+width: 100%;
 height: 0.77888rem;
-}
-
-.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame_line_icon{
-width: 19.71644rem;
-height: 0; 
-stroke-width: 1.558px;
-stroke: var(--d-9-d-9-d-9, #1F1F1F);
-}
-
-.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame_black_circle_icon{
-width: 0.77888rem;
-height: 0.77888rem;
-fill: var(--d-9-d-9-d-9, #1F1F1F);
-stroke-width: 1.558px;
-stroke: var(--d-9-d-9-d-9, #1F1F1F);
-}
-
-.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame_white_middle_circle_icon{
-width: 0.8075rem;
-height: 0.77888rem;
-fill: var(--D5E8FC, #E3F0FA);
-stroke-width: 1.558px;
-stroke: var(--d-9-d-9-d-9, #1F1F1F);
-}
-
-.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_bar_line_frame_white_last_circle_icon{
-width: 0.8075rem;
-height: 0.77888rem;
-fill: var(--D5E8FC, #E3F0FA);
-stroke-width: 1.558px;
-stroke: var(--d-9-d-9-d-9, #1F1F1F);
 }
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_text{
 height: 2.92069rem;
 align-self: stretch;
+
+display: flex;
+justify-content: space-between; /* Spreads the 3 text items across the width */
+width: 100%;
 }
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_progress_bar_frame_text_var_text{
@@ -314,5 +307,435 @@ font-family: SimplerPro_HLAR;
 font-size: 1.55769rem;
 font-style: normal;
 font-weight: 400;
-line-height: 3.89425rem; /* 250% */
+line-height: 100%; /* 250% */
+}
+
+/* --- STEP 2 STYLES --- */
+
+/* Title Container */
+.step_two_title_frame {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end; /* Aligns text to the right for RTL */
+  margin-bottom: 0.5rem;
+}
+
+.step_two_title_text {
+  color: #1F1F1F;
+  text-align: right;
+  font-family: SimplerPro;
+  font-size: 1.5rem; /* Matches the "Details" headers */
+  font-weight: 600;
+  margin: 0;
+}
+
+/* STEP 2 */
+/* Grid for the buttons */
+.step_two_grid_container {
+  display: flex;
+  flex-wrap: wrap;       /* Allows buttons to flow to the next line */
+  gap: 0.75rem;         /* Space between buttons */
+  justify-content: flex-start; /* Aligns buttons to the start (Right in RTL) */
+  width: 100%;
+  direction: rtl;       /* Ensures flow starts from the right */
+}
+
+/* Common Pill Button Style */
+.step_two_option_inactive {
+  display: flex;
+  padding: 0.5rem 1rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.25rem;
+  border: none;
+  background-color: #C7DCED; /* Light Blue from Step 0 button */
+  cursor: pointer;
+  
+  /* Text Styles */
+  color: #1F1F1F;
+  font-family: SimplerPro_V3;
+  font-size: 1.125rem;
+  font-weight: 400;
+  white-space: nowrap; /* Prevents text splitting awkwardly */
+}
+
+.step_two_option_active {
+  /* Inherit base styles */
+  display: flex;
+  padding: 0.5rem 1rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.25rem;
+  border: none;
+  cursor: pointer;
+  font-family: SimplerPro_V3;
+  font-size: 1.125rem;
+  font-weight: 600; /* Bolder text for active */
+  white-space: nowrap;
+
+  /* Active Colors */
+  background-color: #1F1F1F; /* Black */
+  color: #FFFFFF;            /* White Text */
+}
+
+/* Disabled "Continue" Button (Gray state) */
+.step_one_forward_button_disabled {
+  display: flex;
+  width: 80%;
+  height: 3.75rem;
+  padding: 0 0.9375rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 1.25rem;
+  background-color: #A0A0A0; /* Gray for disabled */
+  margin-top: auto;
+  margin-bottom: 1.94rem;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* --- STEP 3: DESCRIPTION STYLES --- */
+
+.step_three_title_frame {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: -0.5rem; /* Slight pull up to match tight spacing */
+}
+
+.step_three_title_text {
+  color: #1F1F1F;
+  text-align: right;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Subject Row (Label + Pill) */
+.step_three_subject_row {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end; /* Align to right */
+  align-items: center;
+  gap: 0.5rem; /* Space between text and pill */
+}
+
+.step_three_subject_label {
+  color: #1F1F1F;
+  text-align: right;
+  font-family: SimplerPro_V3;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.step_three_subject_pill {
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.25rem;
+  background-color: #1F1F1F; /* Black background */
+  
+  /* Text inside pill */
+  color: #FFF;
+  font-family: SimplerPro_V3;
+  font-size: 1rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* "Detail what happened" Label */
+.step_three_input_label_frame {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.step_three_input_label {
+  color: #1F1F1F;
+  text-align: right;
+  font-family: SimplerPro_V3;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+/* Text Area */
+.step_three_textarea {
+  width: 100%;
+  height: 10rem; /* Adjust height as needed */
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: none;
+  background-color: #C7DCED; /* Matches the light blue buttons */
+  
+  padding: 1rem;
+  box-sizing: border-box; /* Ensures padding doesn't expand width */
+  
+  /* Text Styling */
+  color: #1F1F1F;
+  font-family: SimplerPro_V3;
+  font-size: 1.125rem;
+  font-weight: 400;
+  text-align: right; /* Type from right to left */
+  resize: none; /* Disables dragging to resize */
+  outline: none;
+}
+
+/* Placeholder styling */
+.step_three_textarea::placeholder {
+  color: #797979; /* Darker gray for placeholder */
+  opacity: 1;
+}
+
+/* --- STEP 4: SUMMARY STYLES --- */
+
+.step_four_title_frame {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-bottom: 0.2rem;
+}
+
+.step_four_title_text {
+  color: #1F1F1F;
+  text-align: right;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-weight: 700; /* Bolder than previous titles */
+  margin: 0;
+}
+
+/* User Details */
+.step_four_user_details_frame {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-end; /* Align right */
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.step_four_user_name {
+  color: #1F1F1F;
+  text-align: right;
+  font-family: SimplerPro_V3;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.step_four_user_email {
+  color: #1F1F1F;
+  text-align: right;
+  font-family: SimplerPro_V3;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+/* Subject Row */
+.step_four_subject_row {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.step_four_subject_label {
+  color: #1F1F1F;
+  text-align: right;
+  font-family: SimplerPro_V3;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.step_four_subject_pill {
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.25rem;
+  background-color: #1F1F1F;
+  
+  color: #FFF;
+  font-family: SimplerPro_V3;
+  font-size: 1rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* Read-Only Description Box */
+.step_four_description_box {
+  width: 100%;
+  min-height: 8rem; /* Fixed height appearance like screenshot */
+  border-radius: 1.25rem;
+  background-color: #C7DCED; /* Light Blue background */
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align text to right */
+}
+
+.step_four_description_text {
+  width: 100%;
+  color: #1F1F1F;
+  text-align: right;
+  font-family: SimplerPro_V3;
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
+  white-space: pre-wrap; /* Preserves new lines from user input */
+  line-height: 1.4;
+}
+
+/* --- STEP 5: SUCCESS SCREEN --- */
+
+/* 1. Header with just the X */
+.step_success_header {
+  display: flex;
+  width: 100%;
+  padding: 0 1.5rem; /* Matches side padding of other steps */
+  justify-content: flex-start; /* Aligns X to the left in RTL */
+  box-sizing: border-box;
+}
+
+.step_success_x_button {
+  width: 1.09375rem;
+  height: 1.09375rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  
+  /* Ensure stroke matches logic */
+  fill: #1F1F1F;
+  stroke: #1F1F1F;
+}
+
+/* 2. Main Center Content */
+.step_success_content_frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 1.5rem;
+  margin-top: 3rem; /* Push down from top */
+  flex-grow: 1; /* Take up available space */
+}
+
+.step_success_icon_container {
+  margin-bottom: 2rem;
+}
+
+.step_success_title {
+  color: #1F1F1F;
+  text-align: center;
+  font-family: SimplerPro;
+  font-size: 2.5rem; /* Large title */
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 1rem 0;
+}
+
+.step_success_subtitle {
+  color: #1F1F1F;
+  text-align: center;
+  font-family: SimplerPro_V3;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0 0 2rem 0;
+  max-width: 20rem; /* Prevents text from getting too wide */
+}
+
+/* 3. WhatsApp Button */
+.step_success_whatsapp_button {
+  display: flex;
+  padding: 0.5rem 1.25rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 1.25rem;
+  background-color: #C7DCED; /* The light blue/grey */
+  text-decoration: none; /* Removes underline from link */
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.step_success_whatsapp_text {
+  color: #1F1F1F;
+  font-family: SimplerPro_V3;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+/* 4. Bottom Close Button */
+.step_success_close_button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  
+  color: #1F1F1F;
+  text-align: center;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-weight: 400;
+  
+  margin-bottom: 2.5rem; /* Space from bottom of screen */
+  margin-top: auto;
+}
+
+/* --- STEP 1 EDIT MODE (MANUAL ENTRY) --- */
+
+.step_edit_title_frame {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.step_edit_title_text {
+  color: #1F1F1F;
+  text-align: right;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.step_edit_inputs_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.step_edit_input {
+  width: 100%;
+  height: 3.5rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: none;
+  background-color: #C7DCED; /* Light Blue */
+  
+  padding: 0 1.25rem;
+  box-sizing: border-box;
+  
+  /* Text Styling */
+  color: #1F1F1F;
+  font-family: SimplerPro_V3;
+  font-size: 1.125rem;
+  font-weight: 400;
+  text-align: right; /* RTL */
+  outline: none;
+}
+
+.step_edit_input::placeholder {
+  color: #797979;
+  opacity: 0.7;
 }
