@@ -39,17 +39,21 @@ export default function HomePage({
     setShowOnboarding(showOnboardingProp);
   }, [showOnboardingProp]);
 
-  // הגדר את רקע ה-overscroll לאפור (רקע החלק התחתון של הדף)
+  // הגדר את רקע ה-overscroll עם gradient - בהיר למעלה, אפור למטה
   useEffect(() => {
-    const bgColor = '#1F1F1F';
-    document.documentElement.style.setProperty('--overscroll-background', bgColor);
-    document.documentElement.style.backgroundColor = bgColor;
-    document.body.style.backgroundColor = bgColor;
+    const lightColor = '#E3F0FA';
+    const darkColor = '#1F1F1F';
+    // Gradient שמתחיל מלמעלה עם הצבע הבהיר ומסיים למטה עם הצבע האפור
+    // נקודת המעבר היא בערך 40% מהגובה (מתאים לגובה החלק הבהיר)
+    const gradient = `linear-gradient(to bottom, ${lightColor} 0%, ${lightColor} 40%, ${darkColor} 40%, ${darkColor} 100%)`;
+    document.documentElement.style.setProperty('--overscroll-background', darkColor);
+    document.documentElement.style.background = gradient;
+    document.body.style.background = gradient;
     
     return () => {
       document.documentElement.style.removeProperty('--overscroll-background');
-      document.documentElement.style.removeProperty('background-color');
-      document.body.style.removeProperty('background-color');
+      document.documentElement.style.removeProperty('background');
+      document.body.style.removeProperty('background');
     };
   }, []);
 
