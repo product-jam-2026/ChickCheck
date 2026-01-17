@@ -46,6 +46,7 @@ export default function UploadPage({
 
   return (
     <div className={styles.uploadPage}>
+      <div className={styles.safeZoneTop}></div>
       <div className={styles.topSpacer}>
         <button
           className={styles.backButton}

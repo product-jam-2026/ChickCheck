@@ -10,11 +10,21 @@
   overflow: hidden;
 }
 
-.topSpacer {
-  height: 4.225rem;
+.safeZoneTop {
+  height: var(--safe-area-inset-top);
   width: 100%;
   position: absolute;
   top: 0;
+  left: 0;
+  background: #E3F0FA;
+  z-index: 100;
+}
+
+.topSpacer {
+  height: 3.225rem;
+  width: 100%;
+  position: absolute;
+  top: var(--safe-area-inset-top);
   left: 0;
   z-index: 10;
 }
