@@ -32,10 +32,14 @@ export default function UploadPage({
 }: UploadPageProps) {
   useEffect(() => {
     // הגדר את רקע ה-overscroll לאפור (רקע החלק התחתון של הדף)
+    // והחלק העליון (safe area) בצבע של ה-header
     const bgColor = '#1F1F1F';
+    const headerColor = '#E3F0FA';
+    
     document.documentElement.style.setProperty('--overscroll-background', bgColor);
-    document.documentElement.style.backgroundColor = bgColor;
-    document.body.style.backgroundColor = bgColor;
+    // הגדר את רקע ה-html/body כך שהחלק העליון יהיה בצבע ה-header
+    document.documentElement.style.backgroundColor = headerColor;
+    document.body.style.backgroundColor = headerColor;
     
     return () => {
       document.documentElement.style.removeProperty('--overscroll-background');
