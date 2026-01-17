@@ -31,28 +31,16 @@ export default function UploadPage({
   errorMessage,
 }: UploadPageProps) {
   useEffect(() => {
-    // הגדר את רקע ה-overscroll עם gradient - בהיר למעלה, אפור למטה
-    const lightColor = '#E3F0FA';
-    const darkColor = '#1F1F1F';
-    // Gradient שמתחיל מלמעלה עם הצבע הבהיר ומסיים למטה עם הצבע האפור
-    // נקודת המעבר היא בערך 40% מהגובה (מתאים לגובה החלק הבהיר)
-    const gradient = `linear-gradient(to bottom, ${lightColor} 0%, ${lightColor} 40%, ${darkColor} 40%, ${darkColor} 100%)`;
-    document.documentElement.style.setProperty('--overscroll-background', darkColor);
-    document.documentElement.style.background = gradient;
-    document.documentElement.style.backgroundSize = '100% 100dvh';
-    document.documentElement.style.backgroundRepeat = 'no-repeat';
-    document.body.style.background = gradient;
-    document.body.style.backgroundSize = '100% 100dvh';
-    document.body.style.backgroundRepeat = 'no-repeat';
+    // הגדר את רקע ה-overscroll לאפור (רקע החלק התחתון של הדף)
+    const bgColor = '#1F1F1F';
+    document.documentElement.style.setProperty('--overscroll-background', bgColor);
+    document.documentElement.style.backgroundColor = bgColor;
+    document.body.style.backgroundColor = bgColor;
     
     return () => {
       document.documentElement.style.removeProperty('--overscroll-background');
-      document.documentElement.style.removeProperty('background');
-      document.documentElement.style.removeProperty('background-size');
-      document.documentElement.style.removeProperty('background-repeat');
-      document.body.style.removeProperty('background');
-      document.body.style.removeProperty('background-size');
-      document.body.style.removeProperty('background-repeat');
+      document.documentElement.style.removeProperty('background-color');
+      document.body.style.removeProperty('background-color');
     };
   }, []);
 
