@@ -272,7 +272,7 @@ export default function OnboardingPage({
       <div className={styles.onboardingContainer}>
         <div className={styles.greeting}>
           איזה כיף שאתם פה :)<br />
-          אנחנו בצ'יקצ'ק כבר מוכנים לעזור!
+          אנחנו בצ&apos;יקצ&apos;ק כבר מוכנים לעזור!
         </div>
 
         {showWelcomeText && (
@@ -317,7 +317,7 @@ function ScreenshotInstructions({
   onDone,
 }: ScreenshotInstructionsProps) {
   const androidInstruction = "כדי לבצע צילום מסך, היכנסו להודעה הרלוונטית ולחצו בו-זמנית על כפתור הנעילה ועל כפתור הווליום התחתון.";
-  const iosInstruction = "כדי לבצע צילום מסך, היכנסו להודעה הרלוונטית ולחצו בו-זמנית על כפתור הנעילה ועל כפתור הבית.";
+  const iosInstruction = "כדי לבצע צילום מסך, היכנסו להודעה הרלוונטית ולחצו בו-זמנית על כפתור הנעילה ועל כפתור הווליום העליון.";
 
   return (
     <>

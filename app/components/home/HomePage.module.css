@@ -8,6 +8,7 @@
   background: #E3F0FA;
   position: relative;
   overflow: hidden;
+  padding-top: calc(var(--safe-area-inset-top) + 3.225rem);
 }
 
 .safeZoneTop {
@@ -18,14 +19,6 @@
   left: 0;
   background: #E3F0FA;
   z-index: 1000;
-}
-
-.topSpacer {
-  height: 3.225rem;
-  width: 100%;
-  position: absolute;
-  top: var(--safe-area-inset-top);
-  left: 0;
 }
 
 .errorMessage {
