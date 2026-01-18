@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 const MIN_LOADING_TIME = 5000; // מינימום 5 שניות
 
 interface AnalysisResult {
+  id: string;
   status: "SAFE" | "NOT_SAFE" | "UNCLEAR";
   scamPercentage: number;
   reasoning: string;
