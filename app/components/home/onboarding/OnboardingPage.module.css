@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(23, 23, 23, 0.85);
+  background: rgba(23, 23, 23, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   display: flex;
@@ -31,6 +31,12 @@
   overflow: hidden;
 }
 
+/* When welcome content container is present, adjust layout */
+.onboardingContainer:has(.welcomeContentContainer) {
+  justify-content: space-between;
+  gap: 0;
+}
+
 .continueContainer {
   width: 100%;
   height: 100vh;
@@ -50,29 +56,28 @@
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
-  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
+  padding: 118px clamp(12px, 3vw, 16px) 57px clamp(12px, 3vw, 16px);
   justify-content: flex-start;
   align-items: center;
-  gap: clamp(24px, 5vw, 32px);
+  gap: 0;
   overflow: hidden;
 }
 
 .greeting {
-  font-size: clamp(26px, 5.5vw, 32px);
+  font-size: 2.125rem;
   font-weight: 600;
   color: #E3F0FA;
   text-align: center;
   align-self: stretch;
-  line-height: 1.4;
-  margin: 0;
-  margin-bottom: clamp(8px, 2vw, 12px);
+  line-height: normal;
+  margin-bottom: clamp(16px, 3vw, 24px);
 }
 
 .description {
-  font-size: clamp(20px, 4vw, 18px);
+  font-size: 1.5rem;
   color: #E3F0FA;
   text-align: center;
-  line-height: 1.4;
+  font-weight: 400;
   width: 100%;
 }
 
@@ -90,6 +95,18 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.welcomeContentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(16px, 3vw, 24px);
+  width: 100%;
+  max-width: 100%;
+  margin: auto 0;
+  flex: 1;
 }
 
 
@@ -117,39 +134,34 @@
 }
 
 .welcomeNextButton {
-  display: flex;
-  width: 12rem;
-  height: 2.5rem;
-  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.8rem;
-  border: 2px solid #050130;
-  background: #C7DCED;
-  gap: 0.625rem;
-  flex-shrink: 0;
-  margin-top: clamp(16px, 3vw, 24px);
-  margin-bottom: clamp(16px, 3vw, 24px);
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(24px, 5vw, 30px);
   cursor: pointer;
-  transition: background-color 0.2s;
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
   font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
   align-self: center;
 }
 
 .welcomeNextButton:hover {
-  background: #b8d0e0;
+  color: rgba(227, 240, 250, 0.8);
 }
 
 .welcomeNextButtonText {
-  color: #050130;
+  color: inherit;
   font-family: inherit;
-  text-align: right;
-  font-size: clamp(22px, 4.5vw, 24px);
+  text-align: center;
+  font-size: inherit;
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .skipButton {
@@ -202,6 +214,28 @@
   white-space: nowrap;
 }
 
+.skipButtonCentered {
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(24px, 5vw, 30px);
+  cursor: pointer;
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.skipButtonCentered:hover {
+  color: rgba(227, 240, 250, 0.8);
+}
+
 /* Instruction Page Styles */
 .instructionContainer {
   width: 100%;
@@ -218,41 +252,49 @@
 }
 
 .instructionText {
-  font-size: clamp(20px, 4vw, 18px);
+  font-size: 1.5rem;
+  font-weight: 400;
   color: #E3F0FA;
   text-align: center;
-  line-height: 1.4;
   width: 100%;
-  margin-bottom: clamp(24px, 5vw, 32px);
+
+}
+
+.instructionText .boldText {
+  font-weight: 700;
+}
+
+/* Instruction text for welcome page */
+.onboardingContainer > .instructionText {
+  margin-bottom: clamp(16px, 3vw, 24px);
 }
 
 .instructionButton {
-  display: flex;
-  width: 12rem;
-  height: 2.5rem;
-  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.8rem;
-  border: 2px solid #050130;
-  background: #C7DCED;
-  gap: 0.625rem;
-  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(24px, 5vw, 30px);
   cursor: pointer;
-  transition: background-color 0.2s;
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
   font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
   align-self: center;
 }
 
 .instructionButton:hover {
-  background: #b8d0e0;
+  color: rgba(227, 240, 250, 0.8);
 }
 
 .instructionButtonText {
-  color: #050130;
+  color: inherit;
   font-family: inherit;
-  text-align: right;
-  font-size: clamp(22px, 4.5vw, 24px);
+  text-align: center;
+  font-size: inherit;
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
@@ -284,50 +326,51 @@
 }
 
 .continueButton {
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(24px, 5vw, 30px);
+  cursor: pointer;
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
+  font-family: inherit;
   display: flex;
-  width: 12rem;
-  height: 2.5rem;
-  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  border-radius: 0.8rem;
-  border: 2px solid #050130;
-  background: #C7DCED;
+  align-items: center;
   gap: 0.625rem;
-  flex-shrink: 0;
+  align-self: center;
   margin-top: clamp(4px, 1vw, 8px);
   margin-bottom: clamp(32px, 6vw, 48px);
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-family: inherit;
-  align-self: center;
 }
 
 .continueButton:hover {
-  background: #b8d0e0;
+  color: rgba(227, 240, 250, 0.8);
 }
 
 .continueButtonText {
-  color: #050130;
+  color: inherit;
   font-family: inherit;
-  text-align: right;
-  font-size: clamp(22px, 4.5vw, 24px);
+  text-align: center;
+  font-size: inherit;
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* Screenshot Instructions Styles */
 .screenshotInstruction {
-  font-size: clamp(18px, 4vw, 22px);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: normal;
+  font-style: normal;
   color: #E3F0FA;
   text-align: center;
-  line-height: 1.5;
   width: 100%;
-  margin-top: clamp(8px, 1.5vh, 12px);
-  margin-bottom: clamp(12px, 2vw, 16px);
+  margin-top: 0;
+  margin-bottom: 32px;
+  flex-shrink: 0;
+  letter-spacing: 0.02rem;
 }
 
 .phoneMockupContainer {
@@ -335,14 +378,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: clamp(12px, 2vw, 16px);
+  flex: 1;
   position: relative;
+  min-height: 0;
 }
 
 .onboardingSvg {
-  width: min(200px, 50vw);
-  height: auto;
-  max-height: 400px;
+  width: clamp(180px, 58.3vw, 229px);
+  height: clamp(360px, 56.5vh, 481px);
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .backButton {
@@ -405,39 +450,37 @@
 }
 
 .screenshotDoneButton {
-  display: flex;
-  width: 15rem;
-  height: 2.5rem;
-  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.8rem;
-  border: 2px solid #050130;
-  background: #C7DCED;
-  gap: 0.625rem;
-  flex-shrink: 0;
-  margin-bottom: clamp(16px, 3vw, 24px);
-  margin-top: 0;
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(24px, 5vw, 30px);
   cursor: pointer;
-  transition: background-color 0.2s;
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
   font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
   align-self: center;
+  flex-shrink: 0;
+  margin-top: 32px;
+  margin-bottom: 0;
 }
 
 .screenshotDoneButton:hover {
-  background: #b8d0e0;
+  color: rgba(227, 240, 250, 0.8);
 }
 
 .screenshotDoneButtonText {
-  color: #050130;
+  color: inherit;
   font-family: inherit;
-  text-align: right;
-  font-size: clamp(22px, 4.5vw, 24px);
+  text-align: center;
+  font-size: inherit;
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* Upload Instructions Styles */
@@ -447,7 +490,7 @@
   min-height: 100vh;
   max-height: 100vh;
   padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
-  justify-content: center;
+  justify-content: space-between;
   gap: clamp(12px, 2vw, 16px);
   overflow: hidden;
 }
@@ -471,12 +514,14 @@
 
 .uploadInstruction {
   color: #E3F0FA;
-  font-size: clamp(18px, 4vw, 22px);
-  font-weight: 400;
   text-align: center;
-  line-height: 1.4;
   width: 100%;
   margin: 0;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.02rem;
 }
 
 .uploadAreaWrapper {
@@ -499,68 +544,103 @@
   font-size: clamp(1.625rem, 4vw, 1.875rem) !important;
 }
 
+.uploadContinueButton {
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(24px, 5vw, 30px);
+  cursor: pointer;
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.uploadContinueButton:hover {
+  color: rgba(227, 240, 250, 0.8);
+}
+
+.uploadContinueButtonText {
+  color: inherit;
+  font-family: inherit;
+  text-align: center;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
 /* Gallery Instructions Styles */
 .galleryContainer {
   width: 100%;
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
-  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
-  justify-content: center;
-  gap: clamp(12px, 2vw, 16px);
+  padding: 118px clamp(12px, 3vw, 16px) 57px clamp(12px, 3vw, 16px);
+  justify-content: flex-start;
+  gap: 0;
   overflow: hidden;
 }
 
 .galleryInstruction {
   color: #E3F0FA;
-  font-size: clamp(16px, 3.5vw, 20px);
-  font-weight: 400;
   text-align: center;
-  line-height: 1.5;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   width: 100%;
-  margin-bottom: clamp(16px, 3vw, 24px);
+  letter-spacing: 0.02rem;
+  margin-top: 0;
+  margin-bottom: 32px;
+  flex-shrink: 0;
 }
 
 .galleryNextButton {
-  display: flex;
-  width: 15rem;
-  height: 2.5rem;
-  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.8rem;
-  border: 2px solid #050130;
-  background: #C7DCED;
-  gap: 0.625rem;
-  flex-shrink: 0;
-  margin-top: clamp(8px, 2vw, 12px);
-  margin-bottom: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(24px, 5vw, 30px);
   cursor: pointer;
-  transition: background-color 0.2s;
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
   font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
   align-self: center;
+  margin-top: 32px;
+  margin-bottom: 0;
 }
 
 .galleryNextButton:hover {
-  background: #b8d0e0;
+  color: rgba(227, 240, 250, 0.8);
 }
 
 .galleryNextButtonText {
-  color: #050130;
+  color: inherit;
   font-family: inherit;
-  text-align: right;
-  font-size: clamp(22px, 4.5vw, 24px);
+  text-align: center;
+  font-size: inherit;
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .galleryPhoneSvg {
-  width: min(200px, 50vw);
-  height: auto;
-  max-height: 350px;
+  width: clamp(180px, 58.3vw, 229px);
+  height: clamp(360px, 56.5vh, 481px);
+  max-width: 100%;
+  object-fit: contain;
 }
 
 /* Review Instructions Styles */
@@ -569,41 +649,47 @@
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
-  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
-  justify-content: center;
-  gap: clamp(12px, 2vw, 16px);
+  padding: 118px clamp(12px, 3vw, 16px) 57px clamp(12px, 3vw, 16px);
+  justify-content: flex-start;
+  gap: 0;
   overflow: hidden;
 }
 
 .reviewInstruction {
   color: #E3F0FA;
-  font-size: clamp(16px, 3.5vw, 20px);
-  font-weight: 400;
   text-align: center;
-  line-height: 1.5;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   width: 100%;
-  margin-bottom: clamp(12px, 2vw, 16px);
+  letter-spacing: 0.02rem;
+  margin-top: 0;
+  margin-bottom: 32px;
+  flex-shrink: 0;
 }
 
 .reviewPhoneSvg {
-  width: min(200px, 50vw);
-  height: auto;
-  max-height: 350px;
+  width: clamp(180px, 58.3vw, 229px);
+  height: clamp(360px, 56.5vh, 481px);
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .reviewSendButton {
   display: flex;
-  width: 12rem;
-  height: 2.5rem;
-  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
+  width: 11.8125rem;
+  height: 2.8125rem;
+  padding: 0.4875rem 0.8125rem 0.4875rem 0.5625rem;
   align-items: center;
   justify-content: center;
-  border-radius: 0.8rem;
-  border: 2px solid #ff0000;
+  border-radius: 1rem;
+  border: none;
   background: #C7DCED;
-  gap: 0.625rem;
+  gap: 1rem;
   flex-shrink: 0;
-  margin-top: clamp(8px, 2vw, 12px);
+  margin-top: 32px;
   margin-bottom: 0;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -616,22 +702,53 @@
 }
 
 .reviewSendButtonText {
-  color: #050130;
+  color: #1F1F1F;
   font-family: inherit;
-  text-align: right;
-  font-size: clamp(22px, 4.5vw, 24px);
+  text-align: center;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .uploadIcon {
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 1rem;
+  height: 1rem;
   flex-shrink: 0;
   fill: var(--d-9-d-9-d-9, #1F1F1F);
+}
+
+.reviewContinueButton {
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(24px, 5vw, 30px);
+  cursor: pointer;
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: center;
+  flex-shrink: 0;
+  margin-top: clamp(16px, 3vw, 24px);
+}
+
+.reviewContinueButton:hover {
+  color: rgba(227, 240, 250, 0.8);
+}
+
+.reviewContinueButtonText {
+  color: inherit;
+  font-family: inherit;
+  text-align: center;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 /* Results Instructions Styles */
@@ -664,12 +781,14 @@
 
 .resultsInstruction {
   color: #E3F0FA;
-  font-size: clamp(16px, 3.5vw, 20px);
-  font-weight: 400;
   text-align: center;
-  line-height: 1.5;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   width: 100%;
-  margin-bottom: clamp(24px, 5vw, 32px);
+  letter-spacing: 0.02rem;
 }
 
 .resultsIconsContainer {
@@ -681,8 +800,9 @@
 }
 
 .resultsIconsSvg {
-  width: min(320px, 75vw);
-  height: auto;
+  width: clamp(180px, 56.7vw, 223px);
+  height: clamp(75px, 11.1vh, 95px);
+  max-width: 100%;
   object-fit: contain;
 }
 
@@ -696,55 +816,57 @@
 }
 
 .disclaimerTitle {
-  color: #E3F0FA;
-  font-size: clamp(18px, 4vw, 22px);
-  font-weight: 600;
+  color: var(--D5E8FC, #E3F0FA);
   text-align: center;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
 }
 
 .disclaimerText {
-  color: #E3F0FA;
-  font-size: clamp(16px, 3.5vw, 20px);
-  font-weight: 400;
+  color: var(--D5E8FC, #E3F0FA);
+  font-family: SimplerPro;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 200;
+  line-height: 1.5rem;
   text-align: center;
-  line-height: 1.5;
   width: 100%;
 }
 
 .resultsReadyButton {
+  background: transparent;
+  border: none;
+  color: #E3F0FA;
+  text-decoration: underline;
+  font-size: clamp(24px, 5vw, 30px);
+  cursor: pointer;
+  padding: clamp(0.625rem, 1.75vw, 0.875rem);
+  font-family: inherit;
   display: flex;
-  width: 12rem;
-  height: 2.5rem;
-  padding: 0.5625rem 1rem 0.5625rem 0.6875rem;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  border-radius: 0.8rem;
-  border: 2px solid #050130;
-  background: #C7DCED;
+  align-items: center;
   gap: 0.625rem;
-  flex-shrink: 0;
+  align-self: center;
   margin-top: clamp(16px, 3vw, 24px);
   margin-bottom: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-family: inherit;
-  align-self: center;
 }
 
 .resultsReadyButton:hover {
-  background: #b8d0e0;
+  color: rgba(227, 240, 250, 0.8);
 }
 
 .resultsReadyButtonText {
-  color: #050130;
+  color: inherit;
   font-family: inherit;
-  text-align: right;
-  font-size: clamp(22px, 4.5vw, 24px);
+  text-align: center;
+  font-size: inherit;
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 

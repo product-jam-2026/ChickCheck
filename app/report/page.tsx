@@ -16,21 +16,7 @@ const ProgressHeader = ({ step, onBack, onExit }: { step: number, onBack: () => 
   
   // Logic for which circle is active (Black)
   const isDetailsActive = step === 1;
-  const isTopicActive = step >= 2 && step <= 4;
-  const isFinishActive = step === 5;
-
-  const renderCircle = (isActive: boolean) => (
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-      <circle 
-        cx="6.23" 
-        cy="6.23" 
-        r="5.45" 
-        fill={isActive ? "#1F1F1F" : "#E3F0FA"} 
-        stroke="#1F1F1F" 
-        strokeWidth="1.55"
-      />
-    </svg>
-  );
+  const isTopicActive = step >= 2 && step <= 3;
 
   return (
   <div className={styles.step_one_sub_sub_sub_frame_progress_bar}>
@@ -41,7 +27,7 @@ const ProgressHeader = ({ step, onBack, onExit }: { step: number, onBack: () => 
           onClick={onBack} 
           className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_arrow} 
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 20 20" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M14.7111 10.875L7.94447 17.6417L9.66634 19.3333L19.333 9.66667L9.66634 0L7.94447 1.69167L14.7111 8.45833H-0.000326157V10.875H14.7111Z" fill="#1F1F1F"/>
           </svg>
         </button>
@@ -51,7 +37,7 @@ const ProgressHeader = ({ step, onBack, onExit }: { step: number, onBack: () => 
           onClick={onExit} 
           className={styles.step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_x} 
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
             <path d="M16.793 1.75L9.79297 8.75L16.793 15.75L15.75 16.793L8.75 9.79297L1.75 16.793L0.707031 15.75L7.70703 8.75L0.707031 1.75L1.75 0.707031L8.75 7.70703L15.75 0.707031L16.793 1.75Z" fill="#1F1F1F" stroke="#1F1F1F"/>
           </svg>
         </button>
@@ -91,15 +77,8 @@ const LandingStep = ({ onNext, onBack }: { onNext: () => void; onBack: () => voi
         
         {/* 1. The Back Arrow (Now inside the step) */}
         <button onClick={onBack} className={styles.backButtonWrapper}>
-          <svg 
-            className={styles.step_zero_arrow} 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="20" 
-            height="20" 
-            viewBox="0 0 20 20" 
-            fill="none"
-          >
-            <path d="M14.7111 10.875L7.94447 17.6417L9.66634 19.3333L19.333 9.66667L9.66634 0L7.94447 1.69167L14.7111 8.45833H-0.000326157V10.875H14.7111Z" fill="currentColor"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M14.7111 10.875L7.94447 17.6417L9.66634 19.3333L19.333 9.66667L9.66634 0L7.94447 1.69167L14.7111 8.45833H-0.000326157V10.875H14.7111Z" fill="#1F1F1F"/>
           </svg>
         </button>
 
@@ -118,6 +97,9 @@ const LandingStep = ({ onNext, onBack }: { onNext: () => void; onBack: () => voi
           className={styles.step_zero_button}
         >
           <span className={styles.step_zero_button_text}>טופס פנייה</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M4 20C3.45 20 2.97917 19.8042 2.5875 19.4125C2.19583 19.0208 2 18.55 2 18V6C2 5.45 2.19583 4.97917 2.5875 4.5875C2.97917 4.19583 3.45 4 4 4H20C20.55 4 21.0208 4.19583 21.4125 4.5875C21.8042 4.97917 22 5.45 22 6V18C22 18.55 21.8042 19.0208 21.4125 19.4125C21.0208 19.8042 20.55 20 20 20H4ZM12 13L4 8V18H20V8L12 13ZM12 11L20 6H4L12 11ZM4 8V6V18V8Z" fill="#1F1F1F"/>
+          </svg>
         </button>
         </div>
       </div>
@@ -190,7 +172,7 @@ const IdentityStep = ({
                עריכה
               </span> 
               <div className={styles.step_one_sub_sub_sub_frame_text_correct_button_frame_button_icon}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                   <path d="M2 16H3.425L13.2 6.225L11.775 4.8L2 14.575V16ZM0 18V13.75L13.2 0.575C13.4 0.391667 13.6208 0.25 13.8625 0.15C14.1042 0.05 14.3583 0 14.625 0C14.8917 0 15.15 0.05 15.4 0.15C15.65 0.25 15.8667 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.7708 2.4 17.8625 2.65C17.9542 2.9 18 3.15 18 3.4C18 3.66667 17.9542 3.92083 17.8625 4.1625C17.7708 4.40417 17.625 4.625 17.425 4.825L4.25 18H0ZM12.475 5.525L11.775 4.8L13.2 6.225L12.475 5.525Z" fill="#1F1F1F"/>
                 </svg>
               </div>
@@ -319,7 +301,7 @@ const IncidentTypeStep = ({
           
           {/* Title */}
           <div className={styles.step_two_title_frame}>
-            <h2 className={styles.step_two_title_text}>בחרי את נושא הפנייה:</h2>
+            <h2 className={styles.step_two_title_text}>בחר/י את נושא הפנייה:</h2>
           </div>
 
           {/* Buttons Grid */}
@@ -387,12 +369,10 @@ const DescriptionStep = ({
 
           {/* Subject Row: "Report regarding..." + Pill */}
           <div className={styles.step_three_subject_row}>
-             {/* The Pill (Selected Type) */}
-             <div className={styles.step_three_subject_pill}>
+            <span className={styles.step_three_subject_label}>פנייה בנושא:</span>
+            <div className={styles.step_three_subject_pill}>
               {data.incidentType || "נושא אחר"}
             </div>
-            {/* The Label */}
-            <span className={styles.step_three_subject_label}>פנייה בנושא</span>
           </div>
 
           {/* Input Label */}
@@ -461,12 +441,12 @@ const SummaryStep = ({
 
           {/* Subject Row (Pill + Label) */}
           <div className={styles.step_four_subject_row}>
+            <span className={styles.step_four_subject_label}>פנייה בנושא:</span>
              {/* The Pill */}
              <div className={styles.step_four_subject_pill}>
               {data.incidentType || "נושא אחר"}
             </div>
             {/* The Label */}
-            <span className={styles.step_four_subject_label}>:פנייה בנושא</span>
           </div>
 
           {/* Read-Only Description Box */}
@@ -485,7 +465,7 @@ const SummaryStep = ({
         className={styles.step_one_forward_button}
       >
         <span className={styles.step_one_forward_button_text}>
-          שליחת פנייה
+          שלח פנייה
         </span>
       </button>
 
@@ -495,36 +475,19 @@ const SummaryStep = ({
 
 // STEP 5: SUCCESS
 const SuccessStep = ({ onExit }: { onExit: () => void }) => {
-  const router = useRouter();
-
   // Replace with your actual number
-  const whatsappNumber = "972500000000"; 
-  const whatsappLink = `https://wa.me/${whatsappNumber}`;
+  const whatsappLink = `https://api.whatsapp.com/send/?phone=972548858911&text&type=phone_number&app_absent=0`;
 
   return (
     <div className={styles.step_one_auto}>
       
-      {/* 1. Top Header (X Icon Only) */}
-      <div className={styles.step_success_header}>
-        <button 
-          onClick={onExit} 
-          className={styles.step_success_x_button} 
-        >
-           {/* Reusing the X SVG from your previous steps */}
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
-            <path d="M16.793 1.75L9.79297 8.75L16.793 15.75L15.75 16.793L8.75 9.79297L1.75 16.793L0.707031 15.75L7.70703 8.75L0.707031 1.75L1.75 0.707031L8.75 7.70703L15.75 0.707031L16.793 1.75Z" fill="#1F1F1F" stroke="#1F1F1F"/>
-          </svg>
-        </button>
-      </div>
-
-      {/* 2. Main Content Center */}
+      {/* 1. Main Content Center (No Header) */}
       <div className={styles.step_success_content_frame}>
         
-        {/* Green Document Icon */}
+        {/* New Green Document Icon */}
         <div className={styles.step_success_icon_container}>
-           <svg width="107" height="125" viewBox="0 0 107 125" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M63.5 0H13.375C6.01875 0 0.066875 5.95 0.066875 13.3L0 111.7C0 119.05 5.95187 125 13.3081 125H93.625C100.981 125 107 119.05 107 111.7V39.5L63.5 0ZM43.4687 95.8L20.0625 72.5L29.4919 63.15L43.4687 77.05L80.2581 40.5L89.6875 50L43.4687 95.8Z" fill="#6CC24A"/>
-            <path d="M56.5 45V5L96 45H56.5Z" fill="#4CA335"/>
+          <svg width="180" height="214" viewBox="0 0 180 214" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto' }}>
+            <path d="M22.5 1H112.1L179 64.6289V192.6C179 198.201 176.916 202.98 172.701 206.989C168.484 211 163.436 213 157.5 213H22.5C16.5641 213 11.5156 211 7.29883 206.989C3.08361 202.98 1 198.201 1 192.6V21.4004C1 15.7994 3.08361 11.0199 7.29883 7.01074C11.5156 3.00026 16.5641 1 22.5 1ZM21.5 193.6H158.5V73.9004H102.25V20.4004H21.5V193.6ZM140.298 110.745L78.1875 169.819L39.7012 133.215L54.2803 119.348L77.2168 141.162L77.9062 141.817L78.5957 141.162L125.438 96.6104L140.298 110.745Z" fill="#74D03C" stroke="#E3F0FA" strokeWidth="2"/>
           </svg>
         </div>
 
@@ -537,31 +500,36 @@ const SuccessStep = ({ onExit }: { onExit: () => void }) => {
           במקרים דחופים בלבד, פנו בווצאפ ונחזור<br/> אליכם בהקדם האפשרי
         </p>
 
-        {/* WhatsApp Button */}
-        <a 
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.step_success_whatsapp_button}
-        >
-          {/* WhatsApp Icon */}
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.0006 2.01874C6.50567 2.01874 2.02246 6.48914 2.02246 11.9861C2.02246 13.7371 2.47646 15.4495 3.35567 16.9749L2.00488 21.9213L7.05889 20.5921C8.52847 21.3963 10.2317 21.9535 12.0006 21.9535C17.4955 21.9535 21.9787 17.4831 21.9787 11.9861C21.9787 6.48914 17.4955 2.01874 12.0006 2.01874Z" stroke="#1F1F1F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M15.864 15.3411C15.6558 15.2917 15.3275 15.1953 14.8812 14.9765C14.4348 14.7577 13.8248 14.4533 13.0514 14.0753C12.278 13.6973 11.7582 13.4357 11.4922 13.2905C11.2263 13.1453 10.9631 12.9815 10.7027 12.7991C10.4423 12.6167 10.1581 12.3595 9.85011 12.0275C9.54209 11.6955 9.29767 11.3831 9.11686 11.0903C8.93604 10.7975 8.77724 10.5191 8.64043 10.2551C8.50361 9.99113 8.39702 9.77453 8.32062 9.60533C8.24422 9.43613 8.16362 9.18353 8.07882 8.84753C7.99402 8.51153 8.04602 8.23973 8.23482 8.03213C8.42363 7.82453 8.66723 7.72073 8.96563 7.72073C9.11183 7.72073 9.25503 7.72853 9.39523 7.74413C9.53543 7.75973 9.66423 7.77653 9.78163 7.79453L10.5284 9.60893C10.5632 9.69173 10.58 9.77453 10.5788 9.85733C10.5776 9.94013 10.556 10.0169 10.514 10.0877C10.472 10.1585 10.3952 10.2509 10.2836 10.3649C10.172 10.4789 10.052 10.5845 9.92362 10.6817L9.67162 10.8809C9.79042 11.0969 9.99203 11.3705 10.2764 11.7017C10.5608 12.0329 10.8716 12.3593 11.2088 12.6809C11.546 13.0025 11.8976 13.2989 12.2636 13.5701C12.6296 13.8413 12.9296 14.0309 13.1636 14.1389L13.3856 13.8965C13.4888 13.7849 13.6064 13.6793 13.7384 13.5797C13.8704 13.4801 13.9832 13.4081 14.0768 13.3637C14.1704 13.3193 14.2568 13.2977 14.336 13.2989C14.4152 13.3001 14.498 13.3229 14.5844 13.3673L16.4864 14.1569C16.5056 14.2697 16.5236 14.3981 16.5404 14.5421C16.5572 14.6861 16.5656 14.8325 16.5656 14.9813C16.5656 15.2813 16.4528 15.5345 16.2272 15.7409C16.0016 15.9473 15.7232 16.0241 15.392 15.9713" fill="#1F1F1F"/>
-          </svg>
-          <span className={styles.step_success_whatsapp_text}>פנייה דחופה</span>
-        </a>
+        {/* Buttons Container (Row) */}
+        <div className={styles.step_success_buttons_row}>
+          
+          {/* 1. WhatsApp Button */}
+          <a 
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.step_success_action_button}
+          >
+            <span className={styles.step_success_button_text}>פנייה דחופה</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M0 24L1.69505 17.837C0.649083 16.033 0.0994725 13.988 0.100477 11.891C0.103492 5.335 5.46395 0 12.0502 0C15.2464 0.001 18.2467 1.24 20.5034 3.488C22.7591 5.736 24.001 8.724 24 11.902C23.997 18.459 18.6365 23.794 12.0502 23.794C10.0507 23.793 8.08038 23.294 6.33509 22.346L0 24ZM6.62849 20.193C8.31248 21.188 9.92012 21.784 12.0462 21.785C17.5202 21.785 21.9794 17.351 21.9824 11.9C21.9844 6.438 17.5463 2.01 12.0543 2.008C6.57624 2.008 2.12007 6.442 2.11806 11.892C2.11706 14.117 2.77217 15.783 3.87239 17.526L2.86863 21.174L6.62849 20.193ZM18.0698 14.729C17.9955 14.605 17.7965 14.531 17.4971 14.382C17.1987 14.233 15.7307 13.514 15.4564 13.415C15.1831 13.316 14.9842 13.266 14.7842 13.564C14.5853 13.861 14.0126 14.531 13.8387 14.729C13.6649 14.927 13.4901 14.952 13.1917 14.803C12.8932 14.654 11.9307 14.341 10.7903 13.328C9.90304 12.54 9.30319 11.567 9.12936 11.269C8.95554 10.972 9.11128 10.811 9.25998 10.663C9.39462 10.53 9.5584 10.316 9.70811 10.142C9.85983 9.97 9.90907 9.846 10.0095 9.647C10.109 9.449 10.0598 9.275 9.98443 9.126C9.90907 8.978 9.31223 7.515 9.06405 6.92C8.8209 6.341 8.57473 6.419 8.39186 6.41L7.81914 6.4C7.6202 6.4 7.29666 6.474 7.02336 6.772C6.75006 7.07 5.9784 7.788 5.9784 9.251C5.9784 10.714 7.04848 12.127 7.19719 12.325C7.3469 12.523 9.30219 15.525 12.2974 16.812C13.0098 17.118 13.5664 17.301 13.9995 17.438C14.7149 17.664 15.366 17.632 15.8804 17.556C16.4542 17.471 17.6468 16.837 17.896 16.143C18.1452 15.448 18.1452 14.853 18.0698 14.729Z" fill="#1F1F1F"/>
+            </svg>
+          </a>
+
+          {/* 2. Close Button */}
+          <button 
+            onClick={onExit} 
+            className={styles.step_success_action_button}
+          >
+             {/* X Icon */}
+            <span className={styles.step_success_button_text}>סגירה</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <path d="M19.875 6.93237L14.1621 12.6462L13.8086 12.9998L19.876 19.0671L19.0664 19.8767L12.999 13.8093L12.6455 14.1628L6.93164 19.8757L6.12207 19.0662L11.8359 13.3533L12.1895 12.9998L6.12305 6.93335L6.93262 6.12378L12.999 12.1902L13.3525 11.8367L19.0654 6.1228L19.875 6.93237Z" fill="#1F1F1F" stroke="#1F1F1F"/>
+            </svg>
+          </button>
+        </div>
 
       </div>
-
-      {/* 3. Bottom Button (Text Only) */}
-      <button 
-        onClick={onExit} 
-        className={styles.step_success_close_button}
-      >
-        סגירה
-      </button>
-
     </div>
   );
 };
@@ -670,3 +638,12 @@ export default function ReportProcess() {
 // 1. Double Check Design
 // 2. Add Error Handling in UI to show the user what is not filled in correctly
 // 3. Try and make it work on different screen sizes
+// 4. Sent Icon
+// 5. Add phone Whatsapp
+// 6. Try on my phone
+// 7. Import to font
+// 8. Send to mail instead of supabase
+// 9. Safe-Zone
+// 10. Arrow at the beggining of report is blue
+// 11. Make sure RTL is perfect
+// 12. When editing details, going back should go to read-only mode instead of previous step because then I get to step 0
