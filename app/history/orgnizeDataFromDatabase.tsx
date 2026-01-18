@@ -27,7 +27,7 @@ export const cleanSmsContent = (rawText: string): string => {
   
   // -- הגדרות זיהוי --
   const yearRegex = /20\d{2}/;
-  const hebrewMonthRegex = /(ינואר|פברואר|מרץ|אפריל|מאי|יוני|יולי|אוגוסט|ספטמבר|אוקטובר|נובמבר|דצמבר)/;
+  const hebrewMonthRegex = /(ינואר|פברואר|מרץ|אפריל|מאי|יוני|יולי|אוגוסט|ספטמבר|אוקטובר|נובמבר|דצמבר|אוק'|נוב'|ינו'|אוג'|פב')/;
   const relativeDayRegex = /(היום|אתמול|שלשום)/; // תוספת: ימים יחסיים
   const timeAtEndRegex = /(\d{1,2}:\d{2})$/;
   const smsHeaderRegex = /(SMS|הודעת טקסט)/i; // תוספת: עוגן לגיבוי

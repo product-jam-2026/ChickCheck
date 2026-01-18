@@ -19,7 +19,7 @@ interface HistoryItem {
 
 const STATUS_ICON: Record<Status, string> = {
 	SAFE: "/icons/safe_icon.svg",
-	NOT_SAFE: "/icons/not_safe_icon.svg",
+	NOT_SAFE: "/icons/not_safe_full_icon.svg",
 	UNCLEAR: "/icons/unclear_icon.svg",
 };
 
@@ -96,11 +96,12 @@ export default function HistoryListPage() {
   }
 
 	return (
+    
 		<main className={styles.container}>
 			<div className={styles.topSpacer}>
 				<BackButton href="/profile" />
 			</div>
-
+    
 			<div className={styles.titleBar}>
 				<h1 className={styles.pageTitle}>היסטוריית בדיקות</h1>
 			</div>
