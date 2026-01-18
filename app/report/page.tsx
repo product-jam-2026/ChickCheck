@@ -670,3 +670,12 @@ export default function ReportProcess() {
 // 1. Double Check Design
 // 2. Add Error Handling in UI to show the user what is not filled in correctly
 // 3. Try and make it work on different screen sizes
+// 4. Sent Icon
+// 5. Add phone Whatsapp
+// 6. Try on my phone
+// 7. Import to font
+// 8. Send to mail instead of supabase
+// 9. Safe-Zone
+// 10. Arrow at the beggining of report is blue
+// 11. Make sure RTL is perfect
+// 12. When editing details, going back should go to read-only mode instead of previous step because then I get to step 0
