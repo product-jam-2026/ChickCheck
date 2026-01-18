@@ -4,8 +4,6 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
-import HomeDisclaimer from "@/app/components/home/HomeDisclaimer";
-import ActionAccordion from "./ActionAccordion";
 import DetailAccordion from "./DetailAccordion";
 import ShareButton from "../components/ShareButton";
 
