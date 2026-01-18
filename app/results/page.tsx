@@ -7,9 +7,11 @@ import styles from "./page.module.css";
 import HomeDisclaimer from "@/app/components/home/HomeDisclaimer";
 import ActionAccordion from "./ActionAccordion";
 import DetailAccordion from "./DetailAccordion";
+import ShareButton from "../components/ShareButton";
 
 
 interface AnalysisResult {
+  id: string;
   status: "SAFE" | "NOT_SAFE" | "UNCLEAR";
   scamPercentage: number;
   reasoning: string;
@@ -51,6 +53,10 @@ export default function Page() {
     // Determine which buttons to show based on status
     const showWhatToDo = status === "NOT_SAFE" || status === "UNCLEAR";
 
+    const onAssist = () => {
+    router.push("/report");
+  };
+
     return (
         <main className={styles.container}>
             <div className={styles.header}>
@@ -76,35 +82,41 @@ export default function Page() {
                     <Title status={status} />
                 </div>
 
+                {(status === "NOT_SAFE" || status === "UNCLEAR") && (
+                    <div className={styles.warningSection}>
+                        <p className={styles.warningMain}>
+                            <span className={styles.warningMainAccent}>אין ללחוץ על הקישור !</span>
+                            <br />
+                            יכולים לשתף בני משפחה וחברים ולהזהיר מהונאה.
+                        </p>
+                        <p className={styles.warningSecondary}>
+                            במידה ולחצת על הקישור, יכולים לפנות אלינו בקו הסיוע ונעזור לפתור את העניין במהירות !
+                        </p>
+                    </div>
+                )}
+
+                <div className={styles.buttonsRow}>
+                    {showWhatToDo && (
+                        <button className={styles.pillButton} onClick={onAssist}>
+                            <Image
+                                src="/icons/mail.svg"
+                                alt="פנייה לסיוע"
+                                width={24}
+                                height={24}
+                                className={styles.pillIcon}
+                            />
+                            פנייה לסיוע
+                        </button>
+                    )}
+                    
+                    <ShareButton resultId={result.id} />
+                </div>
+
                 <DetailAccordion
                     text={result.reasoning}
                     technicalCheck={result.technicalCheck}
                     maxWidth={status === 'SAFE' ? '22.375rem' : status === 'NOT_SAFE' ? '22.1875rem' : '21.0625rem'}
                 />
-
-               { showWhatToDo && (
-                <ActionAccordion
-                  maxWidth={status === 'NOT_SAFE' ? '22.1875rem' : '21.0625rem'}
-                />)}
-            
-
-                {/* Disclaimer component from home */}
-                <HomeDisclaimer />
-
-                <div className={styles.footer}>
-                    <a 
-                        href="/"
-                        className={styles.footerLink}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            router.push("/");
-                        }}
-                        aria-label="סגירה"
-                    >
-                        סגירה
-                    </a>
-                </div>
-                
             </div>
         </main>
     );
@@ -151,20 +163,20 @@ function Title({ status }: { status: AnalysisResult['status'] }) {
         case "NOT_SAFE":
             return (
             <p className={styles.titleText}>
-                <span>התוכן שהתקבל </span><span>נמצא</span> <span className={styles.accentRed}>לא אמין</span>
+                <span>התוכן שצולם </span><span className={styles.accentRed}>אינו אמין</span>
             </p>
             );
         case "SAFE":
             return (
             <p className={styles.titleText}>
-                <span>התוכן שהתקבל </span><span>נמצא</span> <span className={styles.accentGreen}>אמין</span>
+                <span>התוכן </span><span>נמצא</span> <span className={styles.accentGreen}>אמין</span>
             </p>
             );
 
         default:
              return (
             <p className={styles.titleText}>
-            <span className={styles.accentOrange}>לא הצלחנו</span> לקבוע את אמינות התוכן      
+            <span className={styles.accentOrange}>לא בטוח</span> שהתוכן אמין    
             </p>
             );
 
@@ -176,33 +188,3 @@ function Title({ status }: { status: AnalysisResult['status'] }) {
 
 
 
-/* need to implement the share button
-need to connect the help button to Refael's work
-maybe implement that in the actionAccrodion component */
-
-function ShareButton() {
-    const onShare = async () => {
-        const shareData = {
-            title: "ChickCheck",
-            text: "בדקו גם אתם עם ChickCheck",
-            url: typeof window !== 'undefined' ? window.location.href : '/',
-        };
-        try {
-            if (navigator.share) {
-                await navigator.share(shareData);
-            } else if (navigator.clipboard) {
-                await navigator.clipboard.writeText(shareData.url);
-                alert("הקישור הועתק ללוח");
-            }
-        } catch (e) {
-            console.error('Share failed', e);
-        }
-    };
-
-    return (
-        <button className={styles.pillButton} onClick={onShare}>
-            <Image src="/icons/share_icon.svg" alt="שיתוף" width={20} height={20} className={styles.pillIcon} />
-            שיתוף
-        </button>
-    );
-}
