@@ -3,48 +3,22 @@ import { createClient } from '@/lib/supabase/client'; // Adjust this import base
 const supabase = createClient();
 
 /**
- * Updates the user's profile with gender and phone number from the UI.
- */
-export const updatePublicUser = async (userId: string, gender: string, phone: string) => {
-  const { error } = await supabase
-    .from('users')
-    .update({ 
-      gender: gender, 
-      phone_number: phone 
-    })
-    .eq('id', userId);
-
-  if (error) throw error;
-};
-
-/**
  * Fills a new row in the report table.
  */
 export const createIncidentReport = async (reportData: {
-  userId: string;
-  type: string;
-  platforms: string[]; // This will be stored as jsonb
-  description: string;
-  reported: boolean;
-  links: string[]; // This will be stored as jsonb
-  details: string;
-  terms: boolean;
+  user_id: string;
+  type_of_incident: string;
+  description_of_incident: string;
 }) => {
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('report')
     .insert([
       {
-        user_id: reportData.userId,
-        type_of_incident: reportData.type,
-        where_incident_occur: reportData.platforms,
-        description_of_incident: reportData.description,
-        reported_to_application: reportData.reported,
-        links_to_incident: reportData.links,
-        further_details: reportData.details,
-        terms_accepted: reportData.terms,
+        user_id: reportData.user_id,
+        type_of_incident: reportData.type_of_incident,
+        description_of_incident: reportData.description_of_incident,
       },
-    ])
-    .select();
+    ]);
 
   if (error) {
     console.error('Error inserting report in supabase:', error.message);

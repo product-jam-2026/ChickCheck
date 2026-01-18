@@ -9,88 +9,115 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	padding: 1.75rem 0 1.5625rem 0; /* 56px top, 25px bottom */
+	padding: 1.875rem 0 0 0; /* 30px top */
 	box-sizing: border-box;
 	margin: 0 auto;
 	overflow-y: auto;
 	overflow-x: hidden;
+	position: relative;
 }
 
 .header {
-	width: var(--page-width);
-	height: 1.875rem; /* 30px - matches Figma frame height */
+	width: 100%;
+	height: 1.875rem; /* 30px */
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-	padding: 0;
+	padding: 0 2.125rem; /* 34px horizontal padding */
 	margin: 0;
+	position: absolute;
+	top: 1.875rem; /* 30px from top */
+	left: 0;
 }
 
-/* Close button: left side with 2.12rem offset */
+/* Close button: left side */
 .closeButton {
 	width: 1.875rem; /* 30px */
 	height: 1.875rem; /* 30px */
 	background: transparent;
 	border: none;
-	display: inline-flex;
+	display: flex-end;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
 	padding: 0;
-	margin-left: 2.12rem;
+	margin: 0;
 }
 
 .resultSection {
-	width: var(--page-width);
-	/* Allow section to grow with content and push following items */
+	width: 100%;
 	flex: 0 1 auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 1.3125rem; /* 21px */
+	gap: 1.25rem; /* 20px */
 	flex-shrink: 0;
+	padding: 5.1875rem 1rem 0 1rem; /* 83px top padding to account for absolute header */
+}
+
+.topRow {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    /* 1. קובע את הרצפה במיקום שרצית (בערך 24rem מלמעלה יחד עם הפאדינג) */
+    min-height: 22.625rem; 
+    
+    /* 2. מצמיד את האייקון (וכל מי שלא נגדיר אחרת) לרצפה */
+    align-items: flex-end; 
+    
+    margin-bottom: 1rem;
+    position: relative;
 }
 
 .iconContainer {
-	width: 100%;
-	height: 14.1875rem; /* 227px */
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 0 5.0625rem; /* 81px horizontal */
-	box-sizing: border-box;
+    width: 18.75rem;
+    /* אין צורך בגובה קבוע, הוא יקבל את המקום שלו מהשורה */
+    height: auto; 
+    
+    display: flex;
+    justify-content: center;
+    /* מוודא שהאייקון יושב בתחתית הקונטיינר שלו */
+    align-items: flex-end; 
+    
+    margin-left: -1rem;
+    flex-shrink: 0;
 }
 
 .Icon {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	display: block;
+    /* התאמת גודל האייקון שייראה טוב בשורה */
+    width: auto; /* הקטנתי מ-17rem כדי שייכנס בשורה אחת */
+    height: auto;
+    object-fit: contain;
 }
 
 .textContainer {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 0 1.25rem; /* 20px horizontal */
-	box-sizing: border-box;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    
+    /* 1. מנתק את הטקסט מהרצפה ומצמיד אותו לתקרה של השורה */
+    align-self: flex-start; 
+    
+    /* 2. כיוון שהשורה מתחילה בערך ב-7rem, נוסיף קצת כדי להגיע בול ל-7.5rem */
+    margin-top: 0.5rem; 
+    
+    flex: 1;
+    z-index: 2; /* הטקסט תמיד יהיה מעל האייקון */
 }
 
 .titleText {
-	font-size: 3.5rem; /* 56px */
-	line-height: 3.75rem; /* 60px */
-	font-weight: 600; /* Semibold */
-	color: var(--color-background-light); /* Matches Figma text color */
-	text-align: right;
-	direction: rtl;
-	margin-left: auto;
-    margin-right: auto;
-	white-space: pre-wrap;
-	width: 100%;
-	max-width: 21rem; /* 342px - matches Figma */
+    font-size: 5rem; 
+    line-height: 4.5rem; 
+    font-weight: 900;
+    color: #E3F0FA;
+    text-align: right;
+    direction: rtl;
+    margin: 0;
+    white-space: pre-wrap;
+    width: 100%; 
 }
 
 .accentRed {
@@ -166,24 +193,52 @@
 }
 
 .pillButton {
-	display: inline-flex;
+	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: 0.5rem;
-	padding: 0.625rem 0.875rem;
-	min-width: 9.5rem; /* ~152px */
-	border-radius: 2rem; /* pill */
-	background: var(--color-background-light, #e3f0fa);
-	color: var(--color-background-primary, #1f1f1f);
-	border: 1px solid #dadce0;
+	gap: 0.5rem; /* 8px */
+	padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem; /* 7px 13px 7px 9px */
+	flex: 1;
+	height: 2.75rem; /* 44px */
+	border-radius: 1rem; /* 16px */
+	background: #C7DCED;
+	color: #1F1F1F;
+	border: none;
 	font-size: 1.5rem; /* 24px */
-	line-height: 1;
+	line-height: normal;
+	font-weight: 400;
+	cursor: pointer;
+	transition: opacity 0.2s;
+}
+
+.pillButton:hover {
+	opacity: 0.9;
+}
+
+.pillButton:active {
+	opacity: 0.8;
 }
 
 .pillIcon {
-	width: 1.25rem; /* 20px */
-	height: 1.25rem; /* 20px */
-	color: var(--color-background-primary, #1f1f1f);
+	width: 1.5rem; /* 24px */
+	height: 1.5rem; /* 24px */
+	flex-shrink: 0;
+}
+
+.detailButton {
+	background: transparent;
+	border: none;
+	color: #E3F0FA;
+	font-size: 1.5rem; /* 24px */
+	font-weight: 400;
+	text-decoration: underline;
+	line-height: normal;
+	cursor: pointer;
+	width: 100%;
+	text-align: right;
+	direction: rtl;
+	padding: 0;
+	margin-top: 1rem;
 }
 
 /* Centered notice ("שימו לב") */
@@ -327,6 +382,67 @@
 
 .techDanger { background: #E00615; color: white; }
 .techSafe { background: #74D03C; color: white; }
+
+.warningSection {
+	width: 100%;
+	max-width: 22.625rem; /* 362px */
+	display: flex;
+	flex-direction: column;
+	gap: 1.375rem; /* 22px */
+	margin-top: 1.5rem;
+	padding: 0 0.75rem;
+}
+
+.warningMain {
+	font-size: 1.5rem; /* 24px */
+	line-height: 1.75rem; /* 28px */
+	color: #E3F0FA;
+	text-align: right;
+	direction: rtl;
+	margin: 0;
+}
+
+.warningMainBold {
+	font-weight: 700;
+}
+
+.warningMainAccent {
+	color: #E00615;
+	font-size: 1.5rem;
+	font-weight: 700;
+}
+
+.warningMainAccentGreen {
+	color: #74D03C;
+	font-weight: 700;
+	font-size: 1.5rem;
+}
+
+.warningMainAccentOrange {
+	color: #FF9000;
+	font-weight: 700;
+	font-size: 1.5rem;
+}
+
+.warningSecondary {
+	font-size: 1.25rem; /* 20px */
+	line-height: 1.5rem; /* 24px */
+	font-weight: 400;
+	color: #E3F0FA;
+	opacity: 0.7;
+	text-align: right;
+	direction: rtl;
+	margin-top: 1.38rem;
+	gap: 1.375rem;
+}
+
+.buttonsRow {
+	width: 100%;
+	display: flex;
+	gap: 0.75rem; /* 12px */
+	padding: 0 1.25rem; /* 20px horizontal */
+	margin-top: 0.5rem;
+}
 
 .shareContainer {
     margin-top: 1rem;

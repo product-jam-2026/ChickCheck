@@ -57,21 +57,19 @@ export default function UploadPage({
   return (
     <div className={styles.uploadPage}>
       <div className={styles.safeZoneTop}></div>
-      <div className={styles.topSpacer}>
-        <button
-          className={styles.backButton}
-          onClick={onBackClick}
-          aria-label="חזור"
-        >
-          <Image
-            src="/icons/back_black.svg"
-            alt="Back"
-            width={19.33}
-            height={19.33}
-            className={styles.backIcon}
-          />
-        </button>
-      </div>
+      <button
+        className={styles.backButton}
+        onClick={onBackClick}
+        aria-label="חזור"
+      >
+        <Image
+          src="/icons/back_black.svg"
+          alt="Back"
+          width={19.33}
+          height={19.33}
+          className={styles.backIcon}
+        />
+      </button>
       
       <HomeHeader
         userName={userName}

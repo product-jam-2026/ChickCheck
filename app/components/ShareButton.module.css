@@ -1,0 +1,38 @@
+.shareButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 13px 7px 9px;
+  border-radius: 1rem;
+  background: #c7dced;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+  width: 10.78125rem;
+  height: 2.75rem;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.shareButton:hover {
+  opacity: 0.9;
+}
+
+.shareButton:active {
+  opacity: 0.8;
+}
+
+.icon {
+  width: 1.125rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+.text {
+  font-family: 'SimplerPro', sans-serif;
+  font-size: 24px;
+  color: #1f1f1f;
+  line-height: normal;
+  flex-shrink: 0;
+}

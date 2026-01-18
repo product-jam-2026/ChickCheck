@@ -79,19 +79,19 @@ export default function OnboardingPage({
   };
 
   const handleContinueAfterText = () => {
+    setCurrentStep("screenshot");
+  };
+
+  const handleSkipToContinue = () => {
     setCurrentStep("continue");
   };
 
   const handleContinueDone = () => {
-    setCurrentStep("instruction");
-  };
-
-  const handleInstructionDone = () => {
-    setCurrentStep("screenshot");
+    setCurrentStep("upload");
   };
 
   const handleScreenshotDone = () => {
-    setCurrentStep("upload");
+    setCurrentStep("continue");
   };
 
   const handleUploadComplete = () => {
@@ -124,12 +124,12 @@ export default function OnboardingPage({
     } else if (currentStep === "gallery") {
       setCurrentStep("upload");
     } else if (currentStep === "upload") {
-      setCurrentStep("screenshot");
-    } else if (currentStep === "screenshot") {
-      setCurrentStep("instruction");
-    } else if (currentStep === "instruction") {
       setCurrentStep("continue");
     } else if (currentStep === "continue") {
+      setCurrentStep("welcome");
+      setShowWelcomeText(true);
+    } else if (currentStep === "screenshot") {
+      // Screenshot can come from welcome - default to welcome
       setCurrentStep("welcome");
       setShowWelcomeText(true);
     }
@@ -227,24 +227,6 @@ export default function OnboardingPage({
     );
   }
 
-  if (currentStep === "instruction") {
-    return (
-      <div className={styles.overlay}>
-        <button className={styles.backButton} onClick={handleBack} aria-label="חזור">
-          <Image src="/icons/back.svg" alt="Back" width={24} height={24} className={styles.backIcon} />
-        </button>
-        <button className={styles.closeButton} onClick={onSkip} aria-label="סגור">
-          <Image src="/icons/close_icon.svg" alt="Close" width={24} height={24} className={styles.closeIcon} />
-        </button>
-        <div className={`${styles.onboardingContainer} ${styles.instructionContainer}`}>
-          <InstructionPage
-            onContinue={handleInstructionDone}
-          />
-        </div>
-      </div>
-    );
-  }
-
   if (currentStep === "screenshot") {
     return (
       <div className={styles.overlay}>
@@ -270,38 +252,44 @@ export default function OnboardingPage({
           <Image src="/icons/close_icon.svg" alt="Close" width={24} height={24} className={styles.closeIcon} />
         </button>
       <div className={styles.onboardingContainer}>
-        <div className={styles.greeting}>
-          איזה כיף שאתם פה :)<br />
-          אנחנו בצ&apos;יקצ&apos;ק כבר מוכנים לעזור!
-        </div>
-
-        {showWelcomeText && (
+        {!showWelcomeText ? (
           <>
-            <div className={`${styles.description} ${styles.fadeIn}`}>
-              האפליקציה מיועדת לבדיקת תכנים כמו הודעות טקסט, פרסומים ומודעות בווצאפ וברשתות החברתיות.
+            <div className={styles.greeting}>
+              איזה כיף שאתם פה :)<br />
+              אנחנו בצ&apos;יקצ&apos;ק <br />כבר מוכנים לעזור!
             </div>
+            <button className={styles.startButtonWelcome} onClick={handleStart}>
+              <span className={styles.skipButtonText}>
+                בואו נתחיל!
+              </span>
+            </button>
+          </>
+        ) : (
+          <>
+            <div className={styles.welcomeContentContainer}>
+              <div className={styles.greeting}>
+                איזה כיף שאתם פה :)<br />
+                אנחנו בצ&apos;יקצ&apos;ק <br />כבר מוכנים לעזור!
+              </div>
+              <div className={`${styles.description} ${styles.fadeIn}`}>
+                האפליקציה מיועדת לבדיקת תכנים כמו הודעות טקסט, פרסומים ומודעות בווצאפ וברשתות החברתיות.
+              </div>
+              <div className={`${styles.instructionText} ${styles.fadeIn}`}>
+                בשלב הראשון תצטרכו להעלות <span className={styles.boldText}>צילום מסך</span> של התוכן אותו תרצו לבדוק.
+              </div>
+              <button className={`${styles.welcomeNextButton} ${styles.fadeIn}`} onClick={handleContinueAfterText}>
+                <span className={styles.welcomeNextButtonText}>
+                  איך עושים צילום מסך ?
+                </span>
+              </button>
+            </div>
+            <button className={`${styles.skipButtonCentered} ${styles.fadeIn}`} onClick={handleSkipToContinue}>
+              <span className={styles.skipButtonText}>
+                דלג &gt;
+              </span>
+            </button>
           </>
         )}
-        
-        {!showWelcomeText ? (
-          <button className={styles.startButtonWelcome} onClick={handleStart}>
-            <span className={styles.skipButtonText}>
-              בוא.י נתחיל!
-            </span>
-          </button>
-        ) : (
-          <button className={`${styles.welcomeNextButton} ${styles.fadeIn}`} onClick={handleContinueAfterText}>
-            <span className={styles.welcomeNextButtonText}>
-              איך עושים את זה?
-            </span>
-          </button>
-        )}
-
-        <button className={showWelcomeText ? styles.skipButtonRelative : styles.skipButton} onClick={onSkip}>
-          <span className={styles.skipButtonText}>
-            דלג
-          </span>
-        </button>
       </div>
     </div>
   );
@@ -368,13 +356,11 @@ function UploadInstructions({
     <>
       {/* Main Content */}
       <div className={styles.uploadMainContent}>
-        {/* Excellent Text */}
-        <div className={styles.excellentText}>מעולה!</div>
-
         {/* Instruction Text */}
         <div className={styles.uploadInstruction}>
-          מעכשיו הכול נעשה דרך האפליקציה שלנו.<br />לחצו על תיבת ההוספה כדי להעלות תוכן לבדיקה.
-        </div>
+          מעכשיו הכל דרך האפליקציה<br />
+          לחצו על תיבת ההוספה<br />
+          כדי להעלות תוכן לבדיקה</div>
 
         {/* Image Upload Area */}
         <div className={styles.uploadAreaWrapper}>
@@ -385,6 +371,13 @@ function UploadInstructions({
           />
         </div>
       </div>
+
+      {/* Continue Button */}
+      <button className={styles.uploadContinueButton} onClick={onComplete}>
+        <span className={styles.uploadContinueButtonText}>
+          המשך &gt;
+        </span>
+      </button>
     </>
   );
 }
@@ -400,9 +393,7 @@ function GalleryInstructions({
     <>
       {/* Instruction Text */}
       <div className={styles.galleryInstruction}>
-      גלריית התמונות שלכם תפתח.<br />תבחרו בתמונה שצילמתם על ידי לחיצה.
-      </div>
-
+עכשיו גלריית התמונות במכשיר<br /> שלכם תפתח אוטומטית,<br />שם שמור צילום המסך. <br /> לחצו עליו לבחירתכם</div>
       {/* Phone Mockup */}
       <div className={styles.phoneMockupContainer}>
         <Image
@@ -417,7 +408,7 @@ function GalleryInstructions({
       {/* Next Button */}
       <button className={styles.galleryNextButton} onClick={onComplete}>
         <span className={styles.galleryNextButtonText}>
-          הבנתי, לשלב הבא!
+          הבנתי, לשלב הבא &gt;
         </span>
       </button>
     </>
@@ -435,7 +426,7 @@ function ReviewInstructions({
     <>
       {/* Instruction Text */}
       <div className={styles.reviewInstruction}>
-        מצוין!<br />עכשיו נשאר לשלוח את התמונה לבדיקה.
+        מצוין!<br />עכשיו שלחו את התמונה לבדיקה
       </div>
 
       {/* Phone Mockup */}
@@ -462,36 +453,19 @@ function ReviewInstructions({
           className={styles.uploadIcon}
         />
       </button>
+
+      {/* Continue Button */}
+      <button className={styles.reviewContinueButton} onClick={onComplete}>
+        <span className={styles.reviewContinueButtonText}>
+          המשך &gt;
+        </span>
+      </button>
     </>
   );
 }
 
 interface ResultsInstructionsProps {
   onComplete: () => void;
-}
-
-interface InstructionPageProps {
-  onContinue: () => void;
-}
-
-function InstructionPage({
-  onContinue,
-}: InstructionPageProps) {
-  return (
-    <>
-      {/* Instruction Text */}
-      <div className={styles.instructionText}>
-        בשלב הראשון תצטרכו לעלות צילום מסך אותו תרצו לבדוק.
-      </div>
-
-      {/* Instruction Button */}
-      <button className={styles.instructionButton} onClick={onContinue}>
-        <span className={styles.instructionButtonText}>
-          איך לצלם מסך?
-        </span>
-      </button>
-    </>
-  );
 }
 
 interface ContinuePageProps {
@@ -536,7 +510,8 @@ function ResultsInstructions({
     <>
       {/* Explanatory Text */}
       <div className={styles.resultsInstruction}>
-      זהו! <br /> לאחר מספר שניות תקבלו את תוצאות הבדיקה.
+      זהו! <br /> לאחר מספר שניות תקבלו את 
+      <br />תוצאות הבדיקה
       </div>
 
       {/* Icons Section */}
@@ -554,15 +529,15 @@ function ResultsInstructions({
       <div className={styles.disclaimerSection}>
         <div className={styles.disclaimerTitle}>שימו לב!</div>
         <div className={styles.disclaimerText}>
-        הבדיקה מבוססת בינה מלאכותית ואינה מבטיחה דיוק מלא. אם יש ספק, מומלץ לנהוג בזהירות ולפנות לטופס סיוע.
-        </div>
+          הבדיקה מבוססת על בינה מלאכותית ואינה<br />
+          מבטיחה דיוק מלא. אם יש ספק, מומלץ לנהוג <br />
+          בזהירות ולפנות לטופס סיוע.        </div>
       </div>
 
       {/* Ready Button */}
       <button className={styles.resultsReadyButton} onClick={onComplete}>
         <span className={styles.resultsReadyButtonText}>
-          מוכנ.ה להתחיל!
-        </span>
+            סיימתי !       </span>
       </button>
     </>
   );

@@ -37,7 +37,7 @@ export async function saveScanToSupabase(
     }
 
     // 4. שמירה לדאטאבייס
-    const { error: dbError } = await supabaseAdmin
+    const { data: insertData, error: dbError } = await supabaseAdmin
       .from("search_history") // שם הטבלה שלך
       .insert({
         created_at: new Date().toISOString().split('T')[0],
@@ -46,13 +46,13 @@ export async function saveScanToSupabase(
         image_url: filePath,
         status: analysisResult.status,      // SAFE / NOT_SAFE...
         details: analysisResult.reasoning, // נימוקים
-      });
+      }).select().single();
 
     if (dbError) {
       console.error("Database Error:", dbError);
     }
     
-    return filePath;
+    return { id: insertData.id };
 
   } catch (error) {
     console.error("Save Service Error:", error);

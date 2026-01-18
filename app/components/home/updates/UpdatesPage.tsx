@@ -63,7 +63,7 @@ export default function UpdatesPage({
           aria-label="חזרה"
         >
           <Image
-            src="/icons/back.svg"
+            src="/icons/back_white.svg"
             alt="Back"
             width={24}
             height={24}
@@ -80,14 +80,16 @@ export default function UpdatesPage({
           <input
             type="text"
             className={styles.searchInput}
-            placeholder="חפש בהודעות..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             dir="rtl"
           />
+          {!searchQuery && (
+            <label className={styles.placeholderWrapper}>חיפוש</label>
+          )}
           <div className={styles.searchIconContainer}>
             <Image
-              src="/icons/search_icon.png"
+              src="/icons/search_icon.svg"
               alt="Search"
               width={20}
               height={20}
