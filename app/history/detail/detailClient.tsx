@@ -7,6 +7,7 @@ import styles from "../page.module.css";
 import { createClient } from "@/lib/supabase/client";
 import BackButton from "@/app/components/BackButton";
 import { cleanSmsContent, formatDate } from "../orgnizeDataFromDatabase";
+import ShareButton from "@/app/components/ShareButton";
 
 type Status = "SAFE" | "NOT_SAFE" | "UNCLEAR";
 
@@ -15,6 +16,7 @@ const STATUS_ICON: Record<Status, string> = {
 	NOT_SAFE: "/icons/not_safe_icon.svg",
 	UNCLEAR: "/icons/unclear_icon.svg",
 };
+
 
 // זה המבנה שאנחנו מצפים לקבל מהדאטאבייס
 interface SearchHistoryItem {
@@ -126,7 +128,7 @@ export default function HistoryContent() {
 						/>
 					)}
 					<p className={styles.statusText}>
-						התוכן שחולץ מהתמונה נמצא לא אמין
+						{checkData ? statusToText[checkData.status] : "טוען..."}
 					</p>
 				</div>
 
@@ -142,5 +144,15 @@ export default function HistoryContent() {
 				)}
 			</section>
 
+			<ShareButton resultId={checkData?.id} />
+
 		</main>)
 };
+
+
+const statusToText: Record<Status, string> = {
+	SAFE: "התוכן שחולץ מהתמונה נמצא אמין",
+	NOT_SAFE: "התוכן שחולץ מהתמונה נמצא לא אמין",
+	UNCLEAR: "לא הצלחנו לקבוע אם התוכן אמין או לא",
+};
+

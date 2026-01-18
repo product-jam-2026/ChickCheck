@@ -110,7 +110,10 @@ export async function POST(req: Request) {
     if (userId && imageFile) {
     try {
         // חשוב מאוד: await מבטיח שהשמירה תסתיים לפני שהתשובה חוזרת
-        await saveScanToSupabase(userId, imageFile, finalResult);
+        const savedRecord = await saveScanToSupabase(userId, imageFile, finalResult);
+        if (savedRecord && savedRecord.id){
+            finalResult.id = savedRecord.id;
+        }
     } catch (e) {
         console.error("Save failed but sending result to user anyway", e);
     }
