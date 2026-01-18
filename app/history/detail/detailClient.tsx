@@ -93,7 +93,7 @@ export default function HistoryContent() {
 	
 
 	return (
-		<main className={styles.container}>
+		<main className={styles.Detailcontainer}>
 			<div className={styles.topSpacer}>
 				<BackButton href="/history" />
 			</div>
