@@ -1,8 +1,9 @@
 .homeDisclaimer {
-  width: 22.375rem;
+  width: 100%;
   color: #fff;
   text-align: center;
   align-self: center;
+  box-sizing: border-box;
 }
 
 .disclaimerTitle {
@@ -11,9 +12,8 @@
   font-size: 1.5em;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
-  color: var(--D5E8FC, #E3F0FA);
   line-height: 110%;
+  color: var(--D5E8FC, #E3F0FA);
 }
 
 .disclaimerText {
@@ -22,9 +22,6 @@
   font-size: 1.25rem;
   font-style: normal;
   font-weight: 200;
-  line-height: normal;
-  color: var(--D5E8FC, #E3F0FA);
-  line-height: 110%;
   line-height: 1.5rem;
+  color: var(--D5E8FC, #E3F0FA);
 }
-

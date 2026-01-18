@@ -1,13 +1,14 @@
 .uploadPage {
   display: flex;
-  width: var(--page-width);
+  width: 100%;
   height: var(--page-height);
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
   background: #E3F0FA;
   position: relative;
   overflow: hidden;
+  padding-top: calc(var(--safe-area-inset-top) + 1.2rem);
+  box-sizing: border-box;
 }
 
 .safeZoneTop {
@@ -20,15 +21,6 @@
   z-index: 1000;
 }
 
-.topSpacer {
-  height: 3.225rem;
-  width: 100%;
-  position: absolute;
-  top: var(--safe-area-inset-top);
-  left: 0;
-  z-index: 10;
-}
-
 .backButton {
   background: none;
   border: none;
@@ -39,8 +31,8 @@
   justify-content: center;
   position: absolute;
   right: 1.44rem;
-  top: 50%;
-  transform: translateY(-50%);
+  top: calc(var(--safe-area-inset-top) + 1.2rem);
+  z-index: 100;
 }
 
 .backIcon {
@@ -51,15 +43,19 @@
 
 
 .uploadContent {
-    width: var(--page-width);
-    height: 38.5rem;
-    padding: 1.25rem 2.9375rem;
+    width: 100%;
+    flex-grow: 1;
+    min-height: 30rem;
+    max-height: calc(100vh - var(--safe-area-inset-top) - var(--safe-area-inset-bottom) - 2rem - 8rem);
+    padding: clamp(1.25rem, 3vh, 1.25rem) clamp(1rem, 5vw, 2.9375rem);
+    padding-bottom: calc(1.25rem + var(--safe-area-inset-bottom));
     background: var(--d-9-d-9-d-9, #1F1F1F);
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     box-sizing: border-box;
+    overflow-y: auto;
   }
   
   .imageWrapper {
@@ -68,7 +64,12 @@
     align-items: center; 
     justify-content: center; 
     width: 100%;
-    margin-bottom: 1rem; /* רווח קטן אופציונלי מהכפתור */
+  }
+
+  @media (max-height: 700px) {
+    .imageWrapper {
+      margin-bottom: 1rem;
+    }
   }
 
   .errorMessage {
