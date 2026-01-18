@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     {
       "extractedText": "Complete text extracted from the image, preserving line breaks and formatting as much as possible",
       "scamPercentage": number,
-      "reasoning": "Short as possible Hebrew explanation, devided into numeric bullet points if multiple reasons, with a space of a line between each bullet point.",
+      "reasoning": "Short as possible Hebrew explanation, devided into numeric bullet points if multiple reasons, with a space of a line between each bullet point. Each bullet should have up to 4 words of headline, with underline and ':' after it.",
       "action": "Short Hebrew advice",
       "detectedUrls": []
     }`;
