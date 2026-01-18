@@ -31,7 +31,7 @@
   justify-content: center;
   position: absolute;
   right: 1.44rem;
-  top: calc(var(--safe-area-inset-top) + 1.4rem);
+  top: calc(var(--safe-area-inset-top) + 1.2rem);
   z-index: 100;
 }
 
