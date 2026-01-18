@@ -2,7 +2,7 @@
 
 .step_zero_main_frame{
 display: flex;
-padding: 2rem 0 27.875rem 0;
+padding: 2.375rem 0 27.875rem 0;
 flex-direction: column;
 align-items: center;
 background-color: #E3F0FA;
@@ -13,7 +13,7 @@ min-height: 100%;
 .step_zero_text_arrow_frame{
 display: flex;
 width: 24.5625rem;
-padding-inline: 1rem;
+padding-inline: 0 1rem;
 flex-direction: column;
 justify-content: center;
 align-items: flex-start;
@@ -49,7 +49,7 @@ align-self: stretch;
 .step_zero_first_text{
 width: 13.9375rem;
 color: #1F1F1F;
-text-align: start;
+text-align: right;
 font-family: SimplerPro;
 font-size: 1.875rem;
 font-style: normal;
@@ -69,11 +69,14 @@ line-height: 1.75rem; /* 127.273% */
 }
 
 .step_zero_button{
-    display: flex;
-padding: 0.5rem 0.75rem;
+display: flex;
+width: 11.875rem;
+height: 2.75rem;
+padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
 justify-content: center;
 align-items: center;
-gap: 0.0625rem;
+gap: 0.5rem;
+flex-shrink: 0;
 border-radius: 1rem;
 background-color: #C7DCED;
 }
@@ -82,56 +85,60 @@ background-color: #C7DCED;
 color: #1F1F1F;
 text-align: start;
 font-family: SimplerPro;
-font-size: 1.875rem;
+font-size: 1.5rem;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
 }
 
+.step_zero_button_icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  fill: #1F1F1F; /* Ensures the icon is black */
+}
+
 /*Step 1*/
 .step_one_auto{
-display: flex;
+display: inline-flex;
+padding: 2.375rem 0 2.9375rem 0;
 flex-direction: column;
 align-items: center;
+gap: 0;
 width: 100%;
 height: 100vh;
 background-color: #E3F0FA;
-
-justify-content: space-between; 
-padding-top: 2rem; /* Optional: Adds safety space from the very top edge */
 }
 
 .step_one_forward_button{
 display: flex;
-width: 80%;
-height: 3.75rem;
-padding: 0 0.9375rem;
+width: 90%;
+height: 2.75rem;
+padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
 justify-content: center;
 align-items: center;
-gap: 0.625rem;
-border-radius: 1.25rem;
+gap: 0.5rem;
+border-radius: 1rem;
 background-color: #1F1F1F;
 margin-top: auto;
-margin-bottom: 1.94rem;
 }
 
 .step_one_forward_button_text{
-color: #FFF;
+color: #E3F0FA;
 text-align: right;
 font-family: SimplerPro;
-font-size: 1.875rem;
+font-size: 1.5rem;
 font-style: normal;
-font-weight: 600;
-line-height: 3.75rem; /* 200% */
+font-weight: 400;
+line-height: normal;
 }
 
 .step_one_sub_frame{
 display: flex;
 width: 24.5625rem;
-height: 17.1875rem;
 padding: 0 1rem;
 flex-direction: column;
-justify-content: flex-start;
+justify-content: center;
 align-items: center;
 gap: 0.625rem;
 }
@@ -316,83 +323,91 @@ line-height: 100%; /* 250% */
 .step_two_title_frame {
   display: flex;
   width: 100%;
-  justify-content: flex-end; /* Aligns text to the right for RTL */
-  margin-bottom: 0.5rem;
+  justify-content: flex-start; /* Aligns text to the right for RTL */
+  margin-bottom: 1rem;
+  
 }
 
 .step_two_title_text {
   color: #1F1F1F;
   text-align: right;
   font-family: SimplerPro;
-  font-size: 1.5rem; /* Matches the "Details" headers */
+  font-size: 1.875rem; /* Matches the "Details" headers */
   font-weight: 600;
-  margin: 0;
+  line-height: normal;
+  font-style: normal;
 }
 
 /* STEP 2 */
 /* Grid for the buttons */
 .step_two_grid_container {
   display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;       /* Allows buttons to flow to the next line */
   gap: 0.75rem;         /* Space between buttons */
   justify-content: flex-start; /* Aligns buttons to the start (Right in RTL) */
   width: 100%;
   direction: rtl;       /* Ensures flow starts from the right */
+
 }
 
 /* Common Pill Button Style */
 .step_two_option_inactive {
   display: flex;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   justify-content: center;
   align-items: center;
-  border-radius: 1.25rem;
-  border: none;
+  gap: 0.0625rem;
+  border-radius: 1rem;
   background-color: #C7DCED; /* Light Blue from Step 0 button */
   cursor: pointer;
   
   /* Text Styles */
+  text-align: right;
   color: #1F1F1F;
-  font-family: SimplerPro_V3;
-  font-size: 1.125rem;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
   font-weight: 400;
+  font-style: normal;
+  line-height: normal;
   white-space: nowrap; /* Prevents text splitting awkwardly */
 }
 
 .step_two_option_active {
   /* Inherit base styles */
   display: flex;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   justify-content: center;
   align-items: center;
-  border-radius: 1.25rem;
-  border: none;
+  gap: 0.0625rem;
+  border-radius: 1rem;
   cursor: pointer;
-  font-family: SimplerPro_V3;
-  font-size: 1.125rem;
-  font-weight: 600; /* Bolder text for active */
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-weight: 400; /* Bolder text for active */
   white-space: nowrap;
+  line-height: normal;
+  font-style: normal;
+
 
   /* Active Colors */
   background-color: #1F1F1F; /* Black */
-  color: #FFFFFF;            /* White Text */
+  color: #E3F0FA;            /* White Text */
 }
 
 /* Disabled "Continue" Button (Gray state) */
 .step_one_forward_button_disabled {
   display: flex;
-  width: 80%;
-  height: 3.75rem;
-  padding: 0 0.9375rem;
+  width: 90%;
+  height: 2.75rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
   justify-content: center;
   align-items: center;
-  gap: 0.625rem;
-  border-radius: 1.25rem;
-  background-color: #A0A0A0; /* Gray for disabled */
-  margin-top: auto;
-  margin-bottom: 1.94rem;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  background-color: #D2D2D2; /* Gray for disabled */
   cursor: not-allowed;
-  opacity: 0.6;
+  margin-top: auto;
 }
 
 /* --- STEP 3: DESCRIPTION STYLES --- */
@@ -400,88 +415,102 @@ line-height: 100%; /* 250% */
 .step_three_title_frame {
   display: flex;
   width: 100%;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin-top: -0.5rem; /* Slight pull up to match tight spacing */
 }
 
 .step_three_title_text {
   color: #1F1F1F;
+  align-self: stretch;
   text-align: right;
   font-family: SimplerPro;
-  font-size: 1.5rem;
+  font-size: 1.875rem;
   font-weight: 600;
-  margin: 0;
+  line-height: normal;
+  font-style: normal;
 }
 
 /* Subject Row (Label + Pill) */
 .step_three_subject_row {
   display: flex;
   width: 100%;
-  justify-content: flex-end; /* Align to right */
+  justify-content: flex-start; /* Align to right */
   align-items: center;
-  gap: 0.5rem; /* Space between text and pill */
+  gap: 0.75rem; /* Space between text and pill */
+  align-self: stretch;
 }
 
 .step_three_subject_label {
   color: #1F1F1F;
   text-align: right;
-  font-family: SimplerPro_V3;
-  font-size: 1.125rem;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
   font-weight: 400;
+  line-height: normal;
+  font-style: normal;
 }
 
 .step_three_subject_pill {
   display: flex;
-  padding: 0.25rem 0.75rem;
-  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  justify-content: space-between;
   align-items: center;
-  border-radius: 1.25rem;
+  border-radius: 1rem;
   background-color: #1F1F1F; /* Black background */
   
   /* Text inside pill */
-  color: #FFF;
-  font-family: SimplerPro_V3;
-  font-size: 1rem;
+  color: #E3F0FA;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
   font-weight: 400;
-  white-space: nowrap;
+  font-style: normal;
+  line-height: normal;
+  text-align: right;
 }
 
 /* "Detail what happened" Label */
 .step_three_input_label_frame {
   display: flex;
   width: 100%;
-  justify-content: flex-end;
-  margin-top: 0.5rem;
+  justify-content: flex-start;
 }
 
 .step_three_input_label {
   color: #1F1F1F;
   text-align: right;
-  font-family: SimplerPro_V3;
-  font-size: 1.125rem;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
   font-weight: 400;
+  line-height: normal;
+  font-style: normal;
+  align-self: stretch;
 }
 
 /* Text Area */
 .step_three_textarea {
+  display: flex;
   width: 100%;
-  height: 10rem; /* Adjust height as needed */
-  flex-shrink: 0;
-  border-radius: 1.25rem;
+  height: 14.125rem; /* Adjust height as needed */
+  border-radius: 1.9375rem;
   border: none;
   background-color: #C7DCED; /* Matches the light blue buttons */
-  
-  padding: 1rem;
-  box-sizing: border-box; /* Ensures padding doesn't expand width */
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.625rem;
+  align-self: stretch;
+
+  padding: 0.9375rem 1.25rem;
   
   /* Text Styling */
-  color: #1F1F1F;
-  font-family: SimplerPro_V3;
-  font-size: 1.125rem;
+  color: #B4B3C1;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
   font-weight: 400;
   text-align: right; /* Type from right to left */
   resize: none; /* Disables dragging to resize */
   outline: none;
+  font-style: normal;
+  line-height: normal;
 }
 
 /* Placeholder styling */
@@ -493,246 +522,231 @@ line-height: 100%; /* 250% */
 /* --- STEP 4: SUMMARY STYLES --- */
 
 .step_four_title_frame {
+  align-self: stretch;
   display: flex;
   width: 100%;
-  justify-content: flex-end;
-  margin-bottom: 0.2rem;
+  justify-content: flex-start;
 }
 
 .step_four_title_text {
   color: #1F1F1F;
   text-align: right;
   font-family: SimplerPro;
-  font-size: 1.5rem;
-  font-weight: 700; /* Bolder than previous titles */
-  margin: 0;
-}
+  font-size: 1.875rem;
+  font-weight: 600; /* Bolder than previous titles */
+  line-height: normal;
+  font-style: normal;}
 
 /* User Details */
 .step_four_user_details_frame {
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: flex-end; /* Align right */
-  gap: 0.2rem;
-  margin-bottom: 1rem;
+  align-items: flex-start; /* Align right */
+  padding-bottom: 0.5625rem;
 }
 
 .step_four_user_name {
   color: #1F1F1F;
   text-align: right;
-  font-family: SimplerPro_V3;
-  font-size: 1.125rem;
+  font-family: SimplerPro;
+  font-size: 1.25rem;
   font-weight: 400;
 }
 
 .step_four_user_email {
   color: #1F1F1F;
   text-align: right;
-  font-family: SimplerPro_V3;
-  font-size: 1.125rem;
-  font-weight: 400;
+  font-family: SimplerPro;
+  font-size: 1.25rem;
+  font-weight: 200;
 }
 
 /* Subject Row */
 .step_four_subject_row {
   display: flex;
   width: 100%;
-  justify-content: flex-end;
+  padding: 0.25rem 0;
+  justify-content: flex-start;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  gap: 1.375rem;
 }
 
 .step_four_subject_label {
   color: #1F1F1F;
   text-align: right;
-  font-family: SimplerPro_V3;
-  font-size: 1.125rem;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
   font-weight: 400;
+  line-height: normal;
+  font-style: normal;
 }
 
 .step_four_subject_pill {
   display: flex;
-  padding: 0.25rem 0.75rem;
-  justify-content: center;
+  padding: 0.5rem 0.75rem;
   align-items: center;
-  border-radius: 1.25rem;
+  gap: 0.0625rem;
+  border-radius: 1rem;
   background-color: #1F1F1F;
   
-  color: #FFF;
-  font-family: SimplerPro_V3;
-  font-size: 1rem;
+  color: #E3F0FA;
+  text-align: right;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
   font-weight: 400;
-  white-space: nowrap;
+  font-style: normal;
+  line-height: normal;
 }
 
 /* Read-Only Description Box */
 .step_four_description_box {
   width: 100%;
-  min-height: 8rem; /* Fixed height appearance like screenshot */
-  border-radius: 1.25rem;
+  border-radius: 1.9375rem;
   background-color: #C7DCED; /* Light Blue background */
-  padding: 1.25rem;
+  padding: 0.9375rem 1.25rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Align text to right */
+  align-items: flex-start; /* Align text to right */
+  gap: 0.625rem;
+  align-self: stretch;
 }
 
 .step_four_description_text {
-  width: 100%;
   color: #1F1F1F;
   text-align: right;
-  font-family: SimplerPro_V3;
-  font-size: 1rem;
+  font-family: SimplerPro;
+  font-size: 1.25rem;
   font-weight: 400;
-  margin: 0;
   white-space: pre-wrap; /* Preserves new lines from user input */
-  line-height: 1.4;
+  line-height: 110%;
+  font-style: normal;
 }
 
 /* --- STEP 5: SUCCESS SCREEN --- */
 
-/* 1. Header with just the X */
-.step_success_header {
-  display: flex;
-  width: 100%;
-  padding: 0 1.5rem; /* Matches side padding of other steps */
-  justify-content: flex-start; /* Aligns X to the left in RTL */
-  box-sizing: border-box;
-}
-
-.step_success_x_button {
-  width: 1.09375rem;
-  height: 1.09375rem;
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  display: flex;
-  
-  /* Ensure stroke matches logic */
-  fill: #1F1F1F;
-  stroke: #1F1F1F;
-}
-
-/* 2. Main Center Content */
+/* Main Center Content */
 .step_success_content_frame {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
-  padding: 0 1.5rem;
-  margin-top: 3rem; /* Push down from top */
-  flex-grow: 1; /* Take up available space */
+  padding: 0.5rem 0.6875rem;
+  margin-top: 30%;
+  gap: 1.5rem;
 }
 
 .step_success_icon_container {
-  margin-bottom: 2rem;
+  width: 11.25rem;
+  height: 13.375rem;
+  flex-shrink: 0;
 }
 
 .step_success_title {
   color: #1F1F1F;
-  text-align: center;
+  flex-shrink: 0;
+  text-align: right;
   font-family: SimplerPro;
-  font-size: 2.5rem; /* Large title */
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 0 0 1rem 0;
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 3.75rem;
+  font-style: normal;
 }
 
 .step_success_subtitle {
   color: #1F1F1F;
-  text-align: center;
-  font-family: SimplerPro_V3;
-  font-size: 1.125rem;
+  text-align: right;
+  font-family: SimplerPro;
+  font-size: 1.25rem;
   font-weight: 400;
-  line-height: 1.5;
-  margin: 0 0 2rem 0;
-  max-width: 20rem; /* Prevents text from getting too wide */
+  line-height: 1.75rem;
+  font-style: normal;
 }
 
-/* 3. WhatsApp Button */
-.step_success_whatsapp_button {
+/* Row for the two buttons */
+.step_success_buttons_row {
   display: flex;
-  padding: 0.5rem 1.25rem;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1.75rem;
+  width: 95%;
+}
+
+/* Shared style for WhatsApp & Close buttons */
+.step_success_action_button {
+  display: flex;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
   justify-content: center;
   align-items: center;
-  gap: 0.625rem;
-  border-radius: 1.25rem;
+  gap: 0.5rem;
+  flex: 1 0 0;
+  
+  border-radius: 1rem;
   background-color: #C7DCED; /* The light blue/grey */
-  text-decoration: none; /* Removes underline from link */
-  cursor: pointer;
-  margin-bottom: 2rem;
-}
-
-.step_success_whatsapp_text {
-  color: #1F1F1F;
-  font-family: SimplerPro_V3;
-  font-size: 1.25rem;
-  font-weight: 500;
-}
-
-/* 4. Bottom Close Button */
-.step_success_close_button {
-  background: transparent;
   border: none;
   cursor: pointer;
-  
+}
+
+.step_success_button_text {
   color: #1F1F1F;
-  text-align: center;
+  text-align: right;
   font-family: SimplerPro;
   font-size: 1.5rem;
   font-weight: 400;
-  
-  margin-bottom: 2.5rem; /* Space from bottom of screen */
-  margin-top: auto;
+  line-height: normal;
+  font-style: normal;
 }
 
 /* --- STEP 1 EDIT MODE (MANUAL ENTRY) --- */
 
 .step_edit_title_frame {
   display: flex;
+  height: 5.75rem;
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
-  justify-content: flex-end;
-  margin-bottom: 1rem;
+  justify-content: center;
 }
 
 .step_edit_title_text {
   color: #1F1F1F;
   text-align: right;
   font-family: SimplerPro;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: normal;
+  font-style: normal;
+  align-self: stretch;
 }
 
 .step_edit_inputs_container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 1rem;
+  gap: 1.12rem;
 }
 
 .step_edit_input {
+  display: flex;
   width: 100%;
-  height: 3.5rem;
-  flex-shrink: 0;
-  border-radius: 1.25rem;
+  height: 2.75rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
   border: none;
   background-color: #C7DCED; /* Light Blue */
-  
-  padding: 0 1.25rem;
-  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
   
   /* Text Styling */
-  color: #1F1F1F;
-  font-family: SimplerPro_V3;
-  font-size: 1.125rem;
+  color: #9CADBA;
+  font-family: SimplerPro;
+  font-size: 1.5rem;
+  font-style: normal;
   font-weight: 400;
+  line-height: normal;
   text-align: right; /* RTL */
-  outline: none;
 }
 
 .step_edit_input::placeholder {
