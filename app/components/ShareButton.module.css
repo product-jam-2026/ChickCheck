@@ -4,14 +4,15 @@
   justify-content: center;
   gap: 8px;
   padding: 7px 13px 7px 9px;
-  border-radius: 16px;
+  border-radius: 1rem;
   background: #c7dced;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s;
   flex: 1;
-  height: 44px;
+  width: 10.78125rem;
+  height: 2.75rem;
   font-weight: 400;
+  font-size: 1.5rem;
 }
 
 .shareButton:hover {
@@ -23,8 +24,8 @@
 }
 
 .icon {
-  width: 18px;
-  height: 24px;
+  width: 1.125rem;
+  height: 1.5rem;
   flex-shrink: 0;
 }
 

@@ -48,6 +48,7 @@ export default function ShareButton({ resultId }: ShareButtonProps) {
       onClick={onShare}
       className={styles.shareButton}
     >
+    <span className={styles.text}>שיתוף</span>
       <Image 
         src="/icons/share_icon.svg" 
         alt="שיתוף" 
@@ -55,7 +56,6 @@ export default function ShareButton({ resultId }: ShareButtonProps) {
         height={24} 
         className={styles.icon}
       />
-      <span className={styles.text}>שיתוף</span>
     </button>
   );
 }

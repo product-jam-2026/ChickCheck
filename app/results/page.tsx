@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
@@ -25,7 +25,6 @@ interface AnalysisResult {
 export default function Page() {
     const router = useRouter();
     const [result, setResult] = useState<AnalysisResult | null>(null);
-    const [openSections, setOpenSections] = useState<Set<"details" | "action">>(new Set());
 
     useEffect(() => {
       // הגדר את רקע ה-overscroll לאפור (רקע הדף)
@@ -51,18 +50,6 @@ export default function Page() {
 
     const status = result.status || "UNCLEAR";
 
-    const toggleSection = (section: "details" | "action") => {
-        setOpenSections(prev => {
-            const newSet = new Set(prev);
-            if (newSet.has(section)) {
-                newSet.delete(section);
-            } else {
-                newSet.add(section);
-            }
-            return newSet;
-        });
-    };
-
     // Determine which buttons to show based on status
     const showWhatToDo = status === "NOT_SAFE" || status === "UNCLEAR";
 
@@ -87,30 +74,28 @@ export default function Page() {
                 </button>
             </div>
             <div className={styles.resultSection}>
-                <div className={styles.iconContainer}>
-                    <Icon status={status} />
-                </div>
+                <div className={styles.topRow}>
 
-                <div className={styles.textContainer}>
-                    <Title status={status} />
-                </div>
-
-                {(status === "NOT_SAFE" || status === "UNCLEAR") && (
-                    <div className={styles.warningSection}>
-                        <p className={styles.warningMain}>
-                            <span className={styles.warningMainAccent}>אין ללחוץ על הקישור !</span>
-                            <br />
-                            יכולים לשתף בני משפחה וחברים ולהזהיר מהונאה.
-                        </p>
-                        <p className={styles.warningSecondary}>
-                            במידה ולחצת על הקישור, יכולים לפנות אלינו בקו הסיוע ונעזור לפתור את העניין במהירות !
-                        </p>
+                    <div className={styles.textContainer}>
+                        <Title status={status} />
                     </div>
-                )}
+
+                    <div className={styles.iconContainer}>
+                        <Icon status={status} />
+                    </div>
+
+                </div>
+
+
+                <div className={styles.textSection}>
+                    <Text status={status} />
+                </div>
 
                 <div className={styles.buttonsRow}>
+                    <ShareButton resultId={result.id} />
                     {showWhatToDo && (
                         <button className={styles.pillButton} onClick={onAssist}>
+                            פנייה לסיוע
                             <Image
                                 src="/icons/mail.svg"
                                 alt="פנייה לסיוע"
@@ -118,11 +103,9 @@ export default function Page() {
                                 height={24}
                                 className={styles.pillIcon}
                             />
-                            פנייה לסיוע
                         </button>
                     )}
                     
-                    <ShareButton resultId={result.id} />
                 </div>
 
                 <DetailAccordion
@@ -196,7 +179,49 @@ function Title({ status }: { status: AnalysisResult['status'] }) {
         }
 }
 
+function Text({ status }: { status: AnalysisResult['status'] }) {
 
+    switch (status) {
+        case "NOT_SAFE":
+            return (
+                <>
+                    <div className={styles.warningMain}>
+                        <span className={styles.warningMainAccent}>אין ללחוץ על הקישור !</span>
+                        <br />
+                        <span>יכולים לשתף בני משפחה וחברים ולהזהיר מהונאה.</span>
+                    </div>
+                    <p className={styles.warningSecondary}>
+                        במידה ולחצת על הקישור, יכולים לפנות אלינו בקו הסיוע ונעזור לברר את העניין במהירות !
+                    </p>
+                </>
+            );
+        case "SAFE":
+            return (
+                <div className={styles.warningMain}>
+                    <span className={styles.warningMainAccentGreen}>אפשר ללחוץ על הקישור</span>
+                    <br />
+                    <span>יכולים לשתף גם בני משפחה וחברים.</span>
+                </div>
+            );
+
+        default:
+            return (
+                <>
+                    <div className={styles.warningMain}>
+                        <span className={styles.warningMainAccentOrange}>לא הצלחנו לקבוע את אמינות התוכן</span>
+                        <br />
+                        <span className={styles.warningMainAccentOrange}>ולכן לא כדאי ללחוץ על הקישור</span>
+                        <br />
+                        <span>יכולים לשתף בני משפחה וחברים, להתייעץ ולהזהיר מהונאה.</span>
+                    </div>
+                    <p className={styles.warningSecondary}>
+                        במידה ולחצת על הקישור, יכולים לפנות אלינו בקו הסיוע ונעזור לברר את העניין במהירות !
+                    </p>
+                </>
+            );
+
+        }
+}
 
 
 

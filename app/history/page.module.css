@@ -12,6 +12,21 @@
   margin: 0 auto;
 }
 
+.Detailcontainer {
+  width: var(--page-width);
+  min-height: var(--page-height);
+  background: var(--color-background-primary);
+  color: var(--color-background-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.75rem 0 1.5rem 0; /* top/bottom spacing */
+  box-sizing: border-box;
+  margin-right: 1rem;
+}
+
+
+
 .topSpacer {
   height: calc(1.44rem + var(--safe-area-inset-top));
   width: 100%;
@@ -208,7 +223,6 @@
 /* History detail page sections */
 .extractedSection {
   width: 15.25rem;
-  padding: 0 1.25rem;
   box-sizing: border-box;
   margin-top: 1rem;
 }
@@ -241,8 +255,7 @@
   gap: 0.5rem;
   width: 17.5rem; /* 280px */
   height: 2.75rem; /* 44px */
-  margin: 1.5rem auto;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem; /* 7px 13px 7px 9px */
+  margin: 1.5rem 0 1.5rem 0;
   background: #c7dced;
   border: none;
   border-radius: 1rem;
@@ -262,7 +275,7 @@
   width: 100%;
   padding: 0 1.25rem;
   box-sizing: border-box;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .resultTitle {
