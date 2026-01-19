@@ -42,7 +42,7 @@
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
-  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
+  padding: 118px clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
   justify-content: center;
   align-items: center;
   gap: clamp(24px, 5vw, 32px);
@@ -378,9 +378,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  flex: 0 1 auto;
   position: relative;
   min-height: 0;
+  margin: 0;
+  max-height: 50vh;
 }
 
 .onboardingSvg {
@@ -489,7 +491,7 @@
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
-  padding: clamp(75px, 12vh, 90px) clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
+  padding: 118px clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
   justify-content: space-between;
   gap: clamp(12px, 2vw, 16px);
   overflow: hidden;
@@ -517,6 +519,7 @@
   text-align: center;
   width: 100%;
   margin: 0;
+  margin-top: clamp(8px, 1.5vh, 12px);
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
@@ -535,7 +538,7 @@
 }
 
 .uploadAreaWrapper > * {
-  height: clamp(320px, 60vh, 420px) !important;
+  height: clamp(280px, 50vh, 360px) !important;
   max-width: 100%;
   border-radius: clamp(1.3rem, 2.8vw, 1.8rem);
 }
@@ -560,6 +563,7 @@
   gap: 0.625rem;
   align-self: center;
   flex-shrink: 0;
+  margin-bottom: clamp(32px, 6vw, 48px);
 }
 
 .uploadContinueButton:hover {
@@ -651,6 +655,7 @@
   max-height: 100vh;
   padding: 118px clamp(12px, 3vw, 16px) 57px clamp(12px, 3vw, 16px);
   justify-content: flex-start;
+  align-items: center;
   gap: 0;
   overflow: hidden;
 }
@@ -668,12 +673,14 @@
   margin-top: 0;
   margin-bottom: 32px;
   flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .reviewPhoneSvg {
   width: clamp(180px, 58.3vw, 229px);
   height: clamp(360px, 56.5vh, 481px);
   max-width: 100%;
+  max-height: 50vh;
   object-fit: contain;
 }
 
@@ -685,10 +692,11 @@
   align-items: center;
   justify-content: center;
   border-radius: 1rem;
-  border: none;
+  border: 2px solid #E00615;
   background: #C7DCED;
   gap: 1rem;
   flex-shrink: 0;
+  flex-grow: 0;
   margin-top: 32px;
   margin-bottom: 0;
   cursor: pointer;
@@ -773,10 +781,12 @@
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
-  padding: clamp(75px, 12vh, 90px) clamp(8px, 2vw, 12px) clamp(20px, 4vh, 30px) clamp(8px, 2vw, 12px);
-  justify-content: center;
+  padding: 118px clamp(8px, 2vw, 12px) 57px clamp(8px, 2vw, 12px);
+  justify-content: flex-start;
+  align-items: center;
   gap: clamp(20px, 4vw, 28px);
   overflow: hidden;
+  position: relative;
 }
 
 .resultsInstruction {
@@ -789,6 +799,7 @@
   line-height: normal;
   width: 100%;
   letter-spacing: 0.02rem;
+  flex-shrink: 0;
 }
 
 .resultsIconsContainer {
@@ -796,7 +807,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: clamp(24px, 5vw, 32px);
+  margin-bottom: clamp(20px, 4vw, 28px);
+  flex-shrink: 0;
 }
 
 .resultsIconsSvg {
@@ -811,8 +823,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(12px, 3vw, 16px);
-  margin-bottom: clamp(24px, 5vw, 32px);
+  gap: clamp(6px, 1.5vw, 10px);
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 .disclaimerTitle {
@@ -850,9 +863,12 @@
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  align-self: center;
-  margin-top: clamp(16px, 3vw, 24px);
-  margin-bottom: 0.5rem;
+  position: absolute;
+  bottom: 57px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .resultsReadyButton:hover {

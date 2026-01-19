@@ -358,7 +358,7 @@ function UploadInstructions({
       <div className={styles.uploadMainContent}>
         {/* Instruction Text */}
         <div className={styles.uploadInstruction}>
-          מעכשיו הכל דרך האפליקציה<br />
+          .עכשיו הכל דרך האפליקציה<br />
           לחצו על תיבת ההוספה<br />
           כדי להעלות תוכן לבדיקה</div>
 
@@ -393,7 +393,7 @@ function GalleryInstructions({
     <>
       {/* Instruction Text */}
       <div className={styles.galleryInstruction}>
-עכשיו גלריית התמונות במכשיר<br /> שלכם תפתח אוטומטית,<br />שם שמור צילום המסך. <br /> לחצו עליו לבחירתכם</div>
+עכשיו גלריית התמונות במכשיר<br /> שלכם תפתח אוטומטית,<br />שם שמור צילום המסך. <br /> לחצו עליו לבחירה</div>
       {/* Phone Mockup */}
       <div className={styles.phoneMockupContainer}>
         <Image
