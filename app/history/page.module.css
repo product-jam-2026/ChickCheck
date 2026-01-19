@@ -314,6 +314,7 @@
 .detailSection {
   width: 100%;
   box-sizing: border-box;
+  margin-bottom: 2.31rem;
 }
 
 .detailText {
