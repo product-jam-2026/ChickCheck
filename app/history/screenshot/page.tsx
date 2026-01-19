@@ -111,9 +111,8 @@ function ScreenshotContent() {
                 <Image 
                     src={item.imageUrl} 
                     alt="צילום מסך מוגדל" 
-                    fill 
+                    fill
                     className={styles.zoomedImage}
-                    style={{ objectFit: "contain" }} // שומר על פרופורציות התמונה
                 />
             </div>
         </main>

@@ -412,11 +412,12 @@
   border-radius: 1.875rem; /* 30px */
   overflow: hidden;
   flex-shrink: 0;
-  margin-bottom: 1.56rem; 
+  margin-bottom: 1.56rem;
 }
 
 .zoomedImage {
-  border-radius: 1.9375rem; /* 31px - slightly larger to account for border */
+  object-fit: cover !important; /* ממלא את המסגרת ללא רווחים */
+  object-position: center; /* מרכז את התמונה */
 }
 
 .zoomContainer .footer {
