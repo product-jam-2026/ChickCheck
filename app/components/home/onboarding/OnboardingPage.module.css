@@ -491,7 +491,7 @@
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
-  padding: 118px clamp(12px, 3vw, 16px) clamp(40px, 6vh, 50px) clamp(12px, 3vw, 16px);
+  padding: 118px clamp(12px, 3vw, 16px) clamp(20px, 4vh, 30px) clamp(12px, 3vw, 16px);
   justify-content: space-between;
   gap: clamp(12px, 2vw, 16px);
   overflow: hidden;
@@ -533,7 +533,7 @@
   justify-content: center;
   flex: 0 0 auto;
   cursor: pointer;
-  max-width: min(300px, 70vw);
+  max-width: min(340px, 75vw);
   margin: 0 auto;
 }
 
@@ -780,13 +780,12 @@
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
-  padding: clamp(75px, 12vh, 90px) clamp(8px, 2vw, 12px) 57px clamp(8px, 2vw, 12px);
+  padding: clamp(85px, 13vh, 105px) clamp(8px, 2vw, 12px) 57px clamp(8px, 2vw, 12px);
   justify-content: flex-start;
   align-items: center;
   gap: clamp(20px, 4vw, 28px);
   overflow: hidden;
   position: relative;
-  padding-top: clamp(100px, 15vh, 120px);
 }
 
 .resultsInstruction {
