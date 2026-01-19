@@ -13,7 +13,7 @@ type Status = "SAFE" | "NOT_SAFE" | "UNCLEAR";
 
 const STATUS_ICON: Record<Status, string> = {
 	SAFE: "/icons/safe_icon.svg",
-	NOT_SAFE: "/icons/not_safe_icon.svg",
+	NOT_SAFE: "/icons/not_safe_full_icon.svg",
 	UNCLEAR: "/icons/unclear_icon.svg",
 };
 
@@ -139,7 +139,7 @@ export default function HistoryContent() {
 							alt={checkData.status}
 							width={33}
 							height={33}
-							className={styles.statusIcon}
+							className={styles.DetailStatusIcon}
 						/>
 					)}
 					<p className={styles.statusText}>
