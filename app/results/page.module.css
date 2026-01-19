@@ -184,7 +184,7 @@
 	text-decoration: underline;
 	line-height: normal;
 	cursor: pointer;
-	width: 100%;
+	width: auto;
 	text-align: right;
 	direction: rtl;
 	padding: 0;
@@ -322,12 +322,14 @@
     border: 1px solid #74D03C;
 }
 
+/* page.module.css */
 
 .accordionWrapperPlain {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-end;
+	align-items: flex-start;
+	margin-top: 1rem;
 }
 
 
@@ -422,6 +424,10 @@
 	padding: 0 0.75rem;
 }
 
+.textSection{
+	margin-top: 5rem;
+}
+
 .warningMain {
 	font-size: 1.5rem; /* 24px */
 	line-height: 1.75rem; /* 28px */
@@ -429,6 +435,17 @@
 	text-align: right;
 	direction: rtl;
 	margin: 0;
+	position: relative;
+}
+
+.infoIcon {
+	width: 1.14581rem;
+	height: 1.14581rem;
+	flex-shrink: 0;
+	cursor: pointer;
+	margin-right: 0.5rem;
+	vertical-align: middle;
+	display: inline-block;
 }
 
 .warningMainBold {
@@ -469,12 +486,11 @@
 	width: 100%;
 	display: flex;
 	gap: 0.75rem; /* 12px */
-	padding: 0 1.25rem; /* 20px horizontal */
 	margin-top: 0.5rem;
 }
 
 .shareContainer {
-    margin-top: 1rem;
+    margin-top: 0.7rem;
     display: flex;
     justify-content: center;
 }
@@ -515,4 +531,175 @@
 	margin: 0;
 	line-height: 1.75rem; /* 28px */
 	font-weight: 200;
+}
+
+/* Info overlay styles */
+.infoOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.8);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	padding: 1rem;
+}
+
+.infoOverlayContent {
+	width: 100%;
+	max-width: var(--page-width);
+	height: 100%;
+	max-height: var(--page-height);
+	background: var(--color-background-primary);
+	border-radius: 1rem;
+	padding: 2rem 1rem;
+	position: relative;
+	overflow-y: auto;
+}
+
+.infoOverlayContent .closeButton {
+	position: absolute;
+	top: 1.875rem;
+	left: 2.125rem;
+	z-index: 20;
+}
+
+.infoDetails {
+	margin-top: 3rem;
+	width: 100%;
+}
+
+.infoTitle {
+	font-size: 2rem;
+	font-weight: 700;
+	color: #E3F0FA;
+	text-align: right;
+	direction: rtl;
+	margin: 0 0 1.5rem 0;
+}
+
+/* Add to page.module.css */
+
+/* 1. The Dimmed State - Makes the background dark and unclickable */
+.dimmed {
+    opacity: 0.15;
+    filter: blur(2px); 
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* 2. Invisible layer to catch clicks and close the info view */
+.clickBackdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* sits above the dimmed content */
+    cursor: pointer;
+}
+
+/* 3. The container for the text details (replaces buttons) */
+.infoDetailsPanel {
+    width: 100%;
+    padding: 0 1.25rem;
+    margin-top: 1rem;
+    z-index: 20; /* sits above the backdrop */
+    position: relative;
+    animation: fadeUp 0.3s ease-out;
+}
+
+.detailsHeader {
+    text-align: right;
+    direction: rtl;
+    color: #E3F0FA;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+}
+
+/* Simple animation for the text appearing */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* page.module.css */
+
+.bottomContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 1. This creates the 'anchor' for the floating box */
+    position: relative; 
+}
+
+.warningNoticeBox {
+    width: 100%;
+    padding: 0 1rem;
+    z-index: 20; /* Ensures it sits on top of everything */
+    
+    /* 2. Take it out of the flow and pin it to the top of .bottomContent */
+    position: absolute;
+    top: 30rem; 
+    left: 0;
+    
+    /* 3. Optional: Add a tiny gap so it's "a little bit down" from the text */
+    margin-top: 0.5rem; 
+    
+    animation: fadeUp 0.3s ease-out;
+}
+
+.warningNoticeContent {
+    background: #C7DCED;
+    border-radius: 1rem; /* 16px */
+    padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem; /* 7px 13px 7px 9px */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.infoCloseButton {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.warningNoticeTitle {
+    font-size: 1.5rem; /* 24px */
+    font-weight: 700;
+    color: #1F1F1F;
+    line-height: 1.5rem; /* 24px */
+    margin: 0 0 0.5rem 0;
+    text-align: right;
+    direction: rtl;
+    width: 21rem; /* 336px */
+}
+
+.warningNoticeText {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 200;
+    color: #050130;
+    line-height: 1.5rem; /* 24px */
+    margin: 0;
+    text-align: right;
+    direction: rtl;
+    width: 21rem; /* 336px */
+    white-space: pre-wrap;
 }

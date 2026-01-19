@@ -19,9 +19,6 @@
   
   /* 2. Set width to auto so it fits the content */
   width: auto; 
-  /* Alternatively, you can use: width: fit-content; */
-
-  /* --- KEY CHANGES END --- */
 
   /* Keep the height for a good clickable area (44px) */
   height: 2.75rem; 
