@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 import BackButton from "@/app/components/BackButton";
 import { cleanSmsContent, formatDate } from "../orgnizeDataFromDatabase";
 import ShareButton from "@/app/components/ShareButton";
+import { parseDetailsContent } from "@/app/results/parseDetailsContent";
 
 type Status = "SAFE" | "NOT_SAFE" | "UNCLEAR";
 
@@ -154,12 +155,13 @@ export default function HistoryContent() {
 				{checkData?.details && (
                    
 					<div className={styles.detailSection}>
-						<p className={styles.detailText}>{checkData.details}</p>
+						<p className={styles.detailText}>{parseDetailsContent(checkData.details)}</p>
 					</div>
 				)}
+				<ShareButton resultId={checkData?.id} />
 			</section>
 
-			<ShareButton resultId={checkData?.id} />
+			
 
 		</main>)
 };
