@@ -533,7 +533,7 @@
   justify-content: center;
   flex: 0 0 auto;
   cursor: pointer;
-  max-width: min(340px, 75vw);
+  max-width: min(360px, 80vw);
   margin: 0 auto;
 }
 
@@ -563,6 +563,7 @@
   gap: 0.625rem;
   align-self: center;
   flex-shrink: 0;
+  margin-bottom: clamp(32px, 6vw, 48px);
 }
 
 .uploadContinueButton:hover {
@@ -780,7 +781,7 @@
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
-  padding: clamp(85px, 13vh, 105px) clamp(8px, 2vw, 12px) 57px clamp(8px, 2vw, 12px);
+  padding: clamp(95px, 14vh, 115px) clamp(8px, 2vw, 12px) 57px clamp(8px, 2vw, 12px);
   justify-content: flex-start;
   align-items: center;
   gap: clamp(20px, 4vw, 28px);
