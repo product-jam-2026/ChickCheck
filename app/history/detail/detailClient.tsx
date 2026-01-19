@@ -165,9 +165,9 @@ export default function HistoryContent() {
 };
 
 
-const statusToText: Record<Status, string> = {
-	SAFE: "התוכן שחולץ מהתמונה נמצא אמין",
-	NOT_SAFE: "התוכן שחולץ מהתמונה נמצא לא אמין",
-	UNCLEAR: "לא הצלחנו לקבוע אם התוכן אמין או לא",
+const statusToText: Record<Status, React.ReactNode> = {
+	SAFE: <>התוכן שחולץ מהתמונה<br/>נמצא אמין</>,
+	NOT_SAFE: <>התוכן שחולץ מהתמונה<br/>נמצא לא אמין</>,
+	UNCLEAR: <>לא הצלחנו לקבוע<br/>אם התוכן אמין או לא</>,
 };
 

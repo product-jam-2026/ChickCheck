@@ -98,20 +98,22 @@ export default function ProfilePage({
         </div>
       </div>
 
-      <button
-        className={styles.editButton}
-        onClick={onEditClick}
-        aria-label="עריכה"
-      >
-        <Image
-          src="/icons/edit_white.svg"
-          alt="Edit"
-          width={24}
-          height={24}
-          className={styles.editIcon}
-        />
-        <span className={styles.editText}>עריכה</span>
-      </button>
+      {false && (
+        <button
+          className={styles.editButton}
+          onClick={onEditClick}
+          aria-label="עריכה"
+        >
+          <Image
+            src="/icons/edit_white.svg"
+            alt="Edit"
+            width={24}
+            height={24}
+            className={styles.editIcon}
+          />
+          <span className={styles.editText}>עריכה</span>
+        </button>
+      )}
 
       <Link
         href="/logout"
