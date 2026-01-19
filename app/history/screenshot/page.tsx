@@ -96,13 +96,14 @@ function ScreenshotContent() {
 
     return (
         <main className={styles.zoomContainer}>
-            {/* חלק 1: כותרת עליונה עם כפתור חזור */}
+            {/* כפתור חזור עצמאי */}
+            <div className={styles.topSpacer}>
+                <BackButton href={`/history/detail?id=${id}`} />
+            </div>
+            
+            {/* חלק 1: כותרת עליונה */}
             <div className={styles.header}>
-                <div className={styles.topSpacer}>
-                    <BackButton href={`/history/detail?id=${id}`} />
-                </div>
                 <h1 className={styles.pageTitle}>בדיקה בתאריך {item.date}</h1>
-                <div className={styles.spacer} /> {/* ריווח לאיזון הכותרת */}
             </div>
 
             {/* חלק 2: התמונה */}
@@ -114,17 +115,6 @@ function ScreenshotContent() {
                     className={styles.zoomedImage}
                     style={{ objectFit: "contain" }} // שומר על פרופורציות התמונה
                 />
-            </div>
-
-            {/* חלק 3: כפתור סגירה תחתון */}
-            <div className={styles.footer}>
-                <button 
-                    className={styles.closeButton}
-                    onClick={() => router.back()} // חוזר אחורה
-                >
-                    <span className={styles.closeIcon}>✕</span>
-                    סגירה
-                </button>
             </div>
         </main>
     );
