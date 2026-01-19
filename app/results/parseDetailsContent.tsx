@@ -7,6 +7,8 @@ import styles from "./page.module.css";
  * - Adds a line break after each bold headline
  * - Splits content by double line breaks into separate paragraphs
  */
+/* app/results/parseDetailsContent.tsx */
+
 export function parseDetailsContent(content: string): React.ReactNode {
   if (!content) return null;
 
@@ -21,11 +23,30 @@ export function parseDetailsContent(content: string): React.ReactNode {
   return (
     <div className={styles.detailContent}>
       {paragraphs.map((paragraph, index) => {
-        // Parse the paragraph to handle <u> tags
-        const parts = parseUnderlineToStrong(paragraph.trim());
+        // 1. Check if the paragraph starts with a number (e.g., "1. ")
+        const numberMatch = paragraph.match(/^(\d+\.)\s*/);
+        
+        let numberNode = null;
+        let textToProcess = paragraph;
+
+        if (numberMatch) {
+          // 2. Create the bold number element using the headline style
+          numberNode = (
+            <span className={styles.detailHeadline}>
+              {numberMatch[1]}{" "}
+            </span>
+          );
+          
+          // 3. Remove the number from the text so it isn't rendered twice
+          textToProcess = paragraph.substring(numberMatch[0].length);
+        }
+
+        // 4. Parse the rest of the text for <u> tags as before
+        const parts = parseUnderlineToStrong(textToProcess);
         
         return (
           <div key={index} className={styles.detailParagraph}>
+            {numberNode}
             {parts}
           </div>
         );
@@ -34,18 +55,14 @@ export function parseDetailsContent(content: string): React.ReactNode {
   );
 }
 
-/**
- * Converts <u>text</u> tags to bold (font-weight: 700) spans with line break after
- */
 function parseUnderlineToStrong(text: string): React.ReactNode {
-  // Split by <u> tags
   const parts: React.ReactNode[] = [];
   const regex = /<u>(.*?)<\/u>/g;
   let lastIndex = 0;
   let match;
 
   while ((match = regex.exec(text)) !== null) {
-    // Add text before the <u> tag (light weight)
+    // 1. Handle text BEFORE the headline
     if (match.index > lastIndex) {
       const beforeText = text.substring(lastIndex, match.index);
       parts.push(
@@ -55,22 +72,22 @@ function parseUnderlineToStrong(text: string): React.ReactNode {
       );
     }
 
-    // Check if there's a colon immediately after </u>
+    // Check for colon
     const afterMatch = text.substring(regex.lastIndex);
     const hasColonAfter = afterMatch.startsWith(':');
     
-    // Add the underlined text as bold
+    // 2. Push the Headline (Bold) + The Manual Break
     parts.push(
       <React.Fragment key={`bold-${match.index}`}>
         <span className={styles.detailHeadline}>
           {match[1]}
           {hasColonAfter ? ':' : ''}
         </span>
-        <br />
+        <br /> 
       </React.Fragment>
     );
 
-    // Skip the colon if we already included it
+    // Update index to skip the colon if needed
     if (hasColonAfter) {
       lastIndex = regex.lastIndex + 1;
     } else {
@@ -78,16 +95,22 @@ function parseUnderlineToStrong(text: string): React.ReactNode {
     }
   }
 
-  // Add remaining text after the last <u> tag
+  // 3. Handle text AFTER the headline
   if (lastIndex < text.length) {
-    parts.push(
-      <span key={`after-${lastIndex}`} className={styles.detailText}>
-        {text.substring(lastIndex)}
-      </span>
-    );
+    // --- THE FIX IS HERE ---
+    // We use .trimStart() to remove the hidden "new line" character
+    // that creates the extra gap.
+    const remainingText = text.substring(lastIndex).trimStart();
+    
+    if (remainingText) {
+        parts.push(
+        <span key={`after-${lastIndex}`} className={styles.detailText}>
+            {remainingText}
+        </span>
+        );
+    }
   }
 
-  // If no <u> tags were found, return the text with light weight
   if (parts.length === 0) {
     return <span className={styles.detailText}>{text}</span>;
   }
