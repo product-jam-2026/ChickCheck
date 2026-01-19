@@ -17,9 +17,7 @@ type Props = {
 };
 
 export default function DetailAccordion({
-  title = "פירוט >",
   text,
-  technicalCheck,
   maxWidth = "22.0625rem",
 }: Props) {
   const [open, setOpen] = useState(false);
