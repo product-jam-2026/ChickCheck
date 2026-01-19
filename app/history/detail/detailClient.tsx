@@ -12,9 +12,9 @@ import ShareButton from "@/app/components/ShareButton";
 type Status = "SAFE" | "NOT_SAFE" | "UNCLEAR";
 
 const STATUS_ICON: Record<Status, string> = {
-	SAFE: "/icons/safe_icon.svg",
-	NOT_SAFE: "/icons/not_safe_full_icon.svg",
-	UNCLEAR: "/icons/unclear_icon.svg",
+    SAFE: "/icons/safe_full_icon.svg",
+    NOT_SAFE: "/icons/not_safe_full_icon.svg",
+    UNCLEAR: "/icons/unclear_full_icon.svg",
 };
 
 
