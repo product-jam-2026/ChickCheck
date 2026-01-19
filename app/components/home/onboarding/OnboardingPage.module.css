@@ -519,7 +519,7 @@
   text-align: center;
   width: 100%;
   margin: 0;
-  margin-top: clamp(20px, 4vh, 30px);
+  margin-top: clamp(8px, 1.5vh, 12px);
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
@@ -679,6 +679,7 @@
   width: clamp(180px, 58.3vw, 229px);
   height: clamp(360px, 56.5vh, 481px);
   max-width: 100%;
+  max-height: 50vh;
   object-fit: contain;
 }
 
@@ -780,9 +781,11 @@
   min-height: 100vh;
   max-height: 100vh;
   padding: clamp(75px, 12vh, 90px) clamp(8px, 2vw, 12px) 57px clamp(8px, 2vw, 12px);
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   gap: clamp(20px, 4vw, 28px);
   overflow: hidden;
+  position: relative;
 }
 
 .resultsInstruction {
@@ -795,6 +798,7 @@
   line-height: normal;
   width: 100%;
   letter-spacing: 0.02rem;
+  flex-shrink: 0;
 }
 
 .resultsIconsContainer {
@@ -802,7 +806,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: clamp(24px, 5vw, 32px);
+  margin-bottom: clamp(20px, 4vw, 28px);
+  flex-shrink: 0;
 }
 
 .resultsIconsSvg {
@@ -818,7 +823,8 @@
   flex-direction: column;
   align-items: center;
   gap: clamp(6px, 1.5vw, 10px);
-  margin-bottom: clamp(24px, 5vw, 32px);
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 .disclaimerTitle {
@@ -856,9 +862,11 @@
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  align-self: center;
-  margin-top: auto;
-  margin-bottom: 0;
+  position: absolute;
+  bottom: 57px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
   flex-shrink: 0;
 }
 
