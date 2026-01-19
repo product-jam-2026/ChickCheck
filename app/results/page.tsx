@@ -75,15 +75,9 @@ export default function Page() {
             </div>
             <div className={styles.resultSection}>
                 <div className={styles.topRow}>
-
-                    <div className={styles.textContainer}>
-                        <Title status={status} />
-                    </div>
-
                     <div className={styles.iconContainer}>
                         <Icon status={status} />
                     </div>
-
                 </div>
 
 
@@ -123,61 +117,36 @@ function Icon({ status }: { status: AnalysisResult['status'] }) {
     switch (status) {
         case "NOT_SAFE":
             return ( <Image 
-                    src="/icons/not_safe_icon.svg" 
+                    src="/icons/not_safe_result_frame.svg" 
                     alt="לא אמין" 
                     width={227} 
                     height={227} 
-                    className={styles.Icon} 
+                    className={`${styles.Icon} ${styles.iconNotSafe}`} 
                      />
                   );
         case "SAFE":
             return (   <Image 
-                    src="/icons/safe_icon.svg" 
+                    src="/icons/safe_result_frame.svg" 
                     alt="אמין" 
                     width={227} 
                     height={227} 
-                    className={styles.Icon} 
+                    className={`${styles.Icon} ${styles.iconSafe}`} 
                     />
                     );
 
         default:
             return ( <Image 
-                src="/icons/unclear_icon.svg" 
+                src="/icons/unclear_result_frame.svg" 
                 alt="לא בטוח" 
                 width={500} 
                 height={500} 
-                className={styles.Icon} 
+                className={`${styles.Icon} ${styles.iconUnclear}`} 
             />
                 );
  
         } 
     }
 
-function Title({ status }: { status: AnalysisResult['status'] }) {
-
-    switch (status) {
-        case "NOT_SAFE":
-            return (
-            <p className={styles.titleText}>
-                <span>התוכן שצולם </span><span className={styles.accentRed}>אינו אמין</span>
-            </p>
-            );
-        case "SAFE":
-            return (
-            <p className={styles.titleText}>
-                <span>התוכן </span><span>נמצא</span> <span className={styles.accentGreen}>אמין</span>
-            </p>
-            );
-
-        default:
-             return (
-            <p className={styles.titleText}>
-            <span className={styles.accentOrange}>לא בטוח</span> שהתוכן אמין    
-            </p>
-            );
-
-        }
-}
 
 function Text({ status }: { status: AnalysisResult['status'] }) {
 
@@ -222,7 +191,4 @@ function Text({ status }: { status: AnalysisResult['status'] }) {
 
         }
 }
-
-
-
 

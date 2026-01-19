@@ -2,15 +2,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 7px 13px 7px 9px;
+  gap: 0.5rem; /* 8px */
+  
+  /* Adjusted padding for a balanced look */
+  padding: 0 1.5rem; 
+  
   border-radius: 1rem;
   background: #c7dced;
   border: none;
   cursor: pointer;
-  flex: 1;
-  width: 10.78125rem;
-  height: 2.75rem;
+
+  /* --- KEY CHANGES START --- */
+  
+  /* 1. Stop the button from growing to fill the row */
+  flex: 0 0 auto; 
+  
+  /* 2. Set width to auto so it fits the content */
+  width: auto; 
+  /* Alternatively, you can use: width: fit-content; */
+
+  /* --- KEY CHANGES END --- */
+
+  /* Keep the height for a good clickable area (44px) */
+  height: 2.75rem; 
+  
   font-weight: 400;
   font-size: 1.5rem;
 }
@@ -31,8 +46,9 @@
 
 .text {
   font-family: 'SimplerPro', sans-serif;
-  font-size: 24px;
+  font-size: 1.5rem; /* Matched to button size */
   color: #1f1f1f;
   line-height: normal;
+  white-space: nowrap; /* Prevents text from breaking lines */
   flex-shrink: 0;
 }

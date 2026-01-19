@@ -27,11 +27,10 @@ export default function DetailAccordion({
   return (
     <div className={styles.linkRow} style={{ maxWidth }}>
       <AccordionButton
-        title={title}
+        title={open ? "פירוט:" : "פירוט >"}
         isOpen={open}
         onToggle={() => setOpen((v) => !v)}
         content={text}
-        technicalCheck={technicalCheck}
       />
     </div>
   );

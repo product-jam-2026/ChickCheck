@@ -17,19 +17,21 @@
 	position: relative;
 }
 
+/* 4. Keep your header absolute so the Close Button floats ON TOP */
 .header {
-	width: 100%;
-	height: 1.875rem; /* 30px */
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	padding: 0 2.125rem; /* 34px horizontal padding */
-	margin: 0;
-	position: absolute;
-	top: 1.875rem; /* 30px from top */
-	left: 0;
+    width: 100%;
+    height: 1.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 2.125rem;
+    
+    /* Absolute position ensures it doesn't affect the 24.7rem math */
+    position: absolute; 
+    top: 1.875rem;
+    left: 0;
+    z-index: 10; /* Keeps button clickable above the image */
 }
-
 /* Close button: left side */
 .closeButton {
 	width: 1.875rem; /* 30px */
@@ -44,53 +46,80 @@
 	margin: 0;
 }
 
+/* 1. Reset the section padding so it doesn't push the row down */
 .resultSection {
-	width: 100%;
-	flex: 0 1 auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1.25rem; /* 20px */
-	flex-shrink: 0;
-	padding: 5.1875rem 1rem 0 1rem; /* 83px top padding to account for absolute header */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    
+    /* CHANGED: Removed the top padding. We handle spacing in the row now. */
+    padding: 0 1rem; 
 }
 
+/* 2. Define the fixed height box that ends at 24.7rem */
 .topRow {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    position: relative;
     
-    /* 1. קובע את הרצפה במיקום שרצית (בערך 24rem מלמעלה יחד עם הפאדינג) */
-    min-height: 22.625rem; 
+    /* THE MAGIC: Fixed height based on our math */
+    height: 22.825rem; 
     
-    /* 2. מצמיד את האייקון (וכל מי שלא נגדיר אחרת) לרצפה */
+    /* This forces the icon to sit on the "Floor" of this box */
     align-items: flex-end; 
     
+    /* Ensure the text/buttons below don't pull up */
+    flex-shrink: 0;
     margin-bottom: 1rem;
-    position: relative;
+	margin-right: 1rem;
 }
 
+/* 1. Force the container to fill the TopRow height */
 .iconContainer {
-    width: 18.75rem;
-    /* אין צורך בגובה קבוע, הוא יקבל את המקום שלו מהשורה */
-    height: auto; 
-    
+    width: auto;
+    height: 100%; /* CHANGED: Was auto. Now fills the 22.825rem of the parent */
     display: flex;
     justify-content: center;
-    /* מוודא שהאייקון יושב בתחתית הקונטיינר שלו */
-    align-items: flex-end; 
-    
-    margin-left: -1rem;
+    align-items: flex-end; /* Keeps items at the bottom */
+    margin: 0;
+    margin-left: -1rem; /* Keep your existing offset */
     flex-shrink: 0;
 }
 
+/* 2. Ensure the image itself sits at the bottom of its allocated space */
 .Icon {
-    /* התאמת גודל האייקון שייראה טוב בשורה */
-    width: auto; /* הקטנתי מ-17rem כדי שייכנס בשורה אחת */
+    width: auto;
     height: auto;
-    object-fit: contain;
+    max-height: 100%; /* Ensure it fits within the container */
+    object-fit: contain; /* Keeps the image from stretching/distorting */
+    
+    /* VITAL: This pushes the visible "ink" of the SVG to the floor */
+    object-position: bottom; 
 }
+
+/* 4. Your specific icon sizes (Keep these as you wrote them) */
+.iconSafe {
+    width: 27.25rem;
+    height: 22.825rem;
+}
+
+.iconNotSafe {
+    width: 30.5625rem;
+    height: 20.375rem;
+}
+
+.iconUnclear {
+    width: 24.5625rem;
+    height: 20.3125rem;
+}
+
+
+
+
 
 .textContainer {
     width: auto;
@@ -159,7 +188,7 @@
 	text-align: right;
 	direction: rtl;
 	padding: 0;
-	margin: 0;
+	margin-bottom: 1.44rem;
 }
 
 .shareRow {
@@ -448,4 +477,42 @@
     margin-top: 1rem;
     display: flex;
     justify-content: center;
+}
+
+/* Detail content styles - matching Figma design */
+.detailContent {
+	margin: 0;
+	padding: 0;
+	font-size: 1.5rem; /* 24px */
+	line-height: 1.75rem; /* 28px */
+	color: #E3F0FA;
+	text-align: right;
+	direction: rtl;
+	font-family: 'SimplerPro', sans-serif;
+}
+
+.detailParagraph {
+	margin-bottom: 1.5rem; /* 24px spacing between paragraphs */
+}
+
+.detailParagraph:last-child {
+	margin-bottom: 0;
+}
+
+.detailHeadline {
+	font-size: 1.5rem;
+	font-weight: 700; /* Bold for headlines */
+	color: #E3F0FA;
+}
+
+.detailText {
+	font-size: 1.5rem;
+	font-weight: 200; /* Light for regular text */
+	color: #E3F0FA;
+}
+
+.detailSingleText {
+	margin: 0;
+	line-height: 1.75rem; /* 28px */
+	font-weight: 200;
 }
