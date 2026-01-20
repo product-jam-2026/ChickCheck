@@ -143,6 +143,13 @@ export async function middleware(request: NextRequest) {
     // Allow logged-in users to access the home page (don't force them back to login)
     // The "force fresh login" only applies when they first visit, not after successful login
 
+    // If accessing root, always redirect to splash (even if logged in)
+    // This ensures splash screen always appears on app open
+    if (pathname === "/" && !isSplashPage) {
+      console.log("🔀 Redirecting root to /splash");
+      return NextResponse.redirect(new URL("/splash", request.url));
+    }
+
     // If not logged in and not on login or splash page, redirect appropriately
     if (!effectiveUser && !isLoginPage && !isSplashPage) {
       if (hasAuthCookie) {
@@ -162,34 +169,24 @@ export async function middleware(request: NextRequest) {
       });
       fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:92',message:'No session - redirecting',data:{pathname,referer:request.headers.get('referer'),cookieCount:request.cookies.getAll().length,supabaseCookies:supabaseCookies.map(c => ({ name: c.name, hasValue: !!c.value }))},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,D,E'})}).catch(()=>{});
       // #endregion
-      // If accessing root, redirect to splash; otherwise redirect to login
-      if (pathname === "/") {
-        console.log("🔒 No session found - redirecting to /splash");
-        return NextResponse.redirect(new URL("/splash", request.url));
-      }
       console.log("🔒 No session found - redirecting to /login");
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("next", pathname);
       return NextResponse.redirect(loginUrl);
     }
     
-    if (effectiveUser && pathname !== "/") {
+    if (effectiveUser && pathname !== "/" && pathname !== "/splash") {
       console.log("✅ Session found for user:", effectiveUser.email);
     }
 
-    // If logged in, check admin status
+    // If logged in, check admin status (but not for splash or root)
     if (effectiveUser) {
       // Get user email from session
       const userEmail = effectiveUser.email;
 
-      // If user is admin and trying to access home page, redirect to admin
-      if (userEmail === ADMIN_EMAIL && pathname === "/") {
-        return NextResponse.redirect(new URL("/admin", request.url));
-      }
-
       // If user is NOT admin and trying to access admin page, redirect to home
       if (userEmail !== ADMIN_EMAIL && isAdminPage) {
-        return NextResponse.redirect(new URL("/", request.url));
+        return NextResponse.redirect(new URL("/splash", request.url));
       }
 
       // Session clearing on login page is handled above, so we don't need to redirect here

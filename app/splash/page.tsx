@@ -1,11 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 import styles from "./page.module.css";
+
+const ADMIN_EMAIL = "galeliahu30@gmail.com";
 
 export default function SplashPage() {
   const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
     // הגדר את רקע ה-overscroll לאפור (רקע הדף)
@@ -23,13 +27,45 @@ export default function SplashPage() {
   }, []);
 
   useEffect(() => {
-    // Redirect to login after 2.5 seconds
+    // בדוק אם המשתמש מחובר
+    const checkAuth = async () => {
+      try {
+        const supabase = createClient();
+        const { data: { session } } = await supabase.auth.getSession();
+        setIsAuthenticated(!!session?.user);
+      } catch (error) {
+        console.error("Error checking auth:", error);
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  useEffect(() => {
+    // Redirect after 2.5 seconds based on authentication status
+    if (isAuthenticated === null) return; // עדיין בודקים
+
     const timer = setTimeout(() => {
-      router.push("/login");
+      if (isAuthenticated) {
+        // אם המשתמש מחובר, בדוק אם הוא admin
+        const supabase = createClient();
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          const userEmail = session?.user?.email;
+          if (userEmail === ADMIN_EMAIL) {
+            router.push("/admin");
+          } else {
+            router.push("/");
+          }
+        });
+      } else {
+        // אם המשתמש לא מחובר, העבר ל-login
+        router.push("/login");
+      }
     }, 2500);
 
     return () => clearTimeout(timer);
-  }, [router]);
+  }, [isAuthenticated, router]);
 
   return (
     <div className={styles.page}>
