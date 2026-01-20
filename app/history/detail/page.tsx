@@ -1,29 +1,48 @@
 import React, { Suspense } from "react";
 import { Metadata, ResolvingMetadata } from "next";
-import { createClient } from "@/lib/supabase/client"; // וודאי שהנתיב נכון
-import DetailClient from "./detailClient"; // וודאי ששם הקובץ תואם (אות גדולה/קטנה)
+// שינוי 1: ייבוא ישיר מהספרייה הראשית של supabase-js
+import { createClient } from "@supabase/supabase-js"; 
+import { notFound, redirect } from "next/navigation";
+import DetailClient from "./detailClient"; 
+import { cleanSmsContent, formatDate } from "../orgnizeDataFromDatabase";
 
-// חובה: מגדיר שהעמוד דינמי
 export const dynamic = "force-dynamic";
 
 type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-// --- פונקציית ה-Metadata (רצה בשרת לפני שהעמוד נטען) ---
+// --- פונקציית עזר מקומית ליצירת קלאיינט אדמין ---
+// כך אנחנו יוצרים את החיבור בדיוק כמו שעשית ב-API
+function getAdminClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!, 
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    }
+  );
+}
+
+// --- פונקציית ה-Metadata (רצה בשרת) ---
 export async function generateMetadata(
   { searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const id = searchParams.id as string;
+  // 2. בצעי await לפני הגישה לנתונים
+  const resolvedParams = await searchParams;
+  const id = resolvedParams.id as string;
   
-  // 1. הגדרת כתובת הבסיס (חשוב מאוד!)
-  // אם את ב-Vercel, כדאי להגדיר משתנה סביבה NEXT_PUBLIC_BASE_URL
-  // אם אין משתנה, נשתמש בכתובת ברירת מחדל (תחליפי לכתובת האמיתית שלך כשתהיה)
+  // דיבאגינג: תדפיסי בטרמינל כדי לראות מה מתקבל
+  console.log("Server received params:", resolvedParams);
+  console.log("Extracted ID:", id);
   const baseUrl = 'https://chick-check-tau.vercel.app'; 
 
-  // 2. שליפת הסטטוס מ-Supabase
-  const supabase = createClient();
+  // שימוש בקלאיינט אדמין כדי להביא את הסטטוס גם אם המשתמש לא מחובר (בשביל וואטסאפ וכו')
+  const supabase = getAdminClient();
   let status = 'UNCLEAR';
   
   if (id) {
@@ -38,33 +57,29 @@ export async function generateMetadata(
     }
   }
 
-  // 3. לוגיקה לבחירת טקסט ותמונה לפי הסטטוס
   let title = "תוצאות בדיקת ChickCheck";
   let description = "לחץ לצפייה בפרטי הבדיקה המלאים.";
-  let imageName = "og-unclear.png"; // תמונת ברירת מחדל
+  let imageName = "og-unclear.png"; 
 
   switch (status) {
     case 'SAFE':
         title = "✅ חדשות טובות: ההודעה נמצאה אמינה!";
         description = "הבדיקה של ChickCheck הסתיימה בהצלחה. לחץ לפרטים המלאים.";
-        imageName = "og-safe.png"; // שם התמונה הירוקה שלך ב-public
+        imageName = "og-safe.png";
         break;
-        
     case 'NOT_SAFE':
         title = "⚠️ אזהרה: ההודעה הזו חשודה!";
         description = "המערכת זיהתה סימנים מחשידים בהודעה זו. היכנסו לראות את הניתוח המלא.";
-        imageName = "og-not-safe.png"; // שם התמונה האדומה שלך ב-public
+        imageName = "og-not-safe.png"; 
         break;
-        
     case 'UNCLEAR':
     default:
         title = "❓ תוצאות בדיקת ChickCheck";
         description = "לא ניתן היה לקבוע בוודאות את אמינות ההודעה. לחץ לפרטים נוספים.";
-        imageName = "og-unclear.png"; // שם התמונה הכתומה/אפורה שלך ב-public
+        imageName = "og-unclear.png";
         break;
   }
 
-  // 4. החזרת המידע לוואטסאפ
   return {
     title: title,
     description: description,
@@ -75,7 +90,7 @@ export async function generateMetadata(
       siteName: 'ChickCheck',
       images: [
         {
-          url: `${baseUrl}/icons/${imageName}`, // כאן נכנסת התמונה הדינמית
+          url: `${baseUrl}/icons/${imageName}`,
           width: 1200,
           height: 630,
         },
@@ -86,11 +101,48 @@ export async function generateMetadata(
   }
 }
 
-// --- הקומפוננטה הראשית (ללא שינוי) ---
-export default function HistoryDetailPage() {
+// --- הקומפוננטה הראשית (Server Component) ---
+export default async function HistoryDetailPage({ searchParams }: Props) {
+  // 2. בצעי await לפני הגישה לנתונים
+  const resolvedParams = await searchParams;
+  const id = resolvedParams.id as string;
+  
+  // דיבאגינג: תדפיסי בטרמינל כדי לראות מה מתקבל
+  console.log("Server received params:", resolvedParams);
+  console.log("Extracted ID:", id);
+  
+  if (!id) {
+      redirect("/history");
+  }
+
+  // 2. יצירת קלאיינט עם הרשאות אדמין (עוקף RLS)
+  const supabase = getAdminClient();
+  
+  // 3. שליפת המידע המלא
+  const { data, error } = await supabase
+    .from('search_history')
+    .select('id, status, details, created_at, image_url, content')
+    .eq('id', id)
+    .single();
+
+  // אם לא נמצא מידע, מחזירים 404
+  if (error || !data) {
+      return notFound(); 
+  }
+
+  // 4. עיבוד הנתונים לפורמט שהקומפוננטה מצפה לו
+  const formattedData = {
+    id: data.id,
+    status: data.status,
+    details: data.details, 
+    date: formatDate(data.created_at),
+    content: cleanSmsContent(data.content)
+  };
+
+  // 5. העברת הנתונים לקומפוננטת הלקוח לתצוגה
   return (
     <Suspense fallback={<div>טוען פרטים...</div>}>
-      <DetailClient />
+      <DetailClient data={formattedData} />
     </Suspense>
   );
 }
