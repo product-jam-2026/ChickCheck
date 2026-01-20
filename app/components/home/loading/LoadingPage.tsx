@@ -38,7 +38,7 @@ export default function LoadingPage({
         muted
         playsInline
       >
-        <source src="/animations/loading_cups.mp4" type="video/mp4" />
+        <source src="/animations/loading_cups_2.mp4" type="video/mp4" />
       </video>
       <div className={styles.loadingContent}>
         <LoadingProgressBar progress={progress} />

@@ -7,7 +7,7 @@
   background: #E3F0FA;
   position: relative;
   overflow: hidden;
-  padding-top: calc(var(--safe-area-inset-top) + 1.2rem);
+  padding-top: calc(var(--safe-area-inset-top) + 1rem);
   box-sizing: border-box;
 }
 
