@@ -1,35 +1,34 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import styles from "./page.module.css";
 
 const ADMIN_EMAIL = "galeliahu30@gmail.com";
 
-export default function SplashPage() {
+function SplashContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [targetRoute, setTargetRoute] = useState<string | null>(null);
 
+  // הגדר את רקע ה-overscroll לאפור (רקע הדף)
   useEffect(() => {
-    // הגדר את רקע ה-overscroll לאפור (רקע הדף)
     const bgColor = '#1F1F1F';
     document.documentElement.style.setProperty('--overscroll-background', bgColor);
     document.documentElement.style.backgroundColor = bgColor;
     document.body.style.backgroundColor = bgColor;
     
     return () => {
-      // איפוס בעת יציאה מהדף
       document.documentElement.style.removeProperty('--overscroll-background');
       document.documentElement.style.removeProperty('background-color');
       document.body.style.removeProperty('background-color');
     };
   }, []);
 
+  // בדוק אם המשתמש מחובר וקבע את היעד
   useEffect(() => {
-    // בדוק אם המשתמש מחובר וקבע את היעד
     const checkAuth = async () => {
       try {
         const supabase = createClient();
@@ -39,16 +38,11 @@ export default function SplashPage() {
         
         if (authenticated) {
           // בדוק אם זה מגיע מ-auth callback
-          const fromAuth = searchParams.get("fromAuth") === "true";
           const role = searchParams.get("role");
           
           if (role === "admin") {
             setTargetRoute("/admin");
           } else {
-            // אם זה לא admin, צריך להציג את עמוד הבית
-            // אבל "/" תמיד יפנה ל-splash, אז נשתמש ב-router.replace עם window.location
-            // למעשה, נצטרך לבדוק אם יש route אחר לעמוד הבית
-            // בואו נבדוק אם יש route "/home" או נעבור ישירות ל-"/" דרך window.location
             setTargetRoute("/");
           }
         } else {
@@ -100,5 +94,25 @@ export default function SplashPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SplashPage() {
+  return (
+    <Suspense fallback={
+      <div className={styles.page}>
+        <div className={styles.content}>
+          <div className={styles.logoContainer}>
+            <img
+              src="/icons/chickcheck_logo_splash.svg"
+              alt="ChickCheck"
+              className={styles.mainLogo}
+            />
+          </div>
+        </div>
+      </div>
+    }>
+      <SplashContent />
+    </Suspense>
   );
 }
