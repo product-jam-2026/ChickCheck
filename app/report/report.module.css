@@ -8,7 +8,6 @@ align-items: center;
 background-color: #E3F0FA;
 width: 100%;
 height: 100%;
-flex: 1;
 overflow: hidden; 
 box-sizing: border-box;
 }
@@ -110,13 +109,10 @@ flex-direction: column;
 align-items: center;
 gap: 0;
 width: 100%;
-height: 100%;
-flex: 1;
+height: 100dvh;
 background-color: #E3F0FA;
 box-sizing: border-box;
 overflow: hidden;
-
-overflow-y: auto;
 }
 
 .step_one_forward_button{

@@ -552,16 +552,12 @@ export default function ReportProcess() {
     document.documentElement.style.backgroundColor = bgColor;
     document.body.style.backgroundColor = bgColor;
 
-    document.documentElement.style.height = '100%';
-    document.body.style.height = '100%';
     document.documentElement.style.overscrollBehavior = 'none';
     document.body.style.overscrollBehavior = 'none';
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
     
     return () => {
-      document.documentElement.style.removeProperty('height');
-      document.body.style.removeProperty('height');
       document.documentElement.style.removeProperty('background-color');
       document.body.style.removeProperty('background-color');
       document.documentElement.style.removeProperty('--overscroll-background');
@@ -635,19 +631,14 @@ export default function ReportProcess() {
       paddingBottom: 'env(safe-area-inset-bottom)',
       paddingLeft: 'env(safe-area-inset-left)',
       paddingRight: 'env(safe-area-inset-right)',
-      height: '100%',
+      height: '100dvh',
       width: '100%',
       overflow: 'hidden',
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      zIndex: 9999
+      position: 'relative'
     }}>
       {/* Step Rendering */}
       {step === 0 && <LandingStep onNext={nextStep} onBack={prevStep}/>}
