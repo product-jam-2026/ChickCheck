@@ -653,16 +653,17 @@ export default function ReportProcess() {
 }
 
 //* TODO LIST:
-// 0. Scroll on phone
+// 0. BUG IN REPORT ONE TIME SECTION GOES DOWN, ONE TIME GOES UP, very STRANGE
 // 1. Send to mail instead of supabase and send misron option
 // 2. Raphael if english start left
 // 3. Maybe change form flow
 // 4. Maybe change form subject options
-// 5. Verify the edited mail is correct else disable next
 // 5. In mail section text is cut up
+// 6. If user didn't filled Name and clicks on continue the background text in cell red, same for mail if mail is empty or not correct
+// 7. Icon app
+// 5. Smaller space between text and icon
 
-// 5. Change arikha button background to be blue instead of none and maybe smaller space between text and icon
-// 6. Add Error Handling in UI to show the user what is not filled in correctly
+
 // 7. If I time take the answer from gemini and if he clicks on report then take the image and the asnwer of gemini to add to the report automatically
 
 // 8. Try and make it work on different screen sizes
