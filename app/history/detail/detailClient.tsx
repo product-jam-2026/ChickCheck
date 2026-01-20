@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link"; // הוספת ייבוא ללינק
 import { useRouter } from "next/navigation";
 import styles from "../page.module.css";
 import BackButton from "@/app/components/BackButton";
@@ -21,6 +22,7 @@ export interface SearchHistoryItem {
 
 interface Props {
     data: SearchHistoryItem;
+    isPublic?: boolean; // פרמטר חדש (אופציונלי, ברירת מחדל false)
 }
 
 const STATUS_ICON: Record<Status, string> = {
@@ -35,20 +37,41 @@ const statusToText: Record<Status, React.ReactNode> = {
     UNCLEAR: <>לא הצלחנו לקבוע<br/>אם התוכן אמין או לא</>,
 };
 
-export default function HistoryContent({ data }: Props) {
+export default function HistoryContent({ data, isPublic = false }: Props) {
     const router = useRouter();
-
-    // אין כאן יותר useEffect או useState!
-    // המידע מגיע מוכן בתוך data
 
     return (
         <main className={styles.Detailcontainer}>
             <div className={styles.topSpacer}>
-                <BackButton href="/history" />
+                {/* לוגיקת כפתור עליון: חזור בהיסטוריה, או הביתה בשיתוף */}
+                {!isPublic ? (
+                    <BackButton href="/history" />
+                ) : (
+                    <Link 
+                        href="/" 
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            color: '#E3F0FA', // צבע הטקסט מהעיצוב שלך
+                            textDecoration: 'none',
+                            fontSize: '1.1rem',
+                            fontWeight: 500,
+                            direction: 'rtl'
+                        }}
+                    >
+                        {/* אפשר להחליף לאייקון בית אם יש לך, כרגע שמתי חץ קטן */}
+                        <span>🏠</span> 
+                        לעמוד הבית / התחברות
+                    </Link>
+                )}
             </div>
 
             <div className={styles.titleBar}>
-                <h1 className={styles.pageTitle}>בדיקה בתאריך {data.date}</h1>
+                <h1 className={styles.pageTitle}>
+                    {/* כותרת מותאמת למצב שיתוף */}
+                    {isPublic ? "תוצאות בדיקת ChickCheck" : `בדיקה בתאריך ${data.date}`}
+                </h1>
             </div>
 
             <section className={styles.content}>
@@ -61,6 +84,7 @@ export default function HistoryContent({ data }: Props) {
                 </div>
 
                 {/* Button to zoom into screenshot */}
+				{!isPublic && (
                 <button
                     className={styles.screenshotButton}
                     onClick={() => router.push(`/history/screenshot?id=${data.id}`)}
@@ -74,6 +98,7 @@ export default function HistoryContent({ data }: Props) {
                         className={styles.screenshotIcon}
                     />
                 </button>
+				)}
 
                 {/* Result section with status */}
                 <div className={styles.resultHeader}>
@@ -104,7 +129,10 @@ export default function HistoryContent({ data }: Props) {
                     </div>
                 )}
                 
-                <ShareButton resultId={data.id} />
+                {/* כפתור שיתוף - מוצג רק אם זה לא מצב ציבורי */}
+                {!isPublic && (
+                    <ShareButton resultId={data.id} />
+                )}
             </section>
         </main>
     );
