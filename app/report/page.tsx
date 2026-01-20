@@ -635,14 +635,19 @@ export default function ReportProcess() {
       paddingBottom: 'env(safe-area-inset-bottom)',
       paddingLeft: 'env(safe-area-inset-left)',
       paddingRight: 'env(safe-area-inset-right)',
-      height: '100dvh',
+      height: '100%',
       width: '100%',
       overflow: 'hidden',
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      position: 'relative'
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: 9999
     }}>
       {/* Step Rendering */}
       {step === 0 && <LandingStep onNext={nextStep} onBack={prevStep}/>}
