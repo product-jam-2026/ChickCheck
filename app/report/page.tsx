@@ -638,7 +638,8 @@ export default function ReportProcess() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      position: 'relative'
+      position: 'relative',
+      justifyContent: 'flex-start'
     }}>
       {/* Step Rendering */}
       {step === 0 && <LandingStep onNext={nextStep} onBack={prevStep}/>}

@@ -2,7 +2,7 @@
 
 .step_zero_main_frame{
 display: flex;
-padding: 1.2rem 0 2rem 0;
+padding: 0.5rem 0 2rem 0;
 flex-direction: column;
 align-items: center;
 background-color: #E3F0FA;
@@ -10,7 +10,6 @@ width: 100%;
 height: 100%;
 overflow: hidden; 
 box-sizing: border-box;
-justify-content: flex-start;
 }
 
 .step_zero_text_arrow_frame{
@@ -105,7 +104,7 @@ line-height: normal;
 /*Step 1*/
 .step_one_auto{
 display: flex;
-padding: 1.2rem 0 2rem 0;
+padding: 0.5rem 0 2rem 0;
 flex-direction: column;
 align-items: center;
 gap: 0;
@@ -114,7 +113,7 @@ height: 100dvh;
 background-color: #E3F0FA;
 box-sizing: border-box;
 overflow: hidden;
-position: relative;
+justify-content: flex-start;
 }
 
 .step_one_forward_button{
@@ -144,14 +143,12 @@ line-height: normal;
 display: flex;
 width: 100%;
 padding: 0 1rem;
-padding-top: 1%;
 flex-direction: column;
 justify-content: flex-start;
 align-items: center;
 gap: 0.625rem;
 flex: 1;
-min-height: 0;
-overflow-y: auto;
+  min-height: 0;
 }
 
 .step_one_sub_sub_frame{
@@ -243,7 +240,7 @@ line-height: normal;
 
 .step_one_sub_sub_sub_frame_progress_bar{
 display: flex;
-height: 7rem;
+height: 20%;
 padding-bottom: 0.8125rem;
 justify-content: center;
 align-items: center;
