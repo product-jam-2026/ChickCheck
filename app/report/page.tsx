@@ -553,7 +553,6 @@ export default function ReportProcess() {
     document.body.style.backgroundColor = bgColor;
 
     document.body.style.overflow = 'hidden';
-    document.body.style.overscrollBehavior = 'none';
     
     return () => {
       document.documentElement.style.removeProperty('--overscroll-background');
@@ -561,7 +560,6 @@ export default function ReportProcess() {
       document.body.style.removeProperty('background-color');
 
       document.body.style.removeProperty('overflow');
-      document.body.style.removeProperty('overscroll-behavior');
     };
   }, []);
   
@@ -628,9 +626,7 @@ export default function ReportProcess() {
       paddingBottom: 'env(safe-area-inset-bottom)',
       paddingLeft: 'env(safe-area-inset-left)',
       paddingRight: 'env(safe-area-inset-right)',
-      height: '100vh',
-      boxSizing: 'border-box',
-      overflow: 'hidden',
+      minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center'
@@ -654,6 +650,7 @@ export default function ReportProcess() {
 // 3. Maybe change form flow
 // 4. Maybe change form subject options
 // 5. Verify the edited mail is correct else disable next
+// 5. In mail section text is cut up
 
 // 5. Change arikha button background to be blue instead of none and maybe smaller space between text and icon
 // 6. Add Error Handling in UI to show the user what is not filled in correctly
