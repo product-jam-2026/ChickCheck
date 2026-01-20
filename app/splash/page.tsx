@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import styles from "./page.module.css";
 
@@ -9,7 +9,9 @@ const ADMIN_EMAIL = "galeliahu30@gmail.com";
 
 export default function SplashPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [targetRoute, setTargetRoute] = useState<string | null>(null);
 
   useEffect(() => {
     // הגדר את רקע ה-overscroll לאפור (רקע הדף)
@@ -27,45 +29,57 @@ export default function SplashPage() {
   }, []);
 
   useEffect(() => {
-    // בדוק אם המשתמש מחובר
+    // בדוק אם המשתמש מחובר וקבע את היעד
     const checkAuth = async () => {
       try {
         const supabase = createClient();
         const { data: { session } } = await supabase.auth.getSession();
-        setIsAuthenticated(!!session?.user);
+        const authenticated = !!session?.user;
+        setIsAuthenticated(authenticated);
+        
+        if (authenticated) {
+          // בדוק אם זה מגיע מ-auth callback
+          const fromAuth = searchParams.get("fromAuth") === "true";
+          const role = searchParams.get("role");
+          
+          if (role === "admin") {
+            setTargetRoute("/admin");
+          } else {
+            // אם זה לא admin, צריך להציג את עמוד הבית
+            // אבל "/" תמיד יפנה ל-splash, אז נשתמש ב-router.replace עם window.location
+            // למעשה, נצטרך לבדוק אם יש route אחר לעמוד הבית
+            // בואו נבדוק אם יש route "/home" או נעבור ישירות ל-"/" דרך window.location
+            setTargetRoute("/");
+          }
+        } else {
+          setTargetRoute("/login");
+        }
       } catch (error) {
         console.error("Error checking auth:", error);
         setIsAuthenticated(false);
+        setTargetRoute("/login");
       }
     };
 
     checkAuth();
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
-    // Redirect after 2.5 seconds based on authentication status
-    if (isAuthenticated === null) return; // עדיין בודקים
+    // Redirect after 2.5 seconds based on authentication status and target route
+    if (isAuthenticated === null || targetRoute === null) return; // עדיין בודקים
 
     const timer = setTimeout(() => {
-      if (isAuthenticated) {
-        // אם המשתמש מחובר, בדוק אם הוא admin
-        const supabase = createClient();
-        supabase.auth.getSession().then(({ data: { session } }) => {
-          const userEmail = session?.user?.email;
-          if (userEmail === ADMIN_EMAIL) {
-            router.push("/admin");
-          } else {
-            router.push("/");
-          }
-        });
+      if (targetRoute === "/") {
+        // עבור root, נשתמש ב-query param כדי לסמן שזה מגיע מ-splash
+        // זה יאפשר ל-middleware לדעת לאפשר גישה ישירה
+        router.push("/?fromSplash=true");
       } else {
-        // אם המשתמש לא מחובר, העבר ל-login
-        router.push("/login");
+        router.push(targetRoute);
       }
     }, 2500);
 
     return () => clearTimeout(timer);
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, targetRoute, router]);
 
   return (
     <div className={styles.page}>

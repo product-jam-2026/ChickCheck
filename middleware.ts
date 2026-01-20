@@ -143,9 +143,17 @@ export async function middleware(request: NextRequest) {
     // Allow logged-in users to access the home page (don't force them back to login)
     // The "force fresh login" only applies when they first visit, not after successful login
 
-    // If accessing root, always redirect to splash (even if logged in)
-    // This ensures splash screen always appears on app open
+    // If accessing root, check if we're coming from splash with a session
+    // If coming from splash with session, allow direct access (to prevent redirect loop)
+    // Otherwise, redirect to splash to ensure it always appears on app open
+    const isFromSplash = request.nextUrl.searchParams.get("fromSplash") === "true";
     if (pathname === "/" && !isSplashPage) {
+      // If we have a session and came from splash, allow access
+      if (effectiveUser && isFromSplash) {
+        console.log("✅ Allowing direct access to root from splash");
+        return response;
+      }
+      // Otherwise, redirect to splash (first time opening app)
       console.log("🔀 Redirecting root to /splash");
       return NextResponse.redirect(new URL("/splash", request.url));
     }
