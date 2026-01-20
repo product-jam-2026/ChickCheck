@@ -240,7 +240,7 @@ line-height: normal;
 
 .step_one_sub_sub_sub_frame_progress_bar{
 display: flex;
-height: 20%;
+height: auto;
 padding-bottom: 0.8125rem;
 justify-content: center;
 align-items: center;
