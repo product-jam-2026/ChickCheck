@@ -23,10 +23,10 @@ export default function SplashPage() {
   }, []);
 
   useEffect(() => {
-    // Redirect to login after 2 seconds
+    // Redirect to login after 2.5 seconds
     const timer = setTimeout(() => {
       router.push("/login");
-    }, 2000);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, [router]);
