@@ -552,12 +552,16 @@ export default function ReportProcess() {
     document.documentElement.style.backgroundColor = bgColor;
     document.body.style.backgroundColor = bgColor;
 
+    document.documentElement.style.height = '100%';
+    document.body.style.height = '100%';
     document.documentElement.style.overscrollBehavior = 'none';
     document.body.style.overscrollBehavior = 'none';
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
     
     return () => {
+      document.documentElement.style.removeProperty('height');
+      document.body.style.removeProperty('height');
       document.documentElement.style.removeProperty('background-color');
       document.body.style.removeProperty('background-color');
       document.documentElement.style.removeProperty('--overscroll-background');
