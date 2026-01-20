@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link"; // הוספת ייבוא ללינק
 import { useRouter } from "next/navigation";
@@ -39,6 +39,21 @@ const statusToText: Record<Status, React.ReactNode> = {
 
 export default function HistoryContent({ data, isPublic = false }: Props) {
     const router = useRouter();
+
+    useEffect(() => {
+        // הגדר את רקע ה-overscroll לאפור (רקע הדף)
+        const bgColor = '#1F1F1F';
+        document.documentElement.style.setProperty('--overscroll-background', bgColor);
+        document.documentElement.style.backgroundColor = bgColor;
+        document.body.style.backgroundColor = bgColor;
+        
+        return () => {
+            // איפוס בעת יציאה מהדף
+            document.documentElement.style.removeProperty('--overscroll-background');
+            document.documentElement.style.removeProperty('background-color');
+            document.body.style.removeProperty('background-color');
+        };
+    }, []);
 
     return (
         <main className={styles.Detailcontainer}>
