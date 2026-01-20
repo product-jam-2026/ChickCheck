@@ -81,7 +81,8 @@ export default function Page() {
         {/* Top Content (Icon + Text) - Dims when Info is open */}
         <div className={showInfo ? styles.dimmed : ''}>
             <div className={styles.topRow}>
-                <div className={styles.iconContainer}>
+                <div className={`${styles.iconContainer} 
+                ${status === "NOT_SAFE" ? styles.iconContainerNotSafe : ''}`}>
                     <Icon status={status} />
                 </div>
             </div>
@@ -142,7 +143,6 @@ export default function Page() {
                     </div>
                 </div>
             )}
-        {/* --- CHANGED SECTION ENDS HERE --- */}
       </div>
     </main>
   );
@@ -183,7 +183,7 @@ function Text({ status, onInfoClick }: { status: AnalysisResult['status'], onInf
             <span>יכולים לשתף בני משפחה וחברים ולהזהיר מהונאה.</span>
           </div>
           <p className={styles.warningSecondary}>
-            במידה ולחצת על הקישור, יכולים לפנות אלינו בקו הסיוע ונעזור לברר את העניין במהירות !
+            במידה ולחצת על הקישור, יכולים לפנות אלינו בקו הסיוע ונעזור לברר את העניין !
           </p>
         </>
       );
@@ -229,7 +229,7 @@ function Text({ status, onInfoClick }: { status: AnalysisResult['status'], onInf
             <span>יכולים לשתף בני משפחה וחברים, להתייעץ ולהזהיר מהונאה.</span>
           </div>
           <p className={styles.warningSecondary}>
-            במידה ולחצת על הקישור, יכולים לפנות אלינו בקו הסיוע ונעזור לברר את העניין במהירות !
+            במידה ולחצת על הקישור, יכולים לפנות אלינו בקו הסיוע ונעזור לברר את העניין !
           </p>
         </>
       );
