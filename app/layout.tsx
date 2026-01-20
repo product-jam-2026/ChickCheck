@@ -15,19 +15,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="he" dir="rtl">
       <head>
         {/* Browser Favicon */}
-        <link rel="icon" href="/icons/isoc_icon.svg" />
+        <link rel="icon" href="/icons/app_icon.png" />
         {/* Apple Icon */}
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/icons/isoc_icon.svg"
+          href="/icons/app_icon.png"
         />
         {/* Android Icon */}
         <link
           rel="icon"
           type="image/png"
           sizes="192x192"
-          href="/icons/isoc_icon.svg"
+          href="/icons/app_icon.png"
         />
         <link rel="manifest" href="/manifest.json" />
         
