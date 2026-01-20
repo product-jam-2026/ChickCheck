@@ -16,7 +16,7 @@ export const formatDate = (isoString: string): string => {
 export const createPreview = (text: string | null): string => {
     console.log("Creating preview for text:", text);
   if (!text) return "תוכן לא זמין";
-  return text.length > 50 ? text.substring(0, 50) + "..." : text;
+  return text.length > 40 ? text.substring(0, 40) + "..." : text;
 };
 
 export const cleanSmsContent = (rawText: string): string => {

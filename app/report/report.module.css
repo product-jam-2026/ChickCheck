@@ -2,7 +2,7 @@
 
 .step_zero_main_frame{
 display: flex;
-padding: 2.375rem 0 2.375rem 0;
+padding: 1.2rem 0 2rem 0;
 flex-direction: column;
 align-items: center;
 background-color: #E3F0FA;
@@ -104,7 +104,7 @@ line-height: normal;
 /*Step 1*/
 .step_one_auto{
 display: flex;
-padding: 2.375rem 0 2.9375rem 0;
+padding: 1.2rem 0 2rem 0;
 flex-direction: column;
 align-items: center;
 gap: 0;
