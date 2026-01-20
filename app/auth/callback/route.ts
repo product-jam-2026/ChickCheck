@@ -19,13 +19,14 @@ export async function GET(request: Request) {
         return NextResponse.redirect(new URL("/login?message=Authentication failed", requestUrl.origin));
       }
       
-      // After successful login, redirect based on user role
+      // After successful login, redirect to splash (which will then redirect to home)
+      // This ensures splash screen always appears after login
       if (data?.user?.email === ADMIN_EMAIL) {
-        return NextResponse.redirect(new URL("/admin", requestUrl.origin));
+        return NextResponse.redirect(new URL("/splash?fromAuth=true&role=admin", requestUrl.origin));
       }
       
-      // Regular users go to home page
-      return NextResponse.redirect(new URL("/", requestUrl.origin));
+      // Regular users go to splash (which will then redirect to home)
+      return NextResponse.redirect(new URL("/splash?fromAuth=true", requestUrl.origin));
     } catch (error) {
       console.error("Error in auth callback:", error);
       return NextResponse.redirect(new URL("/login?message=Authentication error", requestUrl.origin));
