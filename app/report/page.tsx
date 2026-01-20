@@ -143,7 +143,14 @@ const IdentityStep = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); 
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+  return (
+    <main>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+        <p>טוען...</p>
+      </div>
+    </main>
+  );}
 
   return (
     // MAIN FRAME
@@ -238,13 +245,12 @@ const EditDetailsStep = ({
             {/* Email */}
             <input
               type="email"
-              className={styles.step_edit_input}
+              className={`${styles.step_edit_input} ${styles.step_edit_input_ltr}`}
               placeholder="כתובת מייל"
               value={data.email}
               onChange={(e) => set({ ...data, email: e.target.value })}
             />
           </div>
-
         </div>
       </div>
 
@@ -258,7 +264,6 @@ const EditDetailsStep = ({
           המשך
         </span>
       </button>
-
     </div>
   );
 };
@@ -394,7 +399,7 @@ const DescriptionStep = ({
       {/* "Finished" Button */}
       <button 
         onClick={onNext} 
-        disabled={!data.description || data.description.length < 2} 
+        disabled={!data.description || data.description.length < 1} 
         className={data.description ? styles.step_one_forward_button : styles.step_one_forward_button_disabled}
       >
         <span className={styles.step_one_forward_button_text}>
@@ -511,7 +516,7 @@ const SuccessStep = ({ onExit }: { onExit: () => void }) => {
             className={styles.step_success_action_button}
           >
             <span className={styles.step_success_button_text}>פנייה דחופה</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg className={styles.step_success_button_icon} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M0 24L1.69505 17.837C0.649083 16.033 0.0994725 13.988 0.100477 11.891C0.103492 5.335 5.46395 0 12.0502 0C15.2464 0.001 18.2467 1.24 20.5034 3.488C22.7591 5.736 24.001 8.724 24 11.902C23.997 18.459 18.6365 23.794 12.0502 23.794C10.0507 23.793 8.08038 23.294 6.33509 22.346L0 24ZM6.62849 20.193C8.31248 21.188 9.92012 21.784 12.0462 21.785C17.5202 21.785 21.9794 17.351 21.9824 11.9C21.9844 6.438 17.5463 2.01 12.0543 2.008C6.57624 2.008 2.12007 6.442 2.11806 11.892C2.11706 14.117 2.77217 15.783 3.87239 17.526L2.86863 21.174L6.62849 20.193ZM18.0698 14.729C17.9955 14.605 17.7965 14.531 17.4971 14.382C17.1987 14.233 15.7307 13.514 15.4564 13.415C15.1831 13.316 14.9842 13.266 14.7842 13.564C14.5853 13.861 14.0126 14.531 13.8387 14.729C13.6649 14.927 13.4901 14.952 13.1917 14.803C12.8932 14.654 11.9307 14.341 10.7903 13.328C9.90304 12.54 9.30319 11.567 9.12936 11.269C8.95554 10.972 9.11128 10.811 9.25998 10.663C9.39462 10.53 9.5584 10.316 9.70811 10.142C9.85983 9.97 9.90907 9.846 10.0095 9.647C10.109 9.449 10.0598 9.275 9.98443 9.126C9.90907 8.978 9.31223 7.515 9.06405 6.92C8.8209 6.341 8.57473 6.419 8.39186 6.41L7.81914 6.4C7.6202 6.4 7.29666 6.474 7.02336 6.772C6.75006 7.07 5.9784 7.788 5.9784 9.251C5.9784 10.714 7.04848 12.127 7.19719 12.325C7.3469 12.523 9.30219 15.525 12.2974 16.812C13.0098 17.118 13.5664 17.301 13.9995 17.438C14.7149 17.664 15.366 17.632 15.8804 17.556C16.4542 17.471 17.6468 16.837 17.896 16.143C18.1452 15.448 18.1452 14.853 18.0698 14.729Z" fill="#1F1F1F"/>
             </svg>
           </a>
@@ -523,7 +528,7 @@ const SuccessStep = ({ onExit }: { onExit: () => void }) => {
           >
              {/* X Icon */}
             <span className={styles.step_success_button_text}>סגירה</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+            <svg className={styles.step_success_button_icon} xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
               <path d="M19.875 6.93237L14.1621 12.6462L13.8086 12.9998L19.876 19.0671L19.0664 19.8767L12.999 13.8093L12.6455 14.1628L6.93164 19.8757L6.12207 19.0662L11.8359 13.3533L12.1895 12.9998L6.12305 6.93335L6.93262 6.12378L12.999 12.1902L13.3525 11.8367L19.0654 6.1228L19.875 6.93237Z" fill="#1F1F1F" stroke="#1F1F1F"/>
             </svg>
           </button>
@@ -546,11 +551,15 @@ export default function ReportProcess() {
     document.documentElement.style.setProperty('--overscroll-background', bgColor);
     document.documentElement.style.backgroundColor = bgColor;
     document.body.style.backgroundColor = bgColor;
+
+    document.body.style.overflow = 'hidden';
     
     return () => {
       document.documentElement.style.removeProperty('--overscroll-background');
       document.documentElement.style.removeProperty('background-color');
       document.body.style.removeProperty('background-color');
+
+      document.body.style.removeProperty('overflow');
     };
   }, []);
   
@@ -573,16 +582,16 @@ export default function ReportProcess() {
   
   // The "Arrow in the up right" logic
   const prevStep = () => {
-    if (step === 0) {
-      router.back(); // If at start, go back to previous website page
-    } else {
-      setStep((prev) => prev - 1); // Otherwise, go to previous form step
-    }
-
     if (step === 1 && isEditingDetails) {
       // If back is clicked in Edit Mode, just go back to Read-Only mode
       setIsEditingDetails(false);
       return;
+    }
+
+    if (step === 0) {
+      router.back(); // If at start, go back to previous website page
+    } else {
+      setStep((prev) => prev - 1); // Otherwise, go to previous form step
     }
   };
 
@@ -635,15 +644,14 @@ export default function ReportProcess() {
 }
 
 //* TODO LIST:
-// 1. Double Check Design
-// 2. Add Error Handling in UI to show the user what is not filled in correctly
-// 3. Try and make it work on different screen sizes
-// 4. Sent Icon
-// 5. Add phone Whatsapp
-// 6. Try on my phone
-// 7. Import to font
-// 8. Send to mail instead of supabase
-// 9. Safe-Zone
-// 10. Arrow at the beggining of report is blue
-// 11. Make sure RTL is perfect
-// 12. When editing details, going back should go to read-only mode instead of previous step because then I get to step 0
+// 1. Send to mail instead of supabase and send misron option
+// 2. Raphael if english start left
+// 3. Maybe change form flow
+// 4. Maybe change form subject options
+
+// 5. Change arikha button background to be blue instead of none and maybe smaller space between text and icon
+// 6. Add Error Handling in UI to show the user what is not filled in correctly
+// 7. If I time take the answer from gemini and if he clicks on report then take the image and the asnwer of gemini to add to the report automatically
+
+// 8. Try and make it work on different screen sizes
+// 9. Try on my phone
