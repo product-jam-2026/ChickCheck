@@ -6,6 +6,9 @@ const ADMIN_EMAIL = "galeliahu30@gmail.com";
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  if (pathname.startsWith("/share")) {
+    return NextResponse.next();
+  }
   
   // #region agent log
   fetch('http://127.0.0.1:7242/ingest/2600f1ea-6163-4727-b2f4-4c6dde08e0c7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'middleware.ts:7',message:'Middleware entry',data:{pathname,referer:request.headers.get('referer'),userAgent:request.headers.get('user-agent')?.substring(0,50)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,C,D,E'})}).catch(()=>{});
@@ -210,6 +213,6 @@ export async function middleware(request: NextRequest) {
 export const config = {
   // Match all routes except API, Next static assets, and common static files
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|manifest.json|icons|.*\\.svg).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|manifest.json|icons|share|.*\\.svg).*)",
   ],
 };

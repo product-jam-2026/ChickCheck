@@ -18,7 +18,7 @@ export default function ShareButton({ resultId }: ShareButtonProps) {
 
     // בניית הלינק המלא לעמוד ההיסטוריה
     // שימי לב: אנחנו תמיד מפנים לעמוד ההיסטוריה, גם אם אנחנו כרגע בעמוד התוצאות
-    const shareUrl = `${window.location.origin}/history/detail?id=${resultId}`;
+    const shareUrl = `${window.location.origin}/share?id=${resultId}`;
 
     const shareData = {
       title: "ChickCheck - תוצאות בדיקה",
