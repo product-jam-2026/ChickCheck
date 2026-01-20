@@ -2,17 +2,19 @@
 
 .step_zero_main_frame{
 display: flex;
-padding: 2.375rem 0 27.875rem 0;
+padding: 2.375rem 0 2.375rem 0;
 flex-direction: column;
 align-items: center;
 background-color: #E3F0FA;
 width: 100%;
-min-height: 100%;
+height: 100%;
+overflow: hidden; 
+box-sizing: border-box;
 }
 
 .step_zero_text_arrow_frame{
 display: flex;
-width: 24.5625rem;
+width: 90%;
 padding-inline: 0 1rem;
 flex-direction: column;
 justify-content: center;
@@ -29,8 +31,8 @@ gap: 5.1875rem;
 }
 
 .step_zero_arrow {
-  width: 1.20831rem;
-  height: 1.20831rem;
+  width: auto;
+  height: auto;
   /* This CSS fill will only work if you remove the 'fill' attribute 
      from the SVG tag itself, or if you use !important */
   fill: var(--d-9-d-9-d-9, #1F1F1F); 
@@ -47,7 +49,7 @@ align-self: stretch;
 }
 
 .step_zero_first_text{
-width: 13.9375rem;
+width: 100%;
 color: #1F1F1F;
 text-align: right;
 font-family: SimplerPro;
@@ -55,10 +57,11 @@ font-size: 1.875rem;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
+white-space: nowrap;
 }
 
 .step_zero_second_text{
-width: 21.6875rem;
+width: 100%;
 color: #1F1F1F;
 text-align: start;
 font-family: SimplerPro_V3;
@@ -70,7 +73,7 @@ line-height: 1.75rem; /* 127.273% */
 
 .step_zero_button{
 display: flex;
-width: 11.875rem;
+width: 57%;
 height: 2.75rem;
 padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
 justify-content: center;
@@ -92,22 +95,24 @@ line-height: normal;
 }
 
 .step_zero_button_icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: auto;
+  height: auto;
   flex-shrink: 0;
   fill: #1F1F1F; /* Ensures the icon is black */
 }
 
 /*Step 1*/
 .step_one_auto{
-display: inline-flex;
+display: flex;
 padding: 2.375rem 0 2.9375rem 0;
 flex-direction: column;
 align-items: center;
 gap: 0;
 width: 100%;
-height: 100vh;
+height: 100dvh;
 background-color: #E3F0FA;
+box-sizing: border-box;
+overflow: hidden;
 }
 
 .step_one_forward_button{
@@ -135,26 +140,30 @@ line-height: normal;
 
 .step_one_sub_frame{
 display: flex;
-width: 24.5625rem;
+width: 100%;
 padding: 0 1rem;
 flex-direction: column;
 justify-content: center;
 align-items: center;
 gap: 0.625rem;
+flex: 1;
+  min-height: 0;
 }
 
 .step_one_sub_sub_frame{
 display: flex;
 flex-direction: column;
-justify-content: center;
+justify-content: flex-start;
 align-items: flex-start;
 gap: 1.125rem;
 align-self: stretch;
+height: 100%; 
+  flex: 1;
 }
 
 .step_one_sub_sub_sub_frame_text_correct_button{
 display: flex;
-width: 22.5625rem;
+width: 100%;
 flex-direction: column;
 align-items: center;
 gap: 2rem;
@@ -211,8 +220,8 @@ align-items: center;
 }
 
 .step_one_sub_sub_sub_frame_text_correct_button_frame_button_icon{
-width: 1.125rem;
-height: 1.125rem;
+width: auto;
+height: auto;
 fill: var(--d-9-d-9-d-9, #1F1F1F);
 }
 
@@ -234,6 +243,7 @@ height: 7rem;
 padding-bottom: 0.8125rem;
 justify-content: center;
 align-items: center;
+width: 100%;
 }
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame{
@@ -252,8 +262,8 @@ align-items: center;
 }
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_x{
-width: 1.09375rem;
-height: 1.09375rem;
+width: auto;
+height: auto;
 fill: var(--d-9-d-9-d-9, #1F1F1F);
 stroke-width: 1px;
 stroke: var(--d-9-d-9-d-9, #1F1F1F);
@@ -266,8 +276,8 @@ background: transparent;
 }
 
 .step_one_sub_sub_sub_frame_progress_bar_inner_frame_frame_arrow_x_only_arrow{
-width: 1.20831rem;
-height: 1.20831rem;
+width: auto;
+height: auto;
 flex-shrink: 0;
 fill: var(--d-9-d-9-d-9, #1F1F1F);
 
@@ -491,6 +501,7 @@ line-height: 100%; /* 250% */
   display: flex;
   width: 100%;
   height: 14.125rem; /* Adjust height as needed */
+  margin-bottom: 1rem;
   border-radius: 1.9375rem;
   border: none;
   background-color: #C7DCED; /* Matches the light blue buttons */
@@ -502,7 +513,7 @@ line-height: 100%; /* 250% */
   padding: 0.9375rem 1.25rem;
   
   /* Text Styling */
-  color: #B4B3C1;
+  color: #1f1f1f;
   font-family: SimplerPro;
   font-size: 1.5rem;
   font-weight: 400;
@@ -517,6 +528,11 @@ line-height: 100%; /* 250% */
 .step_three_textarea::placeholder {
   color: #797979; /* Darker gray for placeholder */
   opacity: 1;
+}
+
+.step_three_textarea:focus {
+  color: #1F1F1F; /* Changes to black when editing */
+  outline: none;  /* Maintains your existing design without borders */
 }
 
 /* --- STEP 4: SUMMARY STYLES --- */
@@ -610,6 +626,9 @@ line-height: 100%; /* 250% */
   align-items: flex-start; /* Align text to right */
   gap: 0.625rem;
   align-self: stretch;
+  max-height: 10rem;
+  overflow-y: auto;
+  margin-bottom: 1rem;
 }
 
 .step_four_description_text {
@@ -632,13 +651,14 @@ line-height: 100%; /* 250% */
   align-items: center;
   width: 100%;
   padding: 0.5rem 0.6875rem;
-  margin-top: 30%;
+  margin-top: auto;
+  margin-bottom: auto;
   gap: 1.5rem;
 }
 
 .step_success_icon_container {
-  width: 11.25rem;
-  height: 13.375rem;
+  width: auto;
+  height: auto;
   flex-shrink: 0;
 }
 
@@ -675,11 +695,13 @@ line-height: 100%; /* 250% */
 /* Shared style for WhatsApp & Close buttons */
 .step_success_action_button {
   display: flex;
-  padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
+  padding: 0.4375rem 0.8125rem 0.4375rem 0.8125rem;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  flex: 1 0 0;
+  flex: 0;
+
+  min-width: fit-content;
   
   border-radius: 1rem;
   background-color: #C7DCED; /* The light blue/grey */
@@ -697,11 +719,18 @@ line-height: 100%; /* 250% */
   font-style: normal;
 }
 
+.step_success_button_icon {
+  flex-shrink: 0; /* Prevents the icon from getting squashed */
+  width: auto;
+  height: auto;
+  display: flex;
+}
+
 /* --- STEP 1 EDIT MODE (MANUAL ENTRY) --- */
 
 .step_edit_title_frame {
   display: flex;
-  height: 5.75rem;
+  height: 1.9rem;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
@@ -740,7 +769,7 @@ line-height: 100%; /* 250% */
   padding: 0.4375rem 0.8125rem 0.4375rem 0.5625rem;
   
   /* Text Styling */
-  color: #9CADBA;
+  color: #1F1F1F;
   font-family: SimplerPro;
   font-size: 1.5rem;
   font-style: normal;
@@ -751,5 +780,15 @@ line-height: 100%; /* 250% */
 
 .step_edit_input::placeholder {
   color: #797979;
-  opacity: 0.7;
+  opacity: 1;
+}
+
+.step_edit_input_ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.step_edit_input_ltr:placeholder-shown {
+  direction: rtl;
+  text-align: right;
 }
