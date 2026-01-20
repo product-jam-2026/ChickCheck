@@ -112,6 +112,7 @@ export default function HistoryListPage() {
 						<div 
 							key={it.id}
 							className={styles.historyRow}
+              onClick={() => router.push(`/history/detail?id=${it.id}`)}
 						>
                             {/* Right: status icon */}
 							<Image
@@ -128,14 +129,12 @@ export default function HistoryListPage() {
                             <div className={styles.historyDate}>{it.date}</div>
 
 							{/* Left: chevron */}
-                            <button
-                                className={styles.chevronButton}
-                                onClick={(e) => {
-                                e.stopPropagation(); // מונע "בעבוע" של הלחיצה למעלה (ליתר ביטחון)
-                                router.push(`/history/detail?id=${it.id}`)}}
-                                aria-label="צפה בפרטים" >
+                            <div
+                              className={styles.chevronButton}
+                              aria-label="צפה בפרטים"
+                              > 
                                 <span className={styles.chevron}>{">"}</span>
-                            </button>
+                            </div>
                         </div>
 					))}
 				</div>
