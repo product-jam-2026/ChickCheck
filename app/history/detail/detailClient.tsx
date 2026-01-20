@@ -111,7 +111,7 @@ export default function HistoryContent({ data, isPublic = false }: Props) {
                         alt={data.status}
                         width={33}
                         height={33}
-                        className={styles.DetailStatusIcon}
+                        className={styles.statusIcon}
                     />
                     <p className={styles.statusText}>
                         {statusToText[data.status]}

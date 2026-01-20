@@ -61,7 +61,7 @@ export default function HistoryListPage() {
           .from("search_history") // וודאי שזה שם הטבלה שלך
           .select("id, status, content, created_at") // שדות ספציפיים שביקשת
           .eq("user_id", user.id) // סינון לפי היוזר הנוכחי
-          .order("created_at", { ascending: false }); // מיון מהחדש לישן
+          .order("created_at", { ascending: false }).order("id", { ascending: false });; // מיון מהחדש לישן
 
         console.log("Raw history data:", data);
         console.log("user ID:", user.id);
