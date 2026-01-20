@@ -90,6 +90,10 @@
     flex-shrink: 0;
 }
 
+.iconContainerNotSafe {
+    margin-left: -7rem; 
+}
+
 /* 2. Ensure the image itself sits at the bottom of its allocated space */
 .Icon {
     width: auto;
