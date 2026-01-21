@@ -216,6 +216,34 @@ const EditDetailsStep = ({
   onBack: () => void;
   onExit: () => void;
 }) => {
+  // 1. CHANGE: Use separate states for each field's error
+  const [nameError, setNameError] = React.useState(false);
+  const [emailError, setEmailError] = React.useState(false);
+
+  // 2. Validation Logic (Used for Button Style & Next Step)
+  const isNameEnglish = /^[A-Za-z]/.test(data.fullName);
+  const isNameFilled = data.fullName && data.fullName.trim().length > 0;
+  
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+  
+  const isFormValid = isNameFilled && isEmailValid;
+
+  // 3. Handle "Continue" Click
+  const handleNextClick = () => {
+    // Check which specific fields are failing
+    const hasNameError = !isNameFilled;
+    const hasEmailError = !isEmailValid;
+
+    // Set the error states (True = Red, False = Normal)
+    setNameError(hasNameError);
+    setEmailError(hasEmailError);
+
+    // Only proceed if NO errors exist
+    if (!hasNameError && !hasEmailError) {
+      onNext();
+    }
+  };
+
   return (
     <div className={styles.step_one_auto}>
       
@@ -223,32 +251,47 @@ const EditDetailsStep = ({
       <div className={styles.step_one_sub_frame}>
         <div className={styles.step_one_sub_sub_frame}>
           
-          {/* Header: Still Step 1 "Details" */}
           <ProgressHeader step={1} onBack={onBack} onExit={onExit} />
           
-          {/* Title: "Filling Details" */}
           <div className={styles.step_edit_title_frame}>
             <h2 className={styles.step_edit_title_text}>מילוי פרטים:</h2>
           </div>
 
-          {/* Inputs */}
           <div className={styles.step_edit_inputs_container}>
-            {/* Full Name */}
+            {/* Full Name Input */}
             <input
               type="text"
-              className={styles.step_edit_input}
+              className={`
+                ${styles.step_edit_input} 
+                ${isNameEnglish ? styles.step_edit_input_ltr : ''}
+                ${nameError ? styles.step_edit_input_error : ''} 
+              `}
+              // Logic: Class depends purely on the 'nameError' state
               placeholder="שם מלא"
               value={data.fullName}
-              onChange={(e) => set({ ...data, fullName: e.target.value })}
+              onChange={(e) => {
+                set({ ...data, fullName: e.target.value });
+                // CHANGE: Clear error immediately when user types/deletes
+                if (nameError) setNameError(false);
+              }}
             />
             
-            {/* Email */}
+            {/* Email Input */}
             <input
               type="email"
-              className={`${styles.step_edit_input} ${styles.step_edit_input_ltr}`}
+              className={`
+                ${styles.step_edit_input} 
+                ${styles.step_edit_input_ltr}
+                ${emailError ? styles.step_edit_input_error : ''}
+              `}
+              // Logic: Class depends purely on the 'emailError' state
               placeholder="כתובת מייל"
               value={data.email}
-              onChange={(e) => set({ ...data, email: e.target.value })}
+              onChange={(e) => {
+                set({ ...data, email: e.target.value });
+                // CHANGE: Clear error immediately when user types/deletes
+                if (emailError) setEmailError(false);
+              }}
             />
           </div>
         </div>
@@ -256,9 +299,8 @@ const EditDetailsStep = ({
 
       {/* Continue Button */}
       <button 
-        onClick={onNext} 
-        disabled={!data.fullName || !data.email}
-        className={data.fullName && data.email ? styles.step_one_forward_button : styles.step_one_forward_button_disabled}
+        onClick={handleNextClick} 
+        className={isFormValid ? styles.step_one_forward_button : styles.step_one_forward_button_disabled}
       >
         <span className={styles.step_one_forward_button_text}>
           המשך
@@ -664,15 +706,7 @@ export default function ReportProcess() {
 
 //* TODO LIST:
 // 0. BUG IN REPORT ONE TIME SECTION GOES DOWN, ONE TIME GOES UP, very STRANGE
-// 1. Send to mail instead of supabase and send misron option
-// 2. Raphael if english start left
-// 3. Maybe change form flow
-// 4. Maybe change form subject options
-// 5. In mail section text is cut up
-// 6. If user didn't filled Name and clicks on continue the background text in cell red, same for mail if mail is empty or not correct
-// 7. Icon app
-// 5. Smaller space between text and icon
-
+// 1. Change mail sender and mail getter
 
 // 7. If I time take the answer from gemini and if he clicks on report then take the image and the asnwer of gemini to add to the report automatically
 

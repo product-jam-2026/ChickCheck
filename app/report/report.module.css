@@ -223,9 +223,11 @@ line-height: normal;
 
 .step_one_sub_sub_sub_frame_text_correct_button_frame_button{
 display: flex;
-width: 6.8125rem;
-justify-content: space-between;
+width: fit-content;
 align-items: center;
+gap: 0.7rem;
+cursor: pointer;
+justify-content: center;
 }
 
 .step_one_sub_sub_sub_frame_text_correct_button_frame_button_icon{
@@ -235,7 +237,7 @@ fill: var(--d-9-d-9-d-9, #1F1F1F);
 }
 
 .step_one_sub_sub_sub_frame_text_correct_button_frame_button_text{
-width: 5.3125rem;
+width: auto;
 flex-shrink: 0;
 color: #1F1F1F;
 text-align: right;
@@ -800,4 +802,15 @@ line-height: 100%; /* 250% */
 .step_edit_input_ltr:placeholder-shown {
   direction: rtl;
   text-align: right;
+}
+
+/* --- ERROR STATE FOR INPUTS --- */
+.step_edit_input_error {
+  color: #D32F2F !important; /* Red text */
+  background-color: #FFCDD2 !important; /* Light red background */
+}
+
+.step_edit_input_error::placeholder {
+  color: #D32F2F !important; /* Red placeholder text */
+  opacity: 1;
 }
