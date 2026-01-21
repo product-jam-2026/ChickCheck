@@ -32,7 +32,17 @@ function SplashContent() {
     let isMounted = true;
     let authCheckComplete = false;
     
-    const checkAuth = async () => {
+    // בדוק אם יש Supabase cookies - זה יכול לעזור לזהות משתמש מחובר גם אם ה-session check לא עובד
+    const hasSupabaseCookies = () => {
+      if (typeof document === "undefined") return false;
+      const cookies = document.cookie.split(";");
+      return cookies.some(cookie => 
+        cookie.trim().startsWith("sb-") || 
+        cookie.trim().includes("supabase")
+      );
+    };
+    
+    const checkAuth = async (retryCount = 0) => {
       try {
         const supabase = createClient();
         
@@ -49,7 +59,18 @@ function SplashContent() {
           const { data: userData, error: userError } = await supabase.auth.getUser();
           if (!userError && userData?.user) {
             authenticated = true;
+          } else if (retryCount < 2 && hasSupabaseCookies()) {
+            // אם יש cookies אבל ה-session check לא עבד, נסה שוב (זה יכול לקרות ב-Vercel)
+            console.log(`Retrying auth check (attempt ${retryCount + 1})`);
+            setTimeout(() => checkAuth(retryCount + 1), 500);
+            return;
           }
+        }
+        
+        // אם יש cookies אבל לא מצאנו session, נניח שהמשתמש מחובר (זה יכול לקרות ב-Vercel)
+        if (!authenticated && hasSupabaseCookies() && retryCount >= 2) {
+          console.warn("Has Supabase cookies but no session - assuming authenticated");
+          authenticated = true;
         }
         
         authCheckComplete = true;
@@ -72,28 +93,53 @@ function SplashContent() {
         }
       } catch (error) {
         console.error("Error checking auth:", error);
-        authCheckComplete = true;
-        if (!isMounted) return;
-        setIsAuthenticated(false);
-        setTargetRoute("/login");
+        
+        // אם יש cookies אבל יש שגיאה, נניח שהמשתמש מחובר (זה יכול לקרות ב-Vercel)
+        if (hasSupabaseCookies() && retryCount >= 1) {
+          console.warn("Error checking auth but has cookies - assuming authenticated");
+          authCheckComplete = true;
+          if (!isMounted) return;
+          setIsAuthenticated(true);
+          const role = searchParams.get("role");
+          if (role === "admin") {
+            setTargetRoute("/admin");
+          } else {
+            setTargetRoute("/");
+          }
+        } else if (retryCount < 2) {
+          // נסה שוב
+          setTimeout(() => checkAuth(retryCount + 1), 500);
+          return;
+        } else {
+          authCheckComplete = true;
+          if (!isMounted) return;
+          setIsAuthenticated(false);
+          setTargetRoute("/login");
+        }
       }
     };
 
     checkAuth();
     
-    // Timeout fallback - אם אחרי 3 שניות עדיין לא קיבלנו תשובה, נניח שהמשתמש מחובר
+    // Timeout fallback - אם אחרי 2 שניות עדיין לא קיבלנו תשובה, נניח שהמשתמש מחובר (אם יש cookies)
     const timeout = setTimeout(() => {
       if (isMounted && !authCheckComplete) {
-        console.warn("Auth check timeout - assuming authenticated");
-        setIsAuthenticated(true);
-        const role = searchParams.get("role");
-        if (role === "admin") {
-          setTargetRoute("/admin");
+        if (hasSupabaseCookies()) {
+          console.warn("Auth check timeout but has cookies - assuming authenticated");
+          setIsAuthenticated(true);
+          const role = searchParams.get("role");
+          if (role === "admin") {
+            setTargetRoute("/admin");
+          } else {
+            setTargetRoute("/");
+          }
         } else {
-          setTargetRoute("/");
+          console.warn("Auth check timeout and no cookies - redirecting to login");
+          setIsAuthenticated(false);
+          setTargetRoute("/login");
         }
       }
-    }, 3000);
+    }, 2000);
 
     return () => {
       isMounted = false;
@@ -109,10 +155,18 @@ function SplashContent() {
       if (targetRoute === "/") {
         // עבור root, נשתמש ב-query param כדי לסמן שזה מגיע מ-splash
         // זה יאפשר ל-middleware לדעת לאפשר גישה ישירה
-        // נשתמש ב-replace במקום push כדי למנוע הוספה להיסטוריה
-        router.replace("/?fromSplash=true");
+        // ב-Vercel, נשתמש ב-window.location במקום router.replace כדי לוודא שהמעבר עובד
+        if (typeof window !== "undefined") {
+          window.location.href = "/?fromSplash=true";
+        } else {
+          router.replace("/?fromSplash=true");
+        }
       } else {
-        router.replace(targetRoute);
+        if (typeof window !== "undefined") {
+          window.location.href = targetRoute;
+        } else {
+          router.replace(targetRoute);
+        }
       }
     }, 1800);
 
