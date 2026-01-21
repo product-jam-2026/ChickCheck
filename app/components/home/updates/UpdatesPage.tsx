@@ -117,7 +117,6 @@ export default function UpdatesPage({
                   <h2 className={styles.updateTitle}>{update.title}</h2>
                 </div>
                 <p className={styles.updateContent}>{update.content}</p>
-                <p className={styles.updateDate}>{update.date}</p>
                 {update.image && (
                   <div className={styles.updateImageContainer}>
                     {update.image.startsWith("data:") ? (
@@ -137,6 +136,7 @@ export default function UpdatesPage({
                     )}
                   </div>
                 )}
+                <p className={styles.updateDate}>{update.date}</p>
               </div>
             </div>
           </div>
