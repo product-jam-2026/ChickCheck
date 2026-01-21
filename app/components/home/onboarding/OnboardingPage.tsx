@@ -358,7 +358,7 @@ function UploadInstructions({
       <div className={styles.uploadMainContent}>
         {/* Instruction Text */}
         <div className={styles.uploadInstruction}>
-          .עכשיו הכל דרך האפליקציה<br />
+          עכשיו הכל דרך האפליקציה שלנו.<br />
           לחצו על תיבת ההוספה<br />
           כדי להעלות תוכן לבדיקה</div>
 

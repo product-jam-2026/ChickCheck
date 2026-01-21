@@ -79,6 +79,7 @@
   text-align: center;
   font-weight: 400;
   width: 100%;
+  line-height: 1.2;
 }
 
 .fadeIn {
@@ -257,7 +258,7 @@
   color: #E3F0FA;
   text-align: center;
   width: 100%;
-
+  line-height: 1.2;
 }
 
 .instructionText .boldText {
