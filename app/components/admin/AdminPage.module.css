@@ -49,7 +49,7 @@
 }
 
 .publishButton:hover {
-  background: #d0e5f5;
+  background: #E3F0FA;
   transform: scale(1.02);
 }
 
@@ -69,7 +69,7 @@
 }
 
 .updatesButton:hover {
-  background: #d0e5f5;
+  background: #E3F0FA;
   transform: scale(1.02);
 }
 

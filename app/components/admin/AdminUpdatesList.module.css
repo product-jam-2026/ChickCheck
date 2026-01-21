@@ -50,31 +50,35 @@
 }
 
 .updateCard {
-  width: 100%;
+  flex: 1;
   background: #E3F0FA;
+  border: 1px solid rgba(5, 1, 48, 0.1);
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 0.875rem;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  transition: all 0.2s;
+  overflow: visible;
+  min-height: auto;
   position: relative;
 }
 
 .updateHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 0.75rem;
   gap: 1rem;
 }
 
 .updateTitle {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: #050130;
+  color: #1F1F1F !important;
   margin: 0;
-  flex: 1;
   text-align: right;
+  display: block;
+  visibility: visible;
+  flex: 1;
 }
 
 .deleteButton {
@@ -102,33 +106,58 @@
 }
 
 .updateDate {
-  font-size: 0.875rem;
-  color: rgba(5, 1, 48, 0.7);
+  font-size: 1.125rem;
+  color: #1F1F1F !important;
   margin: 0;
   text-align: right;
+  display: block;
+  visibility: visible;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-top: 0.5rem;
 }
 
 .updateContent {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #050130;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #1F1F1F !important;
   margin: 0;
+  margin-bottom: 0.75rem;
   text-align: right;
+  display: block;
+  visibility: visible;
   white-space: pre-wrap;
+}
+
+.updateTextContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  position: relative;
+  z-index: 2;
+  min-height: 100%;
+  padding-bottom: 2rem;
 }
 
 .updateImageContainer {
   width: 100%;
-  margin-top: 0.5rem;
-  border-radius: 0.75rem;
-  overflow: hidden;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2rem;
 }
 
 .updateImage {
-  width: 100%;
+  max-width: 100%;
   height: auto;
+  max-height: 400px;
   object-fit: contain;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   display: block;
 }
 

@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
+import EditUpdateMenu from "./EditUpdateMenu";
+import EditUpdateForm from "./EditUpdateForm";
 import styles from "./AdminUpdatesList.module.css";
 
 interface Update {
@@ -20,9 +22,32 @@ interface AdminUpdatesListProps {
 
 export default function AdminUpdatesList({ onBack }: AdminUpdatesListProps) {
   const [updates, setUpdates] = useState<Update[]>([]);
+  const [editingUpdate, setEditingUpdate] = useState<Update | null>(null);
 
   useEffect(() => {
     loadUpdates();
+    
+    // Set up real-time subscription for updates
+    const supabase = createClient();
+    const channel = supabase
+      .channel("admin-updates-changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "isoc_pushes",
+        },
+        () => {
+          // Reload updates when changes occur
+          loadUpdates();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const loadUpdates = async () => {
@@ -84,6 +109,38 @@ export default function AdminUpdatesList({ onBack }: AdminUpdatesListProps) {
     }
   };
 
+  const handleEdit = (update: Update) => {
+    setEditingUpdate(update);
+  };
+
+  const handleEditSuccess = async () => {
+    setEditingUpdate(null);
+    // Add a small delay to ensure Supabase has processed the update
+    await new Promise(resolve => setTimeout(resolve, 500));
+    await loadUpdates();
+  };
+
+  const handleEditCancel = () => {
+    setEditingUpdate(null);
+  };
+
+  if (editingUpdate) {
+    return (
+      <div className={styles.container}>
+        <EditUpdateForm
+          update={{
+            id: editingUpdate.id,
+            title: editingUpdate.title,
+            content: editingUpdate.content,
+            image: editingUpdate.image,
+          }}
+          onCancel={handleEditCancel}
+          onSuccess={handleEditSuccess}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -101,37 +158,36 @@ export default function AdminUpdatesList({ onBack }: AdminUpdatesListProps) {
         ) : (
           updates.map((update) => (
             <div key={update.id} className={styles.updateCard}>
-              <div className={styles.updateHeader}>
-                <h3 className={styles.updateTitle}>{update.title}</h3>
-                <button
-                  className={styles.deleteButton}
-                  onClick={() => handleDelete(update.id)}
-                  aria-label="מחק עדכון"
-                >
-                  ×
-                </button>
-              </div>
-              <p className={styles.updateDate}>{update.date}</p>
-              <p className={styles.updateContent}>{update.content}</p>
-              {update.image && (
-                <div className={styles.updateImageContainer}>
-                  {update.image.startsWith("data:") ? (
-                    <img
-                      src={update.image}
-                      alt={update.title}
-                      className={styles.updateImage}
-                    />
-                  ) : (
-                    <Image
-                      src={update.image}
-                      alt={update.title}
-                      width={300}
-                      height={200}
-                      className={styles.updateImage}
-                    />
-                  )}
+              <div className={styles.updateTextContent}>
+                <div className={styles.updateHeader}>
+                  <h3 className={styles.updateTitle}>{update.title}</h3>
+                  <EditUpdateMenu
+                    onEdit={() => handleEdit(update)}
+                    onDelete={() => handleDelete(update.id)}
+                  />
                 </div>
-              )}
+                <p className={styles.updateContent}>{update.content}</p>
+                {update.image && (
+                  <div className={styles.updateImageContainer}>
+                    {update.image.startsWith("data:") ? (
+                      <img
+                        src={update.image}
+                        alt={update.title}
+                        className={styles.updateImage}
+                      />
+                    ) : (
+                      <Image
+                        src={update.image}
+                        alt={update.title}
+                        width={300}
+                        height={200}
+                        className={styles.updateImage}
+                      />
+                    )}
+                  </div>
+                )}
+                <p className={styles.updateDate}>{update.date}</p>
+              </div>
             </div>
           ))
         )}

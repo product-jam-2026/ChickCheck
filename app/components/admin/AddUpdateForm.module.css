@@ -80,12 +80,44 @@
   margin-top: 0.5rem;
   border-radius: 0.75rem;
   overflow: hidden;
+  position: relative;
 }
 
 .imagePreview img {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.deleteImageButton {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  color: #E00615;
+  border: 1px solid #E00615;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.deleteImageButton:hover {
+  background: rgba(255, 245, 245, 0.7);
+  transform: scale(1.1);
+  border-color: #c00512;
+  color: #c00512;
 }
 
 .buttonGroup {

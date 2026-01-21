@@ -1,0 +1,76 @@
+.menuContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.editButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+  border-radius: 0.25rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+}
+
+.editButton:hover {
+  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.editIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  right: -8rem;
+  margin-top: 0.5rem;
+  background: #ffffff;
+  border: 1px solid rgba(5, 1, 48, 0.2);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 150px;
+  z-index: 1000;
+  overflow: hidden;
+  direction: rtl;
+}
+
+.menuItem {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  color: #050130;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: right;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+}
+
+.menuItem:hover {
+  background: rgba(5, 1, 48, 0.1);
+}
+
+.menuItem:first-child {
+  border-bottom: 1px solid rgba(5, 1, 48, 0.1);
+}
+
+.deleteMenuItem {
+  color: #E00615;
+}
+
+.deleteMenuItem:hover {
+  background: rgba(224, 6, 21, 0.1);
+}
+
