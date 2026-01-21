@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     First, extract ALL text visible in the image. Include every word, number, and character exactly as it appears.
           
     Then, calculate 'scamPercentage' (0-100) with adjusted weights:
-    - RISKS: Sensitive Info Request (40% - e.g. asking for credit card/password/PIN), Suspicious Links (30%), Urgency (10%), Reward (10%), Private phone number and not offical organizaton's name (10%).
+    - RISKS: Sensitive Info Request (35% - e.g. asking for credit card/password/PIN), Suspicious Links (25%), Urgency (10%), Reward (10%), Private phone number and not offical organizaton's name (20%).
     - TRUST FACTORS (Mandatory reduction):
       1. If it tells the user to open an official app without a direct login link: -60%.
       2. If it's a simple notification (e.g. "message waiting") without asking for data: -20%.
