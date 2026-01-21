@@ -682,7 +682,7 @@ export default function ReportProcess() {
 
   return (
     <div className="report-container" style={{
-      height: '100dvh',
+      height: '100vh',
       width: '100%',
       overflow: 'hidden',
       boxSizing: 'border-box',
@@ -692,14 +692,16 @@ export default function ReportProcess() {
       position: 'relative',
       justifyContent: 'flex-start'
     }}>
-      {/* Step Rendering */}
-      {step === 0 && <LandingStep onNext={nextStep} onBack={prevStep}/>}
-      {step === 1 && (isEditingDetails ? (<EditDetailsStep data={formData} set={setFormData} onNext={nextStep} onBack={prevStep} onExit={exitProcess} />) : (
-          <IdentityStep data={formData} set={setFormData} onNext={nextStep} onBack={prevStep} onExit={exitProcess} onEdit={enterEditMode} />))}      
-      {step === 2 && <IncidentTypeStep data={formData} set={setFormData} onNext={nextStep} onBack={prevStep} onExit={exitProcess}/>}
-      {step === 3 && <DescriptionStep data={formData} set={setFormData} onNext={nextStep}  onBack={prevStep} onExit={exitProcess}/>}
-      {step === 4 && <SummaryStep data={formData} onConfirm={handleFinalSubmit} onBack={prevStep} onExit={exitProcess}/>}
-      {step === 5 && <SuccessStep onExit={exitProcess}/>}
+      <div className={styles.reportSafeArea}>
+        {/* Step Rendering */}
+        {step === 0 && <LandingStep onNext={nextStep} onBack={prevStep}/>}
+        {step === 1 && (isEditingDetails ? (<EditDetailsStep data={formData} set={setFormData} onNext={nextStep} onBack={prevStep} onExit={exitProcess} />) : (
+            <IdentityStep data={formData} set={setFormData} onNext={nextStep} onBack={prevStep} onExit={exitProcess} onEdit={enterEditMode} />))}      
+        {step === 2 && <IncidentTypeStep data={formData} set={setFormData} onNext={nextStep} onBack={prevStep} onExit={exitProcess}/>}
+        {step === 3 && <DescriptionStep data={formData} set={setFormData} onNext={nextStep}  onBack={prevStep} onExit={exitProcess}/>}
+        {step === 4 && <SummaryStep data={formData} onConfirm={handleFinalSubmit} onBack={prevStep} onExit={exitProcess}/>}
+        {step === 5 && <SuccessStep onExit={exitProcess}/>}
+      </div>
     </div>
   );
 }
