@@ -37,12 +37,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <meta name="apple-mobile-web-app-title" content="ChickCheck" />
         
         {/* PWA Meta Tags for Android/General */}
-        <meta name="theme-color" content="#050130" />
+        <meta name="theme-color" content="#1F1F1F" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="application-name" content="ChickCheck" />
         
         {/* Additional PWA Meta Tags */}
-        <meta name="msapplication-TileColor" content="#050130" />
+        <meta name="msapplication-TileColor" content="#1F1F1F" />
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body suppressHydrationWarning>{children}</body>

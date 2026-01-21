@@ -26,7 +26,7 @@
   ],
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone"],
-  "theme_color": "#050130",
+  "theme_color": "#1F1F1F",
   "background_color": "#d9d9d9",
   "orientation": "portrait",
   "dir": "rtl",

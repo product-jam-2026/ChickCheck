@@ -52,7 +52,7 @@
 .updateCard {
   flex: 1;
   background: #E3F0FA;
-  border: 1px solid rgba(5, 1, 48, 0.1);
+  border: 1px solid rgba(31, 31, 31, 0.1);
   border-radius: 1rem;
   padding: 0.875rem 0.875rem 0.5rem 0.875rem;
   box-sizing: border-box;

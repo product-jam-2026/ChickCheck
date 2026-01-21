@@ -103,7 +103,7 @@
 /* Color Variables */
 :root {
   /* Primary Colors */
-  --color-primary: #050130; /* כחול כהה - רקע, לוגואים וכיתובים */
+  --color-primary: #1F1F1F; /* כחול כהה - רקע, לוגואים וכיתובים */
 
   --color-background-primary: #1F1F1F;
   --color-background-light: #E3F0FA; /* לבן/רקע בהיר */
@@ -112,7 +112,7 @@
 
   
   /* Text Colors */
-  --color-text-dark: #050130;
+  --color-text-dark: #1F1F1F;
   --color-text-light: #ffffff;
   
   /* Accent Colors */

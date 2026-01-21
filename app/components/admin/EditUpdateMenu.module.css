@@ -35,7 +35,7 @@
   right: -8rem;
   margin-top: 0.5rem;
   background: #ffffff;
-  border: 1px solid rgba(5, 1, 48, 0.2);
+  border: 1px solid rgba(31, 31, 31, 0.2);
   border-radius: 0.75rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   min-width: 150px;
@@ -49,7 +49,7 @@
   padding: 0.75rem 1rem;
   border: none;
   background: transparent;
-  color: #050130;
+  color: #1F1F1F;
   font-size: 1rem;
   font-weight: 400;
   text-align: right;
@@ -59,11 +59,11 @@
 }
 
 .menuItem:hover {
-  background: rgba(5, 1, 48, 0.1);
+  background: rgba(31, 31, 31, 0.1);
 }
 
 .menuItem:first-child {
-  border-bottom: 1px solid rgba(5, 1, 48, 0.1);
+  border-bottom: 1px solid rgba(31, 31, 31, 0.1);
 }
 
 .deleteMenuItem {
