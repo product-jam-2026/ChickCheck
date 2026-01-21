@@ -605,25 +605,38 @@ export default function ReportProcess() {
   const enterEditMode = () => setIsEditingDetails(true);
 
   const handleFinalSubmit = async () => {
-    const supabase = createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+  // 1. Optional: Auth Check (Keep or remove based on preference)
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return alert("אנא התחבר למערכת כדי לשלוח דיווח");
 
-    if (!user) return alert("Please login");
+  try {
+    // 2. Call our new Email API
+    const response = await fetch('/api/report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fullName: formData.fullName,
+        email: formData.email,
+        incidentType: formData.incidentType,
+        description: formData.description
+      }),
+    });
 
-    try {
-      
-      // 2. Submit Report
-      await createIncidentReport({
-        type_of_incident: formData.incidentType,
-        description_of_incident: formData.description,
-        user_id: user.id
-      });
+    const result = await response.json();
 
-      setStep(5); // Move to Success Screen
-    } catch (err) {
-      console.error(err);
+    if (!response.ok) {
+      throw new Error(result.error || 'Failed to send');
     }
-  };
+
+    // 3. Success! Move to next step
+    setStep(5); 
+
+  } catch (err) {
+    console.error("Error sending report:", err);
+    alert("הייתה שגיאה בשליחת הדיווח, אנא נסה שנית.");
+  }
+};
 
   return (
     <div className="report-container" style={{
