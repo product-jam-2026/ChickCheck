@@ -168,7 +168,7 @@ function SplashContent() {
           router.replace(targetRoute);
         }
       }
-    }, 1800);
+    }, 1400);
 
     return () => clearTimeout(timer);
   }, [isAuthenticated, targetRoute, router]);
