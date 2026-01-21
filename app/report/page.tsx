@@ -627,10 +627,6 @@ export default function ReportProcess() {
 
   return (
     <div className="report-container" style={{
-      paddingTop: 'env(safe-area-inset-top)',
-      paddingBottom: 'env(safe-area-inset-bottom)',
-      paddingLeft: 'env(safe-area-inset-left)',
-      paddingRight: 'env(safe-area-inset-right)',
       height: '100dvh',
       width: '100%',
       overflow: 'hidden',
