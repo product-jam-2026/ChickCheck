@@ -29,11 +29,33 @@ function SplashContent() {
 
   // בדוק אם המשתמש מחובר וקבע את היעד
   useEffect(() => {
+    let isMounted = true;
+    let authCheckComplete = false;
+    
     const checkAuth = async () => {
       try {
         const supabase = createClient();
-        const { data: { session } } = await supabase.auth.getSession();
-        const authenticated = !!session?.user;
+        
+        // נסה לקבל session - אם זה לא עובד, נסה getUser כגיבוי
+        let session = null;
+        let authenticated = false;
+        
+        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+        if (!sessionError && sessionData?.session) {
+          session = sessionData.session;
+          authenticated = !!session?.user;
+        } else {
+          // אם getSession לא עבד, נסה getUser
+          const { data: userData, error: userError } = await supabase.auth.getUser();
+          if (!userError && userData?.user) {
+            authenticated = true;
+          }
+        }
+        
+        authCheckComplete = true;
+        
+        if (!isMounted) return;
+        
         setIsAuthenticated(authenticated);
         
         if (authenticated) {
@@ -50,12 +72,33 @@ function SplashContent() {
         }
       } catch (error) {
         console.error("Error checking auth:", error);
+        authCheckComplete = true;
+        if (!isMounted) return;
         setIsAuthenticated(false);
         setTargetRoute("/login");
       }
     };
 
     checkAuth();
+    
+    // Timeout fallback - אם אחרי 3 שניות עדיין לא קיבלנו תשובה, נניח שהמשתמש מחובר
+    const timeout = setTimeout(() => {
+      if (isMounted && !authCheckComplete) {
+        console.warn("Auth check timeout - assuming authenticated");
+        setIsAuthenticated(true);
+        const role = searchParams.get("role");
+        if (role === "admin") {
+          setTargetRoute("/admin");
+        } else {
+          setTargetRoute("/");
+        }
+      }
+    }, 3000);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timeout);
+    };
   }, [searchParams]);
 
   useEffect(() => {
@@ -66,9 +109,10 @@ function SplashContent() {
       if (targetRoute === "/") {
         // עבור root, נשתמש ב-query param כדי לסמן שזה מגיע מ-splash
         // זה יאפשר ל-middleware לדעת לאפשר גישה ישירה
-        router.push("/?fromSplash=true");
+        // נשתמש ב-replace במקום push כדי למנוע הוספה להיסטוריה
+        router.replace("/?fromSplash=true");
       } else {
-        router.push(targetRoute);
+        router.replace(targetRoute);
       }
     }, 1800);
 
