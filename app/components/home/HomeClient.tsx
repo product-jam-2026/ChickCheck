@@ -55,7 +55,6 @@ const markOnboardingAsCompleted = async (supabase: ReturnType<typeof createClien
 export default function HomeClient() {
   const router = useRouter();
   const [userName, setUserName] = useState<string>("משתמש");
-  const [isLoading, setIsLoading] = useState(true);
   const [unseenCount, setUnseenCount] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
@@ -66,7 +65,6 @@ export default function HomeClient() {
         // If Supabase is not enabled, skip auth check and use default name
         if (!SUPABASE_ENABLED) {
           setUserName("משתמש");
-          setIsLoading(false);
           return;
         }
 
@@ -102,9 +100,6 @@ export default function HomeClient() {
         // On error, use default name but still show the page
         // Middleware should handle auth, so this is just for display
         setUserName("משתמש");
-      } finally {
-        // Always set loading to false
-        setIsLoading(false);
       }
     };
 
@@ -270,16 +265,6 @@ export default function HomeClient() {
       setShowOnboarding(false);
     }
   };
-
-  if (isLoading) {
-    return (
-      <main>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-          <p>טוען...</p>
-        </div>
-      </main>
-    );
-  }
 
   return (
     <main>
