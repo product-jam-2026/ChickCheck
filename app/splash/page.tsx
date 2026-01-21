@@ -59,7 +59,7 @@ function SplashContent() {
   }, [searchParams]);
 
   useEffect(() => {
-    // Redirect after 2.5 seconds based on authentication status and target route
+    // Redirect after 2 seconds based on authentication status and target route
     if (isAuthenticated === null || targetRoute === null) return; // עדיין בודקים
 
     const timer = setTimeout(() => {
@@ -70,7 +70,7 @@ function SplashContent() {
       } else {
         router.push(targetRoute);
       }
-    }, 2500);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [isAuthenticated, targetRoute, router]);
