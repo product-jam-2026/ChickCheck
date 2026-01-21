@@ -399,6 +399,21 @@ const DescriptionStep = ({
   onBack: () => void;
   onExit: () => void;
 }) => {
+  // 1. State for Error
+  const [showError, setShowError] = React.useState(false);
+
+  // 2. Check if valid
+  const isValid = data.description && data.description.trim().length > 0;
+
+  // 3. Handle Click
+  const handleNextClick = () => {
+    if (isValid) {
+      onNext();
+    } else {
+      setShowError(true); // Trigger red state
+    }
+  };
+
   return (
     <div className={styles.step_one_auto}>
       
@@ -406,15 +421,12 @@ const DescriptionStep = ({
       <div className={styles.step_one_sub_frame}>
         <div className={styles.step_one_sub_sub_frame}>
           
-          {/* Header: Step 3 (still in "Topic" phase) */}
           <ProgressHeader step={3} onBack={onBack} onExit={onExit} />
           
-          {/* Main Title "Detail:" */}
           <div className={styles.step_three_title_frame}>
             <h2 className={styles.step_three_title_text}>פירוט:</h2>
           </div>
 
-          {/* Subject Row: "Report regarding..." + Pill */}
           <div className={styles.step_three_subject_row}>
             <span className={styles.step_three_subject_label}>פנייה בנושא:</span>
             <div className={styles.step_three_subject_pill}>
@@ -422,17 +434,23 @@ const DescriptionStep = ({
             </div>
           </div>
 
-          {/* Input Label */}
           <div className={styles.step_three_input_label_frame}>
             <span className={styles.step_three_input_label}>פרט/י מה קרה:</span>
           </div>
 
           {/* Text Area */}
           <textarea
-            className={styles.step_three_textarea}
-            placeholder="הקלד כאן..."
+            className={`
+              ${styles.step_three_textarea}
+              ${showError ? styles.step_three_textarea_error : ''}
+            `}
+            placeholder={showError ? "נא לפרט" : "הקלד כאן"}
             value={data.description}
-            onChange={(e) => set({ ...data, description: e.target.value })}
+            onChange={(e) => {
+              set({ ...data, description: e.target.value });
+              // 4. Clear error immediately when user starts typing
+              if (showError) setShowError(false);
+            }}
           />
 
         </div>
@@ -440,9 +458,10 @@ const DescriptionStep = ({
 
       {/* "Finished" Button */}
       <button 
-        onClick={onNext} 
-        disabled={!data.description || data.description.length < 1} 
-        className={data.description ? styles.step_one_forward_button : styles.step_one_forward_button_disabled}
+        onClick={handleNextClick} 
+        // 5. Keep button clickable (removed 'disabled' attribute)
+        // But keep the "Disabled Look" (Gray) if invalid
+        className={isValid ? styles.step_one_forward_button : styles.step_one_forward_button_disabled}
       >
         <span className={styles.step_one_forward_button_text}>
           סיימתי
