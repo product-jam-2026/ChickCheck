@@ -24,10 +24,10 @@ export async function POST(req: Request) {
     First, extract ALL text visible in the image. Include every word, number, and character exactly as it appears.
           
     Then, calculate 'scamPercentage' (0-100) with adjusted weights:
-    - RISKS: Sensitive Info Request (50% - e.g. asking for credit card/password/PIN), Suspicious Links (20%), Urgency (15%), Reward (15%).
+    - RISKS: Sensitive Info Request (40% - e.g. asking for credit card/password/PIN), Suspicious Links (30%), Urgency (10%), Reward (10%), Private phone number and not offical organizaton's name (10%).
     - TRUST FACTORS (Mandatory reduction):
-      1. If it tells the user to open an official app without a direct login link: -40%.
-      2. If it's a simple notification (e.g. "message waiting") without asking for data: -30%.
+      1. If it tells the user to open an official app without a direct login link: -60%.
+      2. If it's a simple notification (e.g. "message waiting") without asking for data: -20%.
 
       If the scamPercentage is reduced below 0%, set it to 0%. if above 100%, set to 100%.
       If scamPercentage is between 40% and 60%, classify as 'UNCLEAR'.
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     {
       "extractedText": "Complete text extracted from the image, preserving line breaks and formatting as much as possible",
       "scamPercentage": number,
-      "reasoning": "Short as possible Hebrew explanation, devided into numeric bullet points if multiple reasons, with a space of a line between each bullet point. Each bullet should have up to 4 words of headline, with underline and ':' after it, and the bullet will start one line under the headline.",
+      "reasoning": "Short as possible Hebrew explanation, devided into numeric bullet points if multiple reasons, with a space of a line between each bullet point. Each bullet should have up to 4 words of headline, with underline and ':' after it, and the bullet will start one line under the headline. Make sure the reasoning matches the classification.",
       "action": "Short Hebrew advice",
       "detectedUrls": []
     }`;
