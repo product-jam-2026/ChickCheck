@@ -405,7 +405,11 @@ const DescriptionStep = ({
   // 2. Check if valid
   const isValid = data.description && data.description.trim().length > 0;
 
-  // 3. Handle Click
+  // 3. Check for English (Auto-Direction)
+  // Logic: If the first letter is A-Z or a-z, switch to LTR.
+  const isEnglish = /^[A-Za-z]/.test(data.description);
+
+  // 4. Handle Click
   const handleNextClick = () => {
     if (isValid) {
       onNext();
@@ -443,12 +447,15 @@ const DescriptionStep = ({
             className={`
               ${styles.step_three_textarea}
               ${showError ? styles.step_three_textarea_error : ''}
+              ${isEnglish ? styles.step_edit_input_ltr : ''} 
             `}
+            // Note: We reuse 'step_edit_input_ltr' because it simply sets "direction: ltr; text-align: left;"
+            
             placeholder={showError ? "נא לפרט" : "הקלד כאן"}
             value={data.description}
             onChange={(e) => {
               set({ ...data, description: e.target.value });
-              // 4. Clear error immediately when user starts typing
+              // Clear error immediately when user starts typing
               if (showError) setShowError(false);
             }}
           />
@@ -459,8 +466,6 @@ const DescriptionStep = ({
       {/* "Finished" Button */}
       <button 
         onClick={handleNextClick} 
-        // 5. Keep button clickable (removed 'disabled' attribute)
-        // But keep the "Disabled Look" (Gray) if invalid
         className={isValid ? styles.step_one_forward_button : styles.step_one_forward_button_disabled}
       >
         <span className={styles.step_one_forward_button_text}>
