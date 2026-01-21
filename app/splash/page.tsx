@@ -70,7 +70,7 @@ function SplashContent() {
       } else {
         router.push(targetRoute);
       }
-    }, 2000);
+    }, 1800);
 
     return () => clearTimeout(timer);
   }, [isAuthenticated, targetRoute, router]);
